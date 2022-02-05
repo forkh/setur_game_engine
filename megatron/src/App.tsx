@@ -1,9 +1,20 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './Test';
+import {createHemingur, printHemingur} from "./Test";
+
+function testest() {
+    console.log("Interval test");
+}
 
 function App() {
-  return (
+    console.log("Test!!");
+    let hem = createHemingur(2, 42);
+    printHemingur(hem);
+    console.log("Test done!!");
+    setInterval(testest, 3000);
+    return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
