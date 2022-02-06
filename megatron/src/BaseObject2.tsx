@@ -1,5 +1,3 @@
-//import {global_oid} from './Game';
-
 import {Sprite} from "./Sprite";
 import {PhysicalProperties} from "./PhysicalProperties";
 import {Position} from "./Position";

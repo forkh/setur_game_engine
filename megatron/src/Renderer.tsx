@@ -1,5 +1,3 @@
-import * as img from './assets/sprites/bird.png';
-import {Sprite} from "./Sprite";
 import {BaseObject2} from "./BaseObject2";
 
 export function renderer(objects: BaseObject2[]) {

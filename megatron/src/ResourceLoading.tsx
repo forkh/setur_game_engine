@@ -1,5 +1,4 @@
 import {Sprite} from './Sprite';
-import src from "*.png";
 
 export function loadSprites(path: string) : Sprite[] | null {
 //    let sprites: Sprite[] = [];

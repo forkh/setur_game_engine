@@ -1,19 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 import './Game.css';
 import './Test';
-import {createHemingur, printHemingur} from "./Test";
 import './Renderer';
 import {renderer} from "./Renderer";
-import {loadSprites} from "./ResourceLoading";
 import {Sprite} from "./Sprite";
 import {BaseObject2} from "./BaseObject2";
 import jsonData from './assets.json';
 import {Position} from "./Position";
-
-function testest() {
-    console.log("Interval test");
-}
 
 // Burdi veri flutt til ResourceLoading.tsx
 function loadObjects() : BaseObject2[] {
