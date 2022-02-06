@@ -1,4 +1,3 @@
-import {BaseObject} from "./BaseObject";
 
 // Alt við fysik skal inn á her
 

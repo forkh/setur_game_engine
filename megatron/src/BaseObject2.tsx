@@ -1,19 +1,19 @@
 //import {global_oid} from './Game';
 
 import {Sprite} from "./Sprite";
-import {PhysicalObject} from "./PhysicalObject";
+import {PhysicalProperties} from "./PhysicalProperties";
 import {Position} from "./Position";
 
 export class BaseObject2 {
     private oid: number = -1;
     private name: string | null;
     private sprite: Sprite | null;
-    private physicalObject: PhysicalObject | null;
+    private physicalObject: PhysicalProperties | null;
     private position: Position;
 
     constructor(_name: string,
                 _sprite: Sprite,
-                _physicalObject: PhysicalObject | null,
+                _physicalObject: PhysicalProperties | null,
                 _position: Position) {
         this.oid = -1;
         this.name = _name;
