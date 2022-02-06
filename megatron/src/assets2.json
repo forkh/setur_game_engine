@@ -1,0 +1,28 @@
+{
+  "objects": [
+    {
+      "name": "bird",
+      "sprite": {
+        "path": "assets/sprites/bird2.png"
+      },
+      "physicalObject": {},
+      "position": {
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    },
+    {
+      "name": "pipe",
+      "sprite": {
+        "path": "assets/sprites/test_pipe.png"
+      },
+      "physicalObject": {},
+      "position": {
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    }
+  ]
+}

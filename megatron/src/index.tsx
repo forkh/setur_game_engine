@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import Game from './Game';
 import reportWebVitals from './reportWebVitals';
+import './Renderer';
+import {renderer} from "./Renderer";
 
 ReactDOM.render(
   <React.StrictMode>
