@@ -3,13 +3,15 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
-import {Sprite} from "./Sprite";
+import {Position} from "./Position";
 
-describe("Sprite test", () => {
-  test("should try to render sprites to canvas.", async () => {
-      let sprite: Sprite = new Sprite("somePath");
-    expect(sprite).toHaveFormValues({
-        sprite: "somePath"
-    });
+describe("Position test", () => {
+  test("should be 1, 1, 13", async () => {
+      let position: Position = new Position(1, 1, 13);
+    expect(position).toEqual({
+        x: 1,
+        y: 1,
+        rotation: 13
+    })
   });
 });
