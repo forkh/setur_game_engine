@@ -3,10 +3,13 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
-import {renderer} from './Renderer';
+import {Sprite} from "./Sprite";
 
-describe("Renderer test", () => {
+describe("Sprite test", () => {
   test("should try to render sprites to canvas.", async () => {
-    // ???
+      let sprite: Sprite = new Sprite("somePath");
+    expect(sprite).toHaveFormValues({
+        sprite: "somePath"
+    });
   });
 });
