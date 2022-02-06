@@ -1,0 +1,6 @@
+{
+  "location": "public/assets/sprites",
+  "sprites": [
+    "bird2.png", "test_pipe.png"
+  ]
+}
