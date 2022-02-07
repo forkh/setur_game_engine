@@ -1,21 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
 import './Game.css';
 import './Test';
-import {createHemingur, printHemingur} from "./Test";
-import {BaseObject, createBaseObject} from "./BaseObject";
 import './Renderer';
 import {renderer} from "./Renderer";
-import {loadSprites} from "./ResourceLoading";
 import {Sprite} from "./Sprite";
 import {BaseObject2} from "./BaseObject2";
-import jsonData from './assets2.json';
+import jsonData from './assets.json';
 import {Position} from "./Position";
 
-function testest() {
-    console.log("Interval test");
-}
-
+// Burdi veri flutt til ResourceLoading.tsx
 function loadObjects() : BaseObject2[] {
     let objects: BaseObject2[] = [];
     jsonData["objects"].forEach(obj => {
@@ -31,7 +24,6 @@ function loadObjects() : BaseObject2[] {
 let objects: BaseObject2[] = loadObjects();
 
 function Game() {
-    //let sprites: Sprite[] = loadSprites("assets.json");
     setInterval(renderer, 1000, objects);
     console.log("Test!!");
     return (
