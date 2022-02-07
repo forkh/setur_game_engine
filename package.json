@@ -4,6 +4,7 @@
   "description": "Game Engine",
   "main": "index.js",
   "scripts": {
+    "test": "test"
   },
   "repository": {
     "type": "git",
