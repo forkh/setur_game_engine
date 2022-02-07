@@ -24,4 +24,3 @@ describe("Some tests", () => {
         expect(dot_product_result).toBe(3);
     })
 })
-
