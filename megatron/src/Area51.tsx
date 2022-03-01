@@ -7,7 +7,8 @@ import {ResourceManager} from "./engine/ResourceManager";
 ResourceManager.instantiateResourceManager();
 
 let t = ResourceManager.getImage("bird", true);
-//console.log(t);
+let s: HTMLAudioElement = ResourceManager.getAudio("power");
+console.log(s);
 
 function App() {
     return (
@@ -25,7 +26,6 @@ function App() {
                 >
                     Learn React
                 </a>
-                {t}
             </header>
         </div>
 

@@ -55,6 +55,7 @@ class ResourceManager {
     }
 
     public static getAudio(audio: string): HTMLAudioElement {
+
         return this.instance.audioMap[audio];
     }
 
