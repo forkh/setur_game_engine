@@ -1,9 +1,0 @@
-{
-  "sprites": {
-    "location": "../public/assets/sprites",
-    "sprites": [
-      {"name": "bird", "path": "bird2.png"},
-      {"name":  "pipe", "path": "test_pipe.png"}
-    ]
-  }
-}
