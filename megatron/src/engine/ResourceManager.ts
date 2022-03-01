@@ -1,3 +1,5 @@
+import resources from '../../public/assets/assets.json';
+
 type ResourceMap = {
     [key: string]: string | number;
 }
@@ -43,6 +45,24 @@ class ResourceManager {
     public static getAnimation(animation: string): string {
         return this.instance.animationMap[animation];
     }
+
+    public static loadResources(): void {
+        for (let image in resources["image"]) {
+            this.instance.imageMap[image] = new Image()//.src = resources["images"][image];
+            // @ts-ignore
+            this.instance.imageMap[image].src = resources["image"][image];
+        }
+
+        for (let audio in resources["audio"]) {
+            // @ts-ignore
+            this.instance.audioMap[audio] = new Audio(resources["audio"][audio]);
+        }
+
+        for (let animation in resources["animation"]) {
+            // @ts-ignore
+            this.instance.animationMap[animation] = resources["animation"][animation];
+        }
+    }
 }
 
-export {};
+export {ResourceManager};
