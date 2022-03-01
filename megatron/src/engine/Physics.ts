@@ -1,42 +1,41 @@
-
+import {Vector2d} from "./math";
 
 class Physics {
     // https://developer.ibm.com/tutorials/wa-build2dphysicsengine/
-    // also has collision
+    // https://www.w3schools.com/graphics/tryit.asp?filename=trygame_gravity_game
+    // https://github.com/luis-herasme/FisicaJS/blob/master/src/RigidBody.ts
 
-    private velocity: number;
-    private acceleration: number;
-    private gravity: number;
-    private mass: number;
-    private positionX: number;
-    private positionY: number;
-    private time: number;
+    public mass: number;
+    public restitution: number; // fylgi guide sindur blindt at byrja við verður brúkt til inelasticCollision
+    public velocity: Vector2d = new Vector2d(0,0);
+    public position: Vector2d = new Vector2d(0,0);
+    public acceleration: Vector2d = new Vector2d(0,0);
 
-    public constructor(velocity: number, acceleration: number, gravity: number,
-                       mass: number, positionX: number, positionY: number, dt: number){
-        this.time = dt;
-        this.velocity = velocity;
-        this.acceleration = acceleration;
-        this.gravity = gravity;
+    public constructor(position: Vector2d, restituion: number, mass = 1){
+        this.position = position;
+        this.restitution = restituion;
         this.mass = mass;
-        this.positionX = positionX; // Havi ikki heilt skilt hvussu x-y position skal nýtasta í position equation
-        this.positionY = positionY;
     }
 
-    public positionEquation() {
-        this.positionX = this.velocity * this.time + this.positionX; // time = delta time
+    public addForce(force: Vector2d): void {
+        this.acceleration.add(force);
     }
 
-    public velocityEquation(){
-        this.velocity = this.acceleration * this.time + this.velocity; // time = delta time
+    /** public momentum(): Vector2d {
+        return Vector2d.multiply(this.velocity, this.mass);
+    } **/
+
+    public update(): void {
+        //this.acceleration.div(this.mass);
+        this.velocity.add(this.acceleration);
+        this.position.add(this.velocity);
+        //this.acceleration.zero();
     }
 
-    public forceEquation(){ // If we want different mass in our engine we can change the value
-        //var force = this.mass * this.acceleration;
-
-        var force = this.acceleration;
-    }
 
 }
+
+
+
 
 export {Physics};
