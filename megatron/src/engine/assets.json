@@ -1,0 +1,6 @@
+{
+  "image": {"bird":  "bird.png"},
+  "audio": {},
+  "animation": {},
+  "paths": {"images":  "./assets/images/", "audio":  "./assets/audio/", "animation":  "./assets/animation/"}
+}
