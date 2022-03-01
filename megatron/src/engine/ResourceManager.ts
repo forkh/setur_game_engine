@@ -1,4 +1,7 @@
-import resources from '../../public/assets/assets.json';
+import resources from './assets.json';
+import {render} from "react-dom";
+import src from "*.png";
+import React, {ReactElement} from "react";
 
 type ResourceMap = {
     [key: string]: string | number;
@@ -28,13 +31,26 @@ class ResourceManager {
         this.animationMap = {};
     }
 
-    public instantiateResourceManager(): void {
+    public static instantiateResourceManager(): void {
         if (!ResourceManager.instance) {
             ResourceManager.instance = new ResourceManager();
         }
+
+        this.instance.loadResources();
     }
 
-    public static getImage(image: string): HTMLImageElement {
+    public static getImage(image: string, react: boolean): HTMLImageElement | ReactElement {
+        if (react) {
+            let img = React.createElement(
+                "img",
+                {
+                    src: this.instance.imageMap[image].src
+                }
+            )
+
+            return img;
+        }
+
         return this.instance.imageMap[image];
     }
 
@@ -46,23 +62,24 @@ class ResourceManager {
         return this.instance.animationMap[animation];
     }
 
-    public static loadResources(): void {
+    private loadResources(): void {
         for (let image in resources["image"]) {
-            this.instance.imageMap[image] = new Image()//.src = resources["images"][image];
+            ResourceManager.instance.imageMap[image] = new Image()
             // @ts-ignore
-            this.instance.imageMap[image].src = resources["image"][image];
+            ResourceManager.instance.imageMap[image].src = resources["paths"]["images"] + resources["image"][image];
         }
 
         for (let audio in resources["audio"]) {
             // @ts-ignore
-            this.instance.audioMap[audio] = new Audio(resources["audio"][audio]);
+            ResourceManager.instance.audioMap[audio] = new Audio(resources["paths"]["audio"] + resources["audio"][audio]);
         }
 
         for (let animation in resources["animation"]) {
             // @ts-ignore
-            this.instance.animationMap[animation] = resources["animation"][animation];
+            ResourceManager.instance.animationMap[animation] = resources["paths"]["animation"] + resources["animation"][animation];
         }
     }
 }
 
 export {ResourceManager};
+//export * from './ResourceManager';
