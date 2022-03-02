@@ -1,6 +1,6 @@
 import {Vector2d} from "./math";
 
-class Physics {
+class Physics { // rigidbody
     // https://developer.ibm.com/tutorials/wa-build2dphysicsengine/
     // https://www.w3schools.com/graphics/tryit.asp?filename=trygame_gravity_game
     // https://github.com/luis-herasme/FisicaJS/blob/master/src/RigidBody.ts
@@ -21,15 +21,15 @@ class Physics {
         this.acceleration.add(force);
     }
 
-    /** public momentum(): Vector2d {
-        return Vector2d.multiply(this.velocity, this.mass);
-    } **/
+    /**public momentum(): Vector2d {
+        return Vector2d.multiply(this.velocity, this.mass); // brúkar statiskar metodur
+    }**/
 
     public update(): void {
-        //this.acceleration.div(this.mass);
+        this.acceleration.division(this.mass);
         this.velocity.add(this.acceleration);
         this.position.add(this.velocity);
-        //this.acceleration.zero();
+        this.acceleration.zero(); // nullstilla
     }
 
 

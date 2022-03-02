@@ -17,9 +17,19 @@ class Vector2d {
         this.y -= v.y;
     }
 
-    public multiply(v: Vector2d, mass: number){
-        this.x = v.x * mass;
-        this.y = v.y * mass;
+    public multiply(mass: number){
+        this.x *= mass;
+        this.y *= mass;
+    }
+
+    public division(mass: number){
+        this.x /= mass;
+        this.y /= mass;
+    }
+
+    public zero (): void {
+        this.x = 0
+        this.y = 0
     }
 
     public get(): Vector2d {
