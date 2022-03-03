@@ -1,4 +1,4 @@
-import {Vector2d} from "./math";
+import {Vector2d} from "../math";
 
 class Physics { // rigidbody
     // https://developer.ibm.com/tutorials/wa-build2dphysicsengine/
@@ -6,7 +6,8 @@ class Physics { // rigidbody
     // https://github.com/luis-herasme/FisicaJS/blob/master/src/RigidBody.ts
 
     public mass: number;
-    public restitution: number; // fylgi guide sindur blindt at byrja við verður brúkt til inelasticCollision
+    public restitution: number; // fylgi guide sindur blindt at byrja við
+    // (verður brúkt til inelasticCollision sama stað í guide'ini.)
     public velocity: Vector2d = new Vector2d(0,0);
     public position: Vector2d = new Vector2d(0,0);
     public acceleration: Vector2d = new Vector2d(0,0);
@@ -31,7 +32,6 @@ class Physics { // rigidbody
         this.position.add(this.velocity);
         this.acceleration.zero(); // nullstilla
     }
-
 
 }
 
