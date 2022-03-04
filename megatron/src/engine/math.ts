@@ -21,8 +21,11 @@ class Vector2d {
         return this;
     }
 
-    // Add dotproducts and more ?
+    public dot_product(scalar: number): void {
+        this.x *= scalar;
+        this.y *= scalar;
+    }
 }
 
-
+// Exporting Vector2d class
 export {Vector2d};

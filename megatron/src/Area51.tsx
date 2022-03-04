@@ -2,13 +2,10 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import './engine/ResourceManager'
-import {ResourceManager} from "./engine/ResourceManager";
+import {Engine} from "./engine/Engine";
+import resources from './engine/assets.json';
 
-ResourceManager.instantiateResourceManager();
-
-let t = ResourceManager.getImage("bird", true);
-let s: HTMLAudioElement = ResourceManager.getAudio("power");
-console.log(s);
+let engine = new Engine();
 
 function App() {
     return (
@@ -27,6 +24,7 @@ function App() {
                     Learn React
                 </a>
             </header>
+            {engine.getCanvas()}
         </div>
 
     );

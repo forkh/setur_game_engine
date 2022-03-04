@@ -1,4 +1,4 @@
-import resources from './assets.json';
+//import resources from './assets.json';
 import {render} from "react-dom";
 import src from "*.png";
 import React, {ReactElement} from "react";
@@ -31,12 +31,12 @@ class ResourceManager {
         this.animationMap = {};
     }
 
-    public static instantiateResourceManager(): void {
+    public static instantiateResourceManager(resources: object): void {
         if (!ResourceManager.instance) {
             ResourceManager.instance = new ResourceManager();
         }
 
-        this.instance.loadResources();
+        this.instance.loadResources(resources);
     }
 
     public static getImage(image: string, react: boolean): HTMLImageElement | ReactElement {
@@ -63,7 +63,7 @@ class ResourceManager {
         return this.instance.animationMap[animation];
     }
 
-    private loadResources(): void {
+    private loadResources(resources: any): void {
         for (let image in resources["image"]) {
             ResourceManager.instance.imageMap[image] = new Image()
             // @ts-ignore
