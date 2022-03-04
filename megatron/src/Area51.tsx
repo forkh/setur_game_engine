@@ -4,8 +4,9 @@ import './App.css';
 import './engine/ResourceManager'
 import {Engine} from "./engine/Engine";
 import resources from './engine/assets.json';
+import {Flagsifuglur} from './Flagsifuglur';
 
-let engine = new Engine();
+const flagsifuglur: Flagsifuglur = new Flagsifuglur();
 
 function App() {
     return (
@@ -24,7 +25,10 @@ function App() {
                     Learn React
                 </a>
             </header>
-            {engine.getCanvas()}
+            <div>
+                <canvas id={"engine_canvas"}></canvas>
+            </div>
+
         </div>
 
     );
