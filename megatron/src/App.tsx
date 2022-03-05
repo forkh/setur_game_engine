@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
+import Canvas from "./engine/Canvas";
+import {Physics} from "./engine/Physics/Physics";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const draw = (ctx: any, frameCount: number) => {
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+        ctx.fillStyle = '#000000'
+        ctx.beginPath()
+        ctx.arc(50, 100, 20 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI)
+        ctx.fill()
+    }
+
+    return <Canvas draw={draw}/>
 }
+
 
 export default App;
