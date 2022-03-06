@@ -115,4 +115,6 @@ Canvas.defaultProps = {
     height: window.innerHeight,
 };
 
+
+
 export default Canvas;
