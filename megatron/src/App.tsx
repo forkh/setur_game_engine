@@ -5,8 +5,10 @@ import { useRef, useEffect } from 'react';
 import SimpleCanvasExample from "./engine/SimpleCanvasExample";
 
 function App() {
-    return(
-        {SimpleCanvasExample}
+    console.log("test")
+
+    return (
+        console.log("test")
     )
 
 }

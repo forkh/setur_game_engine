@@ -1,31 +1,118 @@
-import React from 'react'
-import { useRef, useEffect } from 'react';
-//import useCanvas from './CanvasHook' // https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-/**const Canvas = props => {
+// https://github.com/AnkurSheel/react-drawing-interaction/blob/master/src/canvas.tsx
 
-    const { draw, ...rest } = props
-    const canvasRef = useCanvas(draw)
+interface CanvasProps {
+    width: number;
+    height: number;
+}
 
-    return <canvas ref={canvasRef} {...rest}/>
-}**/
+type Coordinate = {
+    x: number;
+    y: number;
+};
 
-const SimpleCanvasExample: React.FC<{}> = () => {
-    let canvasRef = useRef<HTMLCanvasElement | null>(null);
-    let canvasCtxRef = React.useRef<CanvasRenderingContext2D | null>(null);
+const Canvas = ({ width, height }: CanvasProps) => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [isPainting, setIsPainting] = useState(false);
+    const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(undefined);
 
-    useEffect(() => {
-        // Initialize
-        if (canvasRef.current) {
-            canvasCtxRef.current = canvasRef.current.getContext('2d');
-            let ctx = canvasCtxRef.current;
-            ctx!.beginPath();
-            ctx!.arc(95, 50, 40, 0, 2 * Math.PI);
-            ctx!.stroke();
+    const startPaint = useCallback((event: MouseEvent) => {
+        const coordinates = getCoordinates(event);
+        if (coordinates) {
+            setMousePosition(coordinates);
+            setIsPainting(true);
         }
     }, []);
 
-    return <canvas ref={canvasRef}></canvas>;
+    useEffect(() => {
+        if (!canvasRef.current) {
+            return;
+        }
+        const canvas: HTMLCanvasElement = canvasRef.current;
+        canvas.addEventListener('mousedown', startPaint);
+        return () => {
+            canvas.removeEventListener('mousedown', startPaint);
+        };
+    }, [startPaint]);
+
+    const paint = useCallback(
+        (event: MouseEvent) => {
+            if (isPainting) {
+                const newMousePosition = getCoordinates(event);
+                if (mousePosition && newMousePosition) {
+                    drawLine(mousePosition, newMousePosition);
+                    setMousePosition(newMousePosition);
+                }
+            }
+        },
+        [isPainting, mousePosition]
+    );
+
+    useEffect(() => {
+        if (!canvasRef.current) {
+            return;
+        }
+        const canvas: HTMLCanvasElement = canvasRef.current;
+        canvas.addEventListener('mousemove', paint);
+        return () => {
+            canvas.removeEventListener('mousemove', paint);
+        };
+    }, [paint]);
+
+    const exitPaint = useCallback(() => {
+        setIsPainting(false);
+        setMousePosition(undefined);
+    }, []);
+
+    useEffect(() => {
+        if (!canvasRef.current) {
+            return;
+        }
+        const canvas: HTMLCanvasElement = canvasRef.current;
+        canvas.addEventListener('mouseup', exitPaint);
+        canvas.addEventListener('mouseleave', exitPaint);
+        return () => {
+            canvas.removeEventListener('mouseup', exitPaint);
+            canvas.removeEventListener('mouseleave', exitPaint);
+        };
+    }, [exitPaint]);
+
+    const getCoordinates = (event: MouseEvent): Coordinate | undefined => {
+        if (!canvasRef.current) {
+            return;
+        }
+
+        const canvas: HTMLCanvasElement = canvasRef.current;
+        return { x: event.pageX - canvas.offsetLeft, y: event.pageY - canvas.offsetTop };
+    };
+
+    const drawLine = (originalMousePosition: Coordinate, newMousePosition: Coordinate) => {
+        if (!canvasRef.current) {
+            return;
+        }
+        const canvas: HTMLCanvasElement = canvasRef.current;
+        const context = canvas.getContext('2d');
+        if (context) {
+            context.strokeStyle = 'red';
+            context.lineJoin = 'round';
+            context.lineWidth = 5;
+
+            context.beginPath();
+            context.moveTo(originalMousePosition.x, originalMousePosition.y);
+            context.lineTo(newMousePosition.x, newMousePosition.y);
+            context.closePath();
+
+            context.stroke();
+        }
+    };
+
+    return <canvas ref={canvasRef} height={height} width={width} />;
 };
 
-export default SimpleCanvasExample;
+Canvas.defaultProps = {
+    width: window.innerWidth,
+    height: window.innerHeight,
+};
+
+export default Canvas;
