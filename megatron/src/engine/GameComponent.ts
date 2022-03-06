@@ -1,21 +1,28 @@
 import {Transform} from './transform';
 import {Vector2d} from "./math";
+import {ObjectID} from "./ObjectID";
 
 type GameComponentMap = {
     [key: string]: BaseComponent;
 }
 
 interface BaseComponent {
-
+    getOID(): number;
 }
 
 class GameComponent implements BaseComponent {
+    private oid: number;
     //private gameComponents: GameComponentMap;
     private gameComponents: Array<BaseComponent>;
     private active: boolean;
     private transform: Transform;
 
+    public getOID(): number {
+        return this.oid;
+    }
+
     public constructor() {
+        this.oid = ObjectID.NEWCOMPONENT();
         this.gameComponents = [];
         this.active = false;
         this.transform = {

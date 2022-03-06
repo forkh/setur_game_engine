@@ -54,6 +54,10 @@ class ResourceManager {
         return this.instance.imageMap[image];
     }
 
+    public static getImage2(image: string): HTMLImageElement {
+        return this.instance.imageMap[image];
+}
+
     public static getAudio(audio: string): HTMLAudioElement {
 
         return this.instance.audioMap[audio];

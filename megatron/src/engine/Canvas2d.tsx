@@ -1,10 +1,13 @@
+import React from "react";
 import {ReactNode, useEffect, useRef} from "react";
-import {GameComponent} from "./GameComponent";
+import {BaseComponent, GameComponent} from "./GameComponent";
 import {SpriteComponent} from "./SpriteComponent";
 
 class Canvas2d {
     private static instance: Canvas2d;
-    private static canvas: HTMLCanvasElement;
+    //private static canvas: HTMLCanvasElement;
+    //private static context: any;
+    private static canvas2: ReactNode;
     private static context: any;
 
     private constructor(canvasid: string) {
@@ -12,10 +15,12 @@ class Canvas2d {
         //Canvas2d.canvas = new HTMLCanvasElement();
         //Canvas2d.context = Canvas2d.canvas.getContext("2d");
         //this.testmethod();
-        Canvas2d.canvas = document.createElement("canvas");
-        Canvas2d.context = Canvas2d.canvas.getContext("2d");
+        //Canvas2d.canvas = document.createElement("canvas");
+        //Canvas2d.context = Canvas2d.canvas.getContext("2d");
+        Canvas2d.canvas2 = React.createElement("canvas");
+
     };
-    
+
     public static instantiateCanvas2d(canvasid: string): void {
         if (!Canvas2d.instance) {
             Canvas2d.instance = new Canvas2d(canvasid);
@@ -30,7 +35,8 @@ class Canvas2d {
         objects.forEach((obj) => {
             if (obj.isActive()) {
                 if (obj instanceof SpriteComponent) {
-                    Canvas2d.context.drawImage(obj.getSprite());
+                    const sobj: SpriteComponent = obj;
+                    //Canvas2d.context.drawImage(sobj.getSprite());
                 }
             }
             //if (obj.checkProperty("sprite")) {
@@ -43,8 +49,12 @@ class Canvas2d {
     //public getCanvas(): HTMLCanvasElement {
     //    return this.canvas;
     //}
-    public static getCanvas(): HTMLCanvasElement {
-        return Canvas2d.canvas;
+    //public static getCanvas(): HTMLCanvasElement {
+    //    return Canvas2d.canvas;
+    //}
+
+    public static getCanvas2(): ReactNode {
+        return Canvas2d.canvas2;
     }
 
 };
