@@ -14,16 +14,16 @@ export default class PlayerController
             onEnter: this.idleOnEnter,
             onUpdate: this.idleOnUpdate
         })
-            .addState('walk', {
-                onEnter: this.walkOnEnter,
-                onUpdate: this.walkOnUpdate,
-                onExit: this.walkOnExit
-            })
-            .addState('jump', {
-                onEnter: this.jumpOnEnter,
-                onUpdate: this.jumpOnUpdate
-            })
-            .setState('idle')
+        .addState('walk', {
+            onEnter: this.walkOnEnter,
+            onUpdate: this.walkOnUpdate,
+            onExit: this.walkOnExit
+        })
+        .addState('jump', {
+            onEnter: this.jumpOnEnter,
+            onUpdate: this.jumpOnUpdate
+        })
+        .setState('idle')
     }
 
     update(dt: number)
