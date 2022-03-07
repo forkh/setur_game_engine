@@ -22,7 +22,7 @@ const SimpleCanvasExample: React.FC<{}> = () => {
     }, []);
 
     return <Fragment>
-        <img src = "../../public/logo512.png"/><canvas ref={canvasRef} width = {800} height = {800}></canvas>
+        <img src = "../logo512.png"/><canvas ref={canvasRef} width = {800} height = {800}></canvas>
         </Fragment>;
 };
 
