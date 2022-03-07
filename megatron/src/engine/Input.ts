@@ -83,5 +83,5 @@ class InputSystem {
     }
 }
 
-export type {InputMap, InputTriggerMap};
+export type {InputMap, InputTriggerMap, EventType};
 export {InputSystem};

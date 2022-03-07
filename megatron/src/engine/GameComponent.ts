@@ -1,6 +1,8 @@
 import {Transform} from './transform';
 import {Vector2d} from "./math";
-import {ObjectID} from "./ObjectID";
+import {ObjectID} from './ObjectID';
+import { ReactNode } from 'react';
+import React from 'react';
 
 type GameComponentMap = {
     [key: string]: BaseComponent;
@@ -10,57 +12,32 @@ interface BaseComponent {
     getOID(): number;
 }
 
-class GameComponent implements BaseComponent {
-    private oid: number;
-    //private gameComponents: GameComponentMap;
-    private gameComponents: Array<BaseComponent>;
-    private active: boolean;
-    private transform: Transform;
-
-    public getOID(): number {
-        return this.oid;
-    }
-
-    public constructor() {
-        this.oid = ObjectID.NEWCOMPONENT();
-        this.gameComponents = [];
-        this.active = false;
-        this.transform = {
-            scale: 1,
-            rotation: 1,
-            position: new Vector2d(10, 10)
-        }
-    }
-
-    public addGameComponent(baseComponent: BaseComponent): void {
-        //if (gameComponentName in this.gameComponents) {
-        //    return;
-        //}
-
-        //this.gameComponents[gameComponentName] = gameComponent;
-        this.gameComponents.push(baseComponent);
-    }
-
-    //public checkProperty(property: string): boolean {
-    //    return property in this.gameComponents;
-    //}
-
-    //public getProperty(property: string): any {
-    //    return this.gameComponents[property];
-    //}
-
-    public isActive(): boolean {
-        return this.active;
-    }
-
-    public toggleActivity(): void {
-        this.active = !this.active;
-    }
-
-    public setActive(status: boolean): void {
-        this.active = status;
-    }
+type GameComponent = {
+    transform: Transform,
+    sprite: string | null,
+    collider: any
+    active: boolean;
 }
 
-export {GameComponent};
-export type {BaseComponent};
+function createComponent(x: number, y: number, sprite_path: string): GameComponent {
+    let go: GameComponent = {
+        // @ts-ignore
+        transform: {
+            rotation: 0,
+            scale: Vector2d.one,
+            position: new Vector2d(0, 0)
+        },
+        sprite: sprite_path,
+        collider: null,
+        active: true
+    }
+
+    return go;
+}
+
+function setActive(component: GameComponent, status: boolean) {
+    component.active = status;
+}
+
+export type {GameComponent};
+export {createComponent};

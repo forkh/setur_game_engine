@@ -87,4 +87,5 @@ class ResourceManager {
 }
 
 export {ResourceManager};
+export type {ImageMap};
 //export * from './ResourceManager';
