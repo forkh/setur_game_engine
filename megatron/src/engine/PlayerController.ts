@@ -1,3 +1,5 @@
+// Inspired by:
+// https://github.com/ourcade/sidescrolling-platformer-template-phaser3
 import StateMachine from './newStateMachine'
 
 export default class PlayerController

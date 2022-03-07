@@ -1,4 +1,5 @@
 // Inspired heavily by:
+// https://blog.ourcade.co/posts/2021/character-logic-state-machine-typescript/
 // https://www.youtube.com/watch?v=BV8lfw-tdRU
 
 interface IStateConfig{
