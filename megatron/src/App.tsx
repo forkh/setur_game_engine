@@ -1,13 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import './engine/ResourceManager'
 import PlayerController from './engine/PlayerController'
 
 function App() {
-  //const bird: Bird = new Bird()
-  //bird.setState('crash')
   const player: PlayerController = new PlayerController()
+
+  useEffect(() => {
+    window.addEventListener("keypress", fly )
+    return (window.removeEventListener("keydown", fly))
+
+  }, []);
+
+  function fly(): void {
+    console.log("FLY from App.tsx")
+    player.setState('fly')
+  }
 
   return (
     <div className="App">

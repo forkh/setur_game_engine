@@ -12,16 +12,11 @@ export default class PlayerController
 
         this.stateMachine.addState('idle', {
             onEnter: this.idleOnEnter,
-            onUpdate: this.idleOnUpdate
+           // onUpdate: this.idleOnUpdate
         })
-        .addState('walk', {
-            onEnter: this.walkOnEnter,
-            onUpdate: this.walkOnUpdate,
-            onExit: this.walkOnExit
-        })
-        .addState('jump', {
-            onEnter: this.jumpOnEnter,
-            onUpdate: this.jumpOnUpdate
+        .addState('fly', {
+            onEnter: this.flyOnEnter,
+          //  onUpdate: this.flyOnUpdate
         })
         .setState('idle')
     }
@@ -31,39 +26,30 @@ export default class PlayerController
         this.stateMachine.update(dt)
     }
 
+
+    private flyOnEnter()
+    {
+       console.log("fly on enter")
+    }
+
+    private flyOnUpdate(){
+        this.stateMachine.setState('idle')
+    }
+
+
     private idleOnEnter()
     {
-        console.log("this is idle")
+        console.log("idle on enter")
     }
 
     private idleOnUpdate()
     {
-        this.stateMachine.setState('walk')
+        this.stateMachine.setState('fly')
     }
 
-    private walkOnEnter()
+    public setState(s: string)
     {
-        console.log("walk on Enter")
-    }
-
-    private walkOnUpdate()
-    {
-        console.log("walk on update")
-        this.stateMachine.setState('idle')
-    }
-
-    private walkOnExit()
-    {
-        console.log("stop walking")
-    }
-
-    private jumpOnEnter()
-    {
-        console.log("jump on enter")
-    }
-
-    private jumpOnUpdate()
-    {
-        console.log("jump on update")
+       // console.log("SET STATE TO")
+        this.stateMachine.setState(s)
     }
 }
