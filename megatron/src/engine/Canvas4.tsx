@@ -11,17 +11,11 @@ import {getKeyEventProps} from "@testing-library/user-event/dist/keyboard/getEve
 import {Simulate} from "react-dom/test-utils";
 
 
-
-//import frameRenderer from "./frameRenderer";
-
-
 function Canvas() {
     let canvasRef = useRef<HTMLCanvasElement | null>(null);
     let requestIdRef = useRef<number | null>(null);
 
     const size = { width: window.innerWidth, height: window.innerHeight};
-
-
 
     const updateImage = () => {
 
