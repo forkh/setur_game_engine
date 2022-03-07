@@ -34,7 +34,7 @@ const Canvas = ({ width, height }: CanvasProps) => {
         return () => {
             canvas.removeEventListener('mousedown', startPaint);
         };
-    }, [startPaint]);
+    }, [startPaint]);0
 
     const paint = useCallback(
         (event: MouseEvent) => {

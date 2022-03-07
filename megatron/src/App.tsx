@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useRef, useEffect } from 'react';
 //import Canvas from "./engine/Canvas";
-import Canvas from "./engine/Canvas2"
+import Canvas from "./engine/Canvas3"
 
 function App() {
     return (
