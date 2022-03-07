@@ -30,7 +30,6 @@ export default class NewStateMachine
        {
            return false
        }
-
        return this.currentState.name === name
     }
 
@@ -50,6 +49,11 @@ export default class NewStateMachine
     {
         if (!this.states.has(name))
         {
+            console.warn(`Tried to change to unknown state: ${name}`)
+            return
+        }
+
+        if(this.isCurrentState(name)) {
             return
         }
 
@@ -60,7 +64,6 @@ export default class NewStateMachine
         }
 
         this.isSwitchingState = true
-
         console.log(`[StateMachine (${this.name})] change from ${this.currentState?.name ?? 'none'} to ${name}`)
 
         if (this.currentState && this.currentState.onExit)
@@ -77,7 +80,7 @@ export default class NewStateMachine
 
         this.isSwitchingState = false
 
-        return this
+       // return this
     }
 
     update(dt: number)
@@ -88,14 +91,19 @@ export default class NewStateMachine
             return
         }
 
-        if (!this.currentState)
-        {
-            return
-        }
-
-        if (this.currentState.onUpdate)
+        if (this.currentState && this.currentState.onUpdate)
         {
             this.currentState.onUpdate(dt)
         }
+
+       // if (!this.currentState)
+       // {
+       //     return
+       // }
+
+       // if (this.currentState.onUpdate)
+       // {
+       //     this.currentState.onUpdate(dt)
+       // }
     }
 }
