@@ -9,9 +9,10 @@ export function render(context: CanvasRenderingContext2D): void {
     const ctx = canvas.getContext("2d");
 
     drawObjects(ctx)
+
 }
 
-export function drawObjects(ctx: CanvasRenderingContext2D): void {
+function drawObjects(ctx: CanvasRenderingContext2D): void {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
     let test3 = new Image();
     test3.src = logo192;

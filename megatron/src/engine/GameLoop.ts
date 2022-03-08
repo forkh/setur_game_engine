@@ -2,6 +2,7 @@
 // https://developer.ibm.com/tutorials/wa-build2dphysicsengine/
 // https://www.w3schools.com/graphics/tryit.asp?filename=trygame_gravity_game
 // https://github.com/luis-herasme/FisicaJS/blob/master/src/RigidBody.ts
+// https://github.com/kevinbgreene/physics-game/blob/master/src/index.ts
 
 import { render } from "./Canvas5"
 import {useEffect} from "react";
@@ -11,12 +12,13 @@ interface IUpdate{ // bara okkurt
 }
 
 
-export function GameLoop(context: CanvasRenderingContext2D): void {
+export function GameLoop(context: CanvasRenderingContext2D): void{
 
     function loop(): void {
         requestAnimationFrame(() => {
             render(context);
             console.log("render loop run")
+
             loop();
         })
     }
