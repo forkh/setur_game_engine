@@ -1,10 +1,10 @@
-import {Vector2d} from "../math";
+/**import {Vector2d} from "../math";**/
 
 class Rigidbody { // rigidbody
     // https://developer.ibm.com/tutorials/wa-build2dphysicsengine/
     // https://www.w3schools.com/graphics/tryit.asp?filename=trygame_gravity_game
     // https://github.com/luis-herasme/FisicaJS/blob/master/src/RigidBody.ts
-
+/**
     public mass: number;
     public restitution: number; // fylgi guide sindur blindt at byrja við
     // (verður brúkt til inelasticCollision sama stað í guide'ini.)
@@ -50,11 +50,11 @@ class Rigidbody { // rigidbody
         this.velocity.add(this.acceleration);
         this.position.add(this.velocity);
         this.acceleration.zero(); // nullstilla
-    }
+    }**/
 
 }
 
 
 
 
-export {Rigidbody};
+export {Rigidbody}

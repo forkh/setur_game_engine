@@ -14,18 +14,18 @@ interface BaseComponent {
 
 type GameComponent = {
     transform: Transform,
-    sprite: string | null,
+    sprite: HTMLImageElement | null,
     collider: any
     active: boolean;
 }
 
-function createComponent(x: number, y: number, sprite_path: string): GameComponent {
+function createComponent(x: number, y: number, sprite_path: HTMLImageElement): GameComponent {
     let go: GameComponent = {
         // @ts-ignore
         transform: {
             rotation: 0,
             scale: Vector2d.one,
-            position: new Vector2d(0, 0)
+            position: new Vector2d(x, y)
         },
         sprite: sprite_path,
         collider: null,
@@ -38,6 +38,8 @@ function createComponent(x: number, y: number, sprite_path: string): GameCompone
 function setActive(component: GameComponent, status: boolean) {
     component.active = status;
 }
+
+
 
 export type {GameComponent};
 export {createComponent};

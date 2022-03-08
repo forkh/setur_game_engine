@@ -7,8 +7,8 @@ import {
     EventType
 } from "./Input"
 import {InputMap} from "./Input";
-import {getKeyEventProps} from "@testing-library/user-event/dist/keyboard/getEventProps";
-import {Simulate} from "react-dom/test-utils";
+import {createComponent} from "./GameObject";
+import {GameComponent} from "./GameObject"
 
 
 function Canvas() {
@@ -17,21 +17,48 @@ function Canvas() {
 
     const size = { width: window.innerWidth, height: window.innerHeight};
 
-    const updateImage = () => {
-
+    const update = () => {
+        //console.log("frame update")
 
     };
+
 
     const renderFrame = () => {
         if (canvasRef.current) {
             const ctx = canvasRef.current.getContext("2d");
-            ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
+            drawObjects(ctx);
 
-
-            updateImage();
-            //frameRenderer.call(ctx, size, ballRef.current);
+            //update();
         }
     };
+
+    function drawObjects(ctx: CanvasRenderingContext2D): void {
+        ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
+        let test3 = new Image();
+        test3.src = logo192;
+        let test4 = new Image();
+        test4.src = logo512;
+
+        const test = createComponent(1000,10, test3)
+        const test2 = createComponent(100, 100, test4)
+
+        var array: GameComponent[] = [
+            test, test2
+        ]
+
+        array.forEach(function(GameComponent){
+           ctx.drawImage(GameComponent.sprite, GameComponent.transform.position.x,
+               GameComponent.transform.position.y)
+            console.log("=========ARRAY PRINT=======")
+        });
+
+
+
+        /**ctx.drawImage(test.sprite, test.transform.position.x, test.transform.position.y);
+        console.log(test.transform.position.x + test.transform.position.y)
+        ctx.drawImage(test2.sprite, test2.transform.position.x, test2.transform.position.y);
+        console.log(test2.transform.position.x + test2.transform.position.y)**/
+    }
 
     const tick = () => {
         if (!canvasRef.current) return;
@@ -50,16 +77,9 @@ function Canvas() {
         };
     }, []);
 
+    //renderFrame();
     return <canvas {...size} ref={canvasRef} />;
 
-
-
-
 }
-
-
-
-
-
 
 export default Canvas;

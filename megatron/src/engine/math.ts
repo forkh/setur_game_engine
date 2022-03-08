@@ -1,96 +1,74 @@
+// Parts of this code is based on:
+// https://github.com/suuunly/react-sheep-engine-2/blob/main/src/react-sheep-engine/core/maths/Vector2.ts
+
 class Vector2d {
-    private x: number;
-    private y: number;
+    public x: number;
+    public y: number;
 
     constructor(x: number, y: number) {
         this.x = x;
         this.y = y;
     }
 
-    public add(v: Vector2d): void {
+    public add(v: Vector2d): Vector2d {
         this.x += v.x;
         this.y += v.y;
+
+        return this;
     }
 
-    public subtraction(v: Vector2d): void {
+    public subtraction(v: Vector2d): Vector2d {
         this.x -= v.x;
         this.y -= v.y;
-    }
 
-    public multiply(scalar: number){
-        this.x *= scalar;
-        this.y *= scalar;
-    }
-
-    public division(scalar: number){
-        this.x /= scalar;
-        this.y /= scalar;
-    }
-
-    public zero (): void {
-        this.x = 0
-        this.y = 0
+        return this;
     }
 
     public get(): Vector2d {
         return this;
     }
 
-    public magnitude(): number{
-        return Math.sqrt(this.x * this.x + this.y + this.y);
+    public scalar_product(scalar: number): void {
+        this.x *= scalar;
+        this.y *= scalar;
     }
 
-    public dot(v: Vector2d): number{ // dot product
-        return this.x * v.x * this.y * v.y;
+    public static add(v1: Vector2d, v2: Vector2d): Vector2d {
+        return new Vector2d(v1.x + v2.x, v1.y + v2.y);
     }
 
-    public distance(v: Vector2d): number {
-        return Vector2d.subtraction(this, v).magnitude();
+    public static subtract(v1: Vector2d, v2: Vector2d): Vector2d {
+        return new Vector2d(v1.x - v2.x, v1.y - v2.y);
     }
 
-    public angle (): number {
-        return Math.atan2(this.y, this.x);
+    public static multiply(v1: Vector2d, s: number): Vector2d {
+        return new Vector2d(v1.x * s, v1.y * s);
     }
 
-
-    public copy(): Vector2d {
-        return new Vector2d(this.x, this.y);
+    public static get zero(): Vector2d {
+        return new Vector2d(0, 0);
     }
 
-
-    static addition(vector1: Vector2d, vector2: Vector2d): Vector2d {
-        return new Vector2d(vector1.x + vector2.x, vector1.y + vector2.y);
+    public static get one(): Vector2d {
+        return new Vector2d(1, 1);
     }
 
-    static subtraction(vector1: Vector2d, vector2: Vector2d): Vector2d {
-        return new Vector2d(vector1.x - vector2.x, vector1.y - vector2.y);
+    public static get right(): Vector2d {
+        return new Vector2d(1, 0);
     }
 
-    static multiply(vector1: Vector2d, scalar: number): Vector2d {
-        return new Vector2d(vector1.x * scalar, vector1.y * scalar);
+    public static get left(): Vector2d {
+        return new Vector2d(-1, 0);
     }
 
-    static division(vector1: Vector2d, scalar: number): Vector2d {
-        return new Vector2d(vector1.x / scalar, vector1.y / scalar);
+    public static get up(): Vector2d {
+        return new Vector2d(0, 1);
     }
 
-    static inverse(vector1: Vector2d): Vector2d {
-        return new Vector2d(vector1.x * -1, vector1.y * -1);
-    }
-
-    static normalize(vector1: Vector2d): Vector2d {
-        return new Vector2d(vector1.x * -1, vector1.y * -1);
-    }
-
-    static distance(vector1: Vector2d, vector2: Vector2d): number {
-        return this.subtraction(vector1, vector2).magnitude();
-    }
-
-    static crossproduct (vector1: Vector2d, vector2: Vector2d): number {
-        return vector1.x * vector2.y - vector2.x * vector1.y;
-
+    public static get down(): Vector2d {
+        return new Vector2d(0, -1);
     }
 }
 
-
+// Exporting Vector2d class
 export {Vector2d};
