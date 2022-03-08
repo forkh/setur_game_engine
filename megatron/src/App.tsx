@@ -19,7 +19,8 @@ function App() {
     canvas.height = window.innerHeight
 
     return (
-        <div>  {GameLoop(context)} </div>
+        GameLoop(context)
+
     );
 }
 

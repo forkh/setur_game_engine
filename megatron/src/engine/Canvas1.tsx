@@ -3,7 +3,7 @@ import logo192 from "../logo192.png";
 
 const SimpleCanvasExample: React.FC<{}> = () => {
     let canvasRef = useRef<HTMLCanvasElement | null>(null);
-    let canvasCtxRef = React.useRef<CanvasRenderingContext2D | null>(null);
+    let canvasCtxRef = useRef<CanvasRenderingContext2D | null>(null);
 
 
 

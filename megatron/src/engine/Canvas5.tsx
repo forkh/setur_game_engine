@@ -7,6 +7,7 @@ import logo512 from "../logo512.png";
 export function render(context: CanvasRenderingContext2D): void {
     const canvas: HTMLCanvasElement = context.canvas
     const ctx = canvas.getContext("2d");
+
     drawObjects(ctx)
 }
 
