@@ -1,6 +1,6 @@
 {
   "image": {"bird":  "bird.png"},
-  "audio": {},
+  "audio": {"s0":  "s0.wav", "s1": "s1.wav", "s2": "s2.wav", "s3": "s3.wav"},
   "animation": {},
   "paths": {"images":  "./assets/images/", "audio":  "./assets/audio/", "animation":  "./assets/animation/"}
 }
