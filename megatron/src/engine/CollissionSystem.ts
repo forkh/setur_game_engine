@@ -1,19 +1,19 @@
 import {Vector2d} from "./math";
 
 
-class CollissionSystem {
+class CollisionSystem {
 
-    private static instance: CollissionSystem;
+    private static instance: CollisionSystem;
 
 
     private constructor() {}
 
-    public static getInstance(): CollissionSystem {
-        if (!CollissionSystem.instance) {
-            CollissionSystem.instance = new CollissionSystem();
+    public static getInstance(): CollisionSystem {
+        if (!CollisionSystem.instance) {
+            CollisionSystem.instance = new CollisionSystem();
         }
 
-        return CollissionSystem.instance;
+        return CollisionSystem.instance;
     }
 
     /*public boxCollider(){
