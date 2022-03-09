@@ -6,7 +6,7 @@ import  Canvas  from "./engine/Canvas6"
 
 
 function App() { // Rendrar ikki
-    const canvas: HTMLCanvasElement = document.createElement('canvas')
+    /**const canvas: HTMLCanvasElement = document.createElement('canvas')
 
     const context: CanvasRenderingContext2D | null = canvas.getContext('2d')
     const root: HTMLElement | null = document.getElementById('root')
@@ -18,7 +18,7 @@ function App() { // Rendrar ikki
     canvas.height = window.innerHeight
 
     root.appendChild(canvas)
-    {GameLoop(context)}
+    {GameLoop(context)}**/
 
 
     return (
