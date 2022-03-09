@@ -5,7 +5,8 @@
 // https://github.com/kevinbgreene/physics-game/blob/master/src/index.ts
 
 import { render } from "./Canvas5"
-import {useEffect} from "react";
+import  Canvas  from "./Canvas6"
+import {PropsWithChildren, useEffect, useRef} from "react";
 
 interface IUpdate{ // bara okkurt
     Update(deltaTime: number): void
@@ -16,14 +17,43 @@ export function GameLoop(context: CanvasRenderingContext2D): void{
 
     function loop(): void {
         requestAnimationFrame(() => {
-            render(context);
-            console.log("render loop run")
+            render(context); // my canvas
+            console.log("render loop run");
 
             loop();
         })
     }
-
     loop()
+
 }
+
+
+export function GameLoop2(p: () => any): void{
+
+    function loop(): void {
+        requestAnimationFrame(() => {
+            Canvas();
+            console.log("render loop run");
+            loop();
+        })
+    }
+    loop();
+
+}
+
+
+
+
+function GameEngine(): JSX.Element {
+    let canvas = Canvas();
+
+    GameLoop2(()=> {
+        console.log("test123 ==================");
+    });
+
+    return canvas;
+}
+
+
 
 
