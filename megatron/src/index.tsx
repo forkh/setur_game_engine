@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Area51 />
   </React.StrictMode>,
   document.getElementById('root')
 );
