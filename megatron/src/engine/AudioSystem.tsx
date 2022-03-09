@@ -5,12 +5,6 @@ type EventSounds = {
     [event: string]: number;
 }
 
-const event = new Event('audio');
-const cev = new CustomEvent('audio1', {
-    bubbles: true,
-    detail: { channel: "1" }
-});
-
 class AudioSystem {
     private static instance: AudioSystem;
     private static channels: HTMLAudioElement[];
@@ -22,8 +16,10 @@ class AudioSystem {
         AudioSystem.events = {};
 
         for (let eventsKey in events) {
-            document.addEventListener(eventsKey+events[eventsKey], () => {
+            document.addEventListener(eventsKey, () => {
+
                 this.playTrack(events[eventsKey]);
+                console.log("A sound should have been played.");
             });
         }
 
