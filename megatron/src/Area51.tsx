@@ -6,11 +6,13 @@ import {ResourceManager} from "./engine/ResourceManager";
 import {InputSystem, InputTriggerMap} from './engine/InputSystem';
 import {AudioSystem, EventSounds} from './engine/AudioSystem';
 
+// Input mapping object
 const inputMap: InputTriggerMap = {
     'KeyR': f1,
     'KeyT': f2
 }
 
+// Audio events mapping
 const audioEvents: EventSounds = {
     'shoot': 0,
     'test': 1,
@@ -18,19 +20,22 @@ const audioEvents: EventSounds = {
     'audio': 3
 }
 
+// Used in f1 function
 var i: number = 0;
 
+// Instantiates sub systems.
 ResourceManager.instantiateResourceManager();
-InputSystem.initInputSystem(inputMap);
+InputSystem.instantiateInputSystem(inputMap);
 AudioSystem.instantiateAudioSystem(audioEvents);
 
+// Add sounds to channels
 AudioSystem.addTrack(ResourceManager.getAudio("s0"), 0);
 AudioSystem.addTrack(ResourceManager.getAudio("s1"), 1);
 AudioSystem.addTrack(ResourceManager.getAudio("s2"), 2);
 AudioSystem.addTrack(ResourceManager.getAudio("s3"), 3);
 
 
-
+// Dispatches a specific event based upon the value of variable i.
 function f1() {
     console.log("Playing some sound:");
     if (i == 0) {
@@ -61,10 +66,12 @@ function f1() {
     console.log("i is: " + i);
 }
 
+// Does nothing but log to console
 function f2() {
     console.log("Silence :>");
 }
 
+// Best bird in the world.
 let t = ResourceManager.getImage("bird", true);
 //console.log(t);
 
