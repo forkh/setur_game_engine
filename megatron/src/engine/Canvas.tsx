@@ -4,10 +4,12 @@ import logo192 from "../logo192.png";
 import logo512 from "../logo512.png"
 //import {createComponent} from "./GameObject";
 //import {GameComponent} from "./GameObject"
-import { GameComponent, createComponent } from './GameComponent';
+//import { GameComponent, createComponent } from './GameComponent';
+import { GameObject } from './GameObject';
 
 interface CanvasProps {
-    gameComponents: GameComponent[];
+    //gameComponents: GameComponent[];
+    objects: GameObject[];
     width: number;
     height: number;
 }
@@ -40,19 +42,27 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
             let test4 = new Image();
             test4.src = logo512;
 
-            const test = createComponent(1000,10, test3.src)
-            const test2 = createComponent(100, 100, test4.src)
+            //const test = createComponent(1000,10, test3.src)
+            //const test2 = createComponent(100, 100, test4.src)
 
-            var array: GameComponent[] = [
-                test, test2
-            ]
+            //var array: GameComponent[] = [
+            //    test, test2
+            //]
 
-            canvasProps.gameComponents.forEach((gc) => {
-                if (gc.active) {
-                    ctx.drawImage(gc.sprite, gc.transform.position.getX(), gc.transform.position.getY());
+            var array: HTMLImageElement[] = [test3, test4];
+
+            array.forEach((x) => {
+                ctx.drawImage(x, 25, 25);
+            })
+            canvasProps.objects.forEach((go) => {
+            //canvasProps.gameComponents.forEach((gc) => {
+                if (go.isActive()) {
+                    ctx.drawImage(go.getSprite(), go.getTransform().position.getX(), go.getTransform().position.getY());
                     console.log("=========ARRAY PRINT=======")
                 }
+                console.log("printy");
             }, [])
+
 
 
             //array.forEach(function(GameComponent){

@@ -3,14 +3,15 @@ import { AudioSystem, EventSounds } from './AudioSystem';
 import { InputSystem, InputTriggerMap } from './InputSystem';
 import { ReactNode } from 'react';
 import Canvas from './Canvas';
-import { GameComponent, createComponent } from './GameComponent';
+//import { GameComponent, createComponent } from './GameComponent';
+import { GameObject, GameComponent } from './GameObject';
 
 class Engine {
     //private static instance: Engine;
-    private gameComponents: GameComponent[];
+    private gameObjects: GameObject[];
 
     public constructor(inputMap: InputTriggerMap, soundMapping: EventSounds, assets: AssetsType) {
-        this.gameComponents = [];
+        this.gameObjects = [];
         ResourceManager.instantiateResourceManager(assets);
         AudioSystem.instantiateAudioSystem(soundMapping);
         InputSystem.instantiateInputSystem(inputMap);
@@ -25,13 +26,14 @@ class Engine {
     }
 
     public run(): ReactNode {
-        return <Canvas gameComponents={this.gameComponents} height={600} width={100}/>;
+       // return <Canvas gameComponents={this.gameComponents} height={600} width={100}/>;
+        return <Canvas objects={this.gameObjects} height={600} width={100}/>
     }
 
-    public addGameComponent(gameComponent: GameComponent): void {
-        this.gameComponents.push(gameComponent);
+    public addGameComponent(gameObject: GameObject): void {
+        this.gameObjects.push(gameObject);
     }
 }
 
-export { Engine, createComponent };
-export type { InputTriggerMap, AssetsType, GameComponent };
+export { Engine, GameObject, GameComponent };
+export type { InputTriggerMap, AssetsType };
