@@ -20,7 +20,7 @@ type GameComponent = {
 }
 
 function createComponent(x: number, y: number, sprite_path: string): GameComponent {
-    const img = new HTMLImageElement();
+    const img = new Image();
     img.src = sprite_path;
     let go: GameComponent = {
         // @ts-ignore

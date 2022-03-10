@@ -6,12 +6,17 @@ import logo512 from "../logo512.png"
 //import {GameComponent} from "./GameObject"
 import { GameComponent, createComponent } from './GameComponent';
 
+interface CanvasProps {
+    gameComponents: GameComponent[];
+    width: number;
+    height: number;
+}
 
-function Canvas(): JSX.Element {
+function Canvas(canvasProps: CanvasProps): JSX.Element {
     let canvasRef = useRef<HTMLCanvasElement | null>(null);
     //let canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-    const size = { width: window.innerWidth, height: window.innerHeight};
+    //const size = { width: window.innerWidth, height: window.innerHeight};
 
     /**function reportWindowSize() {
         size.width = window.innerHeight;
@@ -29,7 +34,7 @@ function Canvas(): JSX.Element {
                 throw new Error("2d context not supported or canvas already initialized");
 
             }
-            ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
+            ctx.clearRect(0,0, canvasProps.width, canvasProps.height)
             let test3 = new Image();
             test3.src = logo192;
             let test4 = new Image();
@@ -42,10 +47,13 @@ function Canvas(): JSX.Element {
                 test, test2
             ]
 
-            array.forEach((gc) => {
-                ctx.drawImage(gc.sprite, gc.transform.position.getX(), gc.transform.position.getY());
-                console.log("=========ARRAY PRINT=======")
+            canvasProps.gameComponents.forEach((gc) => {
+                if (gc.active) {
+                    ctx.drawImage(gc.sprite, gc.transform.position.getX(), gc.transform.position.getY());
+                    console.log("=========ARRAY PRINT=======")
+                }
             }, [])
+
 
             //array.forEach(function(GameComponent){
             //    // @ts-ignore
@@ -58,7 +66,7 @@ function Canvas(): JSX.Element {
 
     })
     return<Fragment>
-        <canvas {...size} ref={canvasRef} />
+        <canvas {...canvasProps} ref={canvasRef} />
         </Fragment>
 }
 
