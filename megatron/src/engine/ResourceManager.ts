@@ -1,10 +1,12 @@
-import resources from './assets.json';
 import {render} from "react-dom";
-import src from "*.png";
 import React, {ReactElement} from "react";
 
 type ResourceMap = {
-    [key: string]: string | number;
+    [key: string]: string;
+}
+
+type AssetsType = {
+    [tp: string]: {[tp2: string]: string}
 }
 
 type ImageMap = {
@@ -12,6 +14,7 @@ type ImageMap = {
 }
 
 type AudioMap = {
+    //[key: string]: string;
     [key: string]: HTMLAudioElement;
 }
 
@@ -31,12 +34,12 @@ class ResourceManager {
         this.animationMap = {};
     }
 
-    public static instantiateResourceManager(): void {
+    public static instantiateResourceManager(assets: AssetsType): void {
         if (!ResourceManager.instance) {
             ResourceManager.instance = new ResourceManager();
         }
 
-        this.instance.loadResources();
+        this.instance.loadResources(assets);
     }
 
     public static getImage(image: string, react: boolean): HTMLImageElement | ReactElement {
@@ -62,7 +65,7 @@ class ResourceManager {
         return this.instance.animationMap[animation];
     }
 
-    private loadResources(): void {
+    private loadResources(resources: AssetsType): void {
         for (let image in resources["image"]) {
             ResourceManager.instance.imageMap[image] = new Image()
             // @ts-ignore
@@ -70,7 +73,7 @@ class ResourceManager {
         }
 
         for (let audio in resources["audio"]) {
-            // @ts-ignore
+            //ResourceManager.instance.audioMap[audio] = resources["paths"]["audio"] + resources["audio"][audio];
             ResourceManager.instance.audioMap[audio] = new Audio(resources["paths"]["audio"] + resources["audio"][audio]);
         }
 
@@ -81,5 +84,7 @@ class ResourceManager {
     }
 }
 
+
 export {ResourceManager};
+export type {AssetsType};
 //export * from './ResourceManager';

@@ -5,7 +5,7 @@ import './engine/ResourceManager'
 import {ResourceManager} from "./engine/ResourceManager";
 import {InputSystem, InputTriggerMap} from './engine/InputSystem';
 import {AudioSystem, EventSounds} from './engine/AudioSystem';
-
+import assets from './assets.json';
 // Input mapping object
 const inputMap: InputTriggerMap = {
     'KeyR': f1,
@@ -17,14 +17,15 @@ const audioEvents: EventSounds = {
     'shoot': 0,
     'test': 1,
     'explosion': 2,
-    'audio': 3
+    'audio': 3,
+    'background_music': 4
 }
 
 // Used in f1 function
 var i: number = 0;
 
 // Instantiates sub systems.
-ResourceManager.instantiateResourceManager();
+ResourceManager.instantiateResourceManager(assets);
 InputSystem.instantiateInputSystem(inputMap);
 AudioSystem.instantiateAudioSystem(audioEvents);
 

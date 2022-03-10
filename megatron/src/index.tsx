@@ -4,10 +4,11 @@ import './index.css';
 import App from './App';
 import Area51 from './Area51';
 import reportWebVitals from './reportWebVitals';
+import FlagsiFuglur from './flagsifuglur';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Area51 />
+    <FlagsiFuglur />
   </React.StrictMode>,
   document.getElementById('root')
 );

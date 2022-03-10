@@ -1,0 +1,6 @@
+{
+  "image": {"bird":  "bird.png"},
+  "audio": {"s0":  "s0.wav", "s1": "s1.wav", "s2": "s2.wav", "s3": "s3.wav", "s4": "gamejam_longplay.mp3"},
+  "animation": {},
+  "paths": {"images":  "./assets/images/", "audio":  "./assets/audio/", "animation":  "./assets/animation/"}
+}

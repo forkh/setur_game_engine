@@ -28,8 +28,8 @@ class AudioSystem {
 
         //
         for (let eventsKey in events) {
+            console.log("Added " + eventsKey + " to track " + events[eventsKey]);
             document.addEventListener(eventsKey, () => {
-
                 this.playTrack(events[eventsKey]);
                 console.log("A sound should have been played.");
             });
@@ -52,7 +52,7 @@ class AudioSystem {
      */
     private playTrack(channel: number): void {
         AudioSystem.channels[channel].play();
-        console.log("PLaying something??");
+        console.log("Playing something??");
     }
 
     /**
