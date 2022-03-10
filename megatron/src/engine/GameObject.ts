@@ -1,42 +1,72 @@
 import { ResourceManager } from './ResourceManager';
-import { Transform, new_transform } from './Transform';
+import { Transform } from './Transform';
+import { StateMachine } from './StateMachine';
 
 class GameObject {
+    private static GLOBAL_OBJECTID: number = 1;
+    private objectId: number;
     private gameComponents: GameComponent[];
     private active: boolean;
     private transform: Transform;
+    private stateMachine: StateMachine;
+    private zIndex: number;
 
-    public constructor() {
+    public constructor(zIndex: number) {
+        this.objectId = GameObject.GLOBAL_OBJECTID;
+        GameObject.GLOBAL_OBJECTID++;
         this.gameComponents = [];
         this.active = true;
-        this.transform = new_transform();
+        this.transform = new Transform();
+        this.stateMachine = new StateMachine(this, 'temp');
+        this.zIndex = zIndex;
     }
 
     public addComponent(component: GameComponent) {
         this.gameComponents.push(component);
     }
 
+    /**
+     * @return returns empty image if one is not found, otherwise return current image
+     */
     public getSprite(): HTMLImageElement {
-        const img = new Image();
+        let img = new Image();
         this.gameComponents.forEach((gc) => {
             if (gc instanceof SpriteComponent) {
-                return gc.getSprite();
+                console.log("Should print something! OID: " + gc.parent.objectId);
+                console.log(gc.parent.transform.getPosition());
+                gc.parent.transform.translate(25, 25);
+                console.log(gc.parent.transform.getPosition());
+                img = gc.getSprite();
             }
         })
 
         return img;
     }
 
+    /**
+     * @return boolean indicating wether object is active or not.
+     */
     public isActive(): boolean {
         return this.active && this.getSprite() != null;
     }
 
+    /**
+     * @return Transform of current object.
+     */
     public getTransform(): Transform {
         return this.transform;
     }
 
+    /**
+     * Adds sprite component to object.
+     * @param image
+     */
     public addSprite(image: string) {
         this.gameComponents.push(new SpriteComponent(image, this));
+    }
+
+    public getObjectID(): number {
+        return this.objectId;
     }
 }
 

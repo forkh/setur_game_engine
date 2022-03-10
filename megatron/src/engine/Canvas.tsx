@@ -49,15 +49,18 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
             //    test, test2
             //]
 
-            var array: HTMLImageElement[] = [test3, test4];
+            //var array: HTMLImageElement[] = [test3, test4];
 
-            array.forEach((x) => {
-                ctx.drawImage(x, 25, 25);
-            })
+            //array.forEach((x) => {
+            //    ctx.drawImage(x, 25, 25);
+            //})
             canvasProps.objects.forEach((go) => {
+                console.log("Object ID: " + go.getObjectID());
             //canvasProps.gameComponents.forEach((gc) => {
                 if (go.isActive()) {
-                    ctx.drawImage(go.getSprite(), go.getTransform().position.getX(), go.getTransform().position.getY());
+                    ctx.drawImage(go.getSprite(),
+                        go.getTransform().getPosition().getX(),
+                        go.getTransform().getPosition().getY());
                     console.log("=========ARRAY PRINT=======")
                 }
                 console.log("printy");
@@ -81,3 +84,4 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
 }
 
 export default Canvas;
+export type { CanvasProps };
