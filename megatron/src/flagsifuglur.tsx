@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Engine, InputTriggerMap, AssetsType, GameComponent, createComponent } from './engine/Engine';
+import { Engine, InputTriggerMap, AssetsType, GameObject, GameComponent } from './engine/Engine';
 
 import assets from './assets.json';
 import soundMappings from './soundMappings.json';
@@ -31,14 +31,20 @@ engine.addTrack("s2", 2);
 engine.addTrack("s3", 3);
 engine.addTrack("s4", 4);
 
-const gc1: GameComponent = createComponent(25, 25, engine.getImage("bird").src);
-engine.addGameComponent(gc1);
+const obj1: GameObject = new GameObject();
+obj1.addSprite("bird");
+
+//const gc1: GameComponent = createComponent(25, 25, engine.getImage("bird").src);
+//engine.addGameComponent(gc1);
+//const bg: GameComponent = createComponent(0, 0, engine.getImage("background").src);
+//engine.addGameComponent(bg);
 
 function FlagsiFuglur() {
-    document.dispatchEvent(new Event("background_music"));
+    //document.dispatchEvent(new Event("background_music"));
     return (
         <div className={"FlagsiFuglur"}>
             {engine.run()}
+            <img src={"/assets/images/bird.png"}/>
         </div>
     );
 //    return (
