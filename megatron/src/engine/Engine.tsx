@@ -3,6 +3,7 @@ import { AudioSystem, EventSounds } from './AudioSystem';
 import { InputSystem, InputTriggerMap } from './InputSystem';
 import { ReactNode } from 'react';
 import Canvas from './Canvas';
+import { CanvasProps } from './Canvas';
 //import { GameComponent, createComponent } from './GameComponent';
 import { GameObject, GameComponent } from './GameObject';
 
@@ -26,11 +27,17 @@ class Engine {
     }
 
     public run(): ReactNode {
+        const canvasProps: CanvasProps = {
+            objects: this.gameObjects,
+            height: 800,
+            width: 800
+        }
        // return <Canvas gameComponents={this.gameComponents} height={600} width={100}/>;
-        return <Canvas objects={this.gameObjects} height={600} width={100}/>
+        //return <Canvas objects={this.gameObjects} height={600} width={100}/>
+        return <Canvas {...canvasProps}/>
     }
 
-    public addGameComponent(gameObject: GameObject): void {
+    public addGameObject(gameObject: GameObject): void {
         this.gameObjects.push(gameObject);
     }
 }
