@@ -9,7 +9,7 @@ interface IStateConfig{
     onExit?: () => void
 }
 
-export default class NewStateMachine
+export default class StateMachine
 {
     private context?: any
     private name: string
