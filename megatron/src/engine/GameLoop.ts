@@ -27,6 +27,12 @@ export function GameLoop(context: CanvasRenderingContext2D): void{
 
 }
 
+export function GameLoop3(): JSX.Element{
+
+    return Canvas();
+
+}
+
 
 export function GameLoop2(p: () => any): void{
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { GameLoop } from "./engine/GameLoop"
+import { GameLoop3 } from "./engine/GameLoop"
 import  Canvas  from "./engine/Canvas6"
 
 
@@ -17,15 +17,10 @@ function App() { // Rendrar ikki
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
 
-    root.appendChild(canvas)
-    {GameLoop(context)}**/
-
+    root.appendChild(canvas)**/
 
     return (
-        <div className="App">
-            <Canvas />
-        </div>
-
+        GameLoop3()
     );
 }
 
