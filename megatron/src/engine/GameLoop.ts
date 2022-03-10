@@ -38,7 +38,6 @@ export function GameLoop2(p: () => any): void{
         })
     }
     loop();
-
 }
 
 

@@ -1,12 +1,7 @@
 //import "./canvas.css";
-import React, {useRef, useEffect, useCallback, useState} from "react";
+import React, {useRef, useEffect, useCallback, useState, Fragment} from "react";
 import logo192 from "../logo192.png";
 import logo512 from "../logo512.png"
-import {
-    InputSystem,
-    EventType
-} from "./Input"
-import {InputMap} from "./Input";
 import {createComponent} from "./GameObject";
 import {GameComponent} from "./GameObject"
 
@@ -15,6 +10,15 @@ function Canvas(): JSX.Element {
     let canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     const size = { width: window.innerWidth, height: window.innerHeight};
+
+    /**function reportWindowSize() {
+        size.width = window.innerHeight;
+        size.height = window.innerWidth;
+    }
+
+    window.addEventListener('resize', reportWindowSize); **/
+
+
 
     useEffect(() => {
         if (canvasRef.current) {
@@ -41,7 +45,9 @@ function Canvas(): JSX.Element {
 
 
     })
-    return <canvas {...size} ref={canvasRef} />;
+    return<Fragment>
+        <canvas {...size} ref={canvasRef} />
+        </Fragment>
 }
 
 export default Canvas;
