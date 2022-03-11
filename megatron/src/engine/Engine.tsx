@@ -16,6 +16,9 @@ class Engine {
         ResourceManager.instantiateResourceManager(assets);
         AudioSystem.instantiateAudioSystem(soundMapping);
         InputSystem.instantiateInputSystem(inputMap);
+        // TODO: CollisionSystem:
+
+        // TODO: PhysicsSystem:
     }
 
     //private test() {
@@ -50,6 +53,8 @@ class Engine {
 
     public addGameObject(gameObject: GameObject): void {
         this.gameObjects.push(gameObject);
+        // TODO: Ger so at tað verður sortera eftir zIndex propery hjá GameObject
+        this.gameObjects.sort();
     }
 
     public addControllerListener(key: string, func: (() => {})): void {

@@ -11,6 +11,7 @@ class GameObject {
     private transform: Transform;
     private stateMachine: StateMachine;
     private zIndex: number;
+    //private forces: force[];
 
     public constructor(zIndex: number) {
         this.objectId = GameObject.GLOBAL_OBJECTID;
@@ -174,7 +175,7 @@ class ControllerComponent extends GameComponent {
 
     public addListener(event: string, func: (go: GameObject) => void) {
         document.addEventListener(event, this.doSomething.bind(this));
-        this.controls[event] = func.;
+        this.controls[event] = func;
         //document.addEventListener(event, func);
         console.log("Registering listener '" + event + "' to execute function: " + func);
     }
