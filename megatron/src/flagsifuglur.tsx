@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Engine, InputTriggerMap, AssetsType, GameObject, GameComponent } from './engine/Engine';
+import { Engine, InputTriggerMap, AssetsType, GameObject, GameComponent, ControlMap, ControllerComponent } from './engine/Engine';
 import GameLoop from './engine/GameLoop';
 
 import assets from './assets.json';
@@ -10,27 +10,45 @@ import soundMappings from './soundMappings.json';
 
 const inputMappings: InputTriggerMap = {
     'KeyT': f1,
-    'KeyF': f2,
-    'KeyR': f3
+    'KeyW': up,
+    'KeyS': down,
+    'KeyA': left,
+    'KeyD': right
+
+//    'KeyF': f2,
+//    'KeyR': f3
 }
 
+function up() {
+    document.dispatchEvent(new Event("move_up"));
+}
 
+function down() {
+    document.dispatchEvent(new Event("move_down"));
+}
+
+function left() {
+    document.dispatchEvent(new Event("move_left"));
+}
+
+function right() {
+    document.dispatchEvent(new Event("move_right"));
+}
 
 function f1() {
     console.log("Some shound should be heard!");
-    document.dispatchEvent(new Event("background_music"));
 }
 
-function f2() {
-    //obj2.getTransform().translate(3, 3);
-    obj1.getTransform().setPosition(10, 10);
-    //console.log(obj1.getTransform().getPosition());
-    console.log(obj1.getObjectID() + ": (" + obj1.getTransform().getPosition().getY() + ", " + obj1.getTransform().getPosition().getY() + ")");
-}
+//function f2() {
+//    //obj2.getTransform().translate(3, 3);
+//    //obj1.getTransform().setPosition(10, 10);
+//    //console.log(obj1.getTransform().getPosition());
+//    console.log(obj1.getObjectID() + ": (" + obj1.getTransform().getPosition().getY() + ", " + obj1.getTransform().getPosition().getY() + ")");
+//}
 
-function f3() {
-    obj1.getTransform().translate(3, 3);
-}
+//function f3() {
+//    obj1.getTransform().translate(3, 3);
+//}
 
 const engine: Engine = new Engine(inputMappings, soundMappings, assets);
 
@@ -40,9 +58,20 @@ engine.addTrack("s2", 2);
 engine.addTrack("s3", 3);
 engine.addTrack("s4", 4);
 
-let obj1: GameObject = new GameObject(1);
-obj1.addSprite("bird");
-engine.addGameObject(obj1);
+//let obj1: GameObject = new GameObject(1);
+//obj1.addSprite("bird");
+//engine.addGameObject(obj1);
+let playa: GameObject = new GameObject(1);
+
+const cm: InputTriggerMap = {
+    'KeyH': () => {console.log("DOWN!")},
+}
+playa.addControllerComponent({
+    'KeyP': {}
+});
+playa.addSprite("bird");
+engine.addGameObject(playa);
+
 //const obj2: GameObject = new GameObject(1);
 //obj2.addSprite("background");
 //engine.addGameObject(obj2);

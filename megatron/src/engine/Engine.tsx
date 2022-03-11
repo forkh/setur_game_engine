@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import Canvas from './Canvas';
 import { CanvasProps } from './Canvas';
 //import { GameComponent, createComponent } from './GameComponent';
-import { GameObject, GameComponent } from './GameObject';
+import { GameObject, GameComponent, ControlMap, ControllerComponent } from './GameObject';
 
 class Engine {
     //private static instance: Engine;
@@ -40,7 +40,10 @@ class Engine {
     public addGameObject(gameObject: GameObject): void {
         this.gameObjects.push(gameObject);
     }
+
+    public addControllerListener(key: string, func: (() => {})): void {
+    }
 }
 
-export { Engine, GameObject, GameComponent };
-export type { InputTriggerMap, AssetsType };
+export { Engine, GameObject, GameComponent, ControllerComponent };
+export type { InputTriggerMap, AssetsType, ControlMap };
