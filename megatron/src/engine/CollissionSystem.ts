@@ -1,5 +1,5 @@
 //import { System, Polygon, Circle } from "detect-collisions";
-import React, {useState} from "react";
+//import React, {useState} from "react";
 import HitboxRectangle from "./HitBoxRectangle";
 
 interface ICollider{ // havi ikki brúkt
@@ -23,17 +23,24 @@ class CollisionSystem {
         return CollisionSystem.instance;
     }
 
+    /*
     public makeHitbox(hitBoxRectangle : HitboxRectangle){
+
         //nú fer hitbox í array, skal gameobject taka har frá ella..
         //kanska mugu forbinda gameObject við hitbox aðrenn vit koyra í array..
-        //
+
         this.hitBoxRectangle = hitBoxRectangle;
         this.gameObjects.push(hitBoxRectangle)
 
     }
 
-    // checks if gameObject has a Collider by iterating thogh
-    // if it has, pop and add too isCollided array
+
+*/
+    /**
+     *  checks if gameObject has a Collider by iterating thogh
+     *  if it has, pop and add too isCollided array
+      */
+
     public hasCollider(){
         if (this.gameObjects.includes(this.hitBoxRectangle) )
         {
@@ -51,11 +58,10 @@ class CollisionSystem {
         //     obj1.y + obj1.height > obj2.y) {
         //     // collision detected!
 
-        //senda síðani signal fyri at vit hava fingið eina collision og kunnu broyta stata
+        //senda síðani signal fyri at vit hava fingið eina collision og kunnu broyta state
         //fra
 
     }
 
+
 }
-
-
