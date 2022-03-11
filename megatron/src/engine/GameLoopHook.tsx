@@ -3,6 +3,7 @@ import {useRef, useEffect} from 'react'
 // https://gist.github.com/balmacefa/3e899642ae96eeb78e76d015d9587397
 // https://www.youtube.com/watch?v=uJRXJxsvj7Q&t=82s
 
+//export const useFrameLoop = ( callback: any): void => {
 export const useFrameLoop = ( callback: (time: number, deltaTime: number) => void ): void => {
 
     const requestID = useRef(0);
