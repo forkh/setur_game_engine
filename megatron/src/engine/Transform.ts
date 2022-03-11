@@ -15,6 +15,12 @@ class Transform {
         this.position.addXY(x, y);
     }
 
+    public setPosition(x: number, y: number): void {
+        let v: Vector2d = Vector2d.zero;
+        v.addXY(x, y);
+        this.position = v;
+    }
+
     public setRotation(r: number): void {
         this.rotation += r;
     }

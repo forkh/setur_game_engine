@@ -62,6 +62,7 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                         go.getTransform().getPosition().getX(),
                         go.getTransform().getPosition().getY());
                     console.log("=========ARRAY PRINT=======")
+                    console.log(go.getObjectID() + ": (" + go.getTransform().getPosition().getY() + ", " + go.getTransform().getPosition().getY() + ")");
                 }
                 console.log("printy");
             }, [])

@@ -33,9 +33,9 @@ class GameObject {
         this.gameComponents.forEach((gc) => {
             if (gc instanceof SpriteComponent) {
                 console.log("Should print something! OID: " + gc.parent.objectId);
-                console.log(gc.parent.transform.getPosition());
-                gc.parent.transform.translate(25, 25);
-                console.log(gc.parent.transform.getPosition());
+                //console.log(gc.parent.transform.getPosition());
+                //gc.parent.transform.translate(25, 25);
+                //console.log(gc.parent.transform.getPosition());
                 img = gc.getSprite();
             }
         })
