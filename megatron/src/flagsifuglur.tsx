@@ -13,10 +13,15 @@ const inputMappings: InputTriggerMap = {
     'KeyW': up,
     'KeyS': down,
     'KeyA': left,
-    'KeyD': right
+    'KeyD': right,
+    'KeyH': sideways
 
 //    'KeyF': f2,
 //    'KeyR': f3
+}
+function sideways() {
+    document.dispatchEvent(new Event("move_sideways"));
+
 }
 
 function up() {
@@ -39,6 +44,9 @@ function f1() {
     console.log("Some shound should be heard!");
 }
 
+const go1: GameObject = new GameObject(1);
+go1.addBoxCollider();
+
 //function f2() {
 //    //obj2.getTransform().translate(3, 3);
 //    //obj1.getTransform().setPosition(10, 10);
@@ -58,17 +66,21 @@ engine.addTrack("s2", 2);
 engine.addTrack("s3", 3);
 engine.addTrack("s4", 4);
 
+
 //let obj1: GameObject = new GameObject(1);
 //obj1.addSprite("bird");
 //engine.addGameObject(obj1);
 let playa: GameObject = new GameObject(1);
 
-const cm: InputTriggerMap = {
-    'KeyH': () => {console.log("DOWN!")},
+function translateTest(go: GameObject) {
+    console.log("translateTest running");
+    go.getTransform().translate(3, 3);
 }
-playa.addControllerComponent({
-    'KeyP': {}
-});
+
+const cm: InputTriggerMap = {
+    'move_sideways': () => {translateTest(playa)},
+}
+playa.addControllerComponent(cm);
 playa.addSprite("bird");
 engine.addGameObject(playa);
 

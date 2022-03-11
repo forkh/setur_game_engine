@@ -44,6 +44,10 @@ class GameObject {
         return img;
     }
 
+    public addBoxCollider(): void {
+        this.gameComponents.push(new BoxColliderComponent(this));
+    }
+
     /**
      * @return boolean indicating wether object is active or not.
      */
@@ -124,13 +128,12 @@ class SpriteComponent extends GameComponent {
 class BoxColliderComponent extends GameComponent {
     public constructor(go: GameObject) {
         super(go);
-
+        this.parent.getTransform().getPosition();
     }
-
 }
 
 type ControlMap = {
-    [key: string]: (() => void);
+    [key: string]: ((go: GameObject) => void);
 }
 
 class ControllerComponent extends GameComponent {
@@ -160,6 +163,7 @@ class ControllerComponent extends GameComponent {
     private controls: ControlMap;
     //private input: InputSystem;
     public constructor(controls: ControlMap, go: GameObject) {
+        console.log("New ControllerComponent");
         super(go);
         this.controls = {};
         for (let controlsKey in controls) {
@@ -168,9 +172,9 @@ class ControllerComponent extends GameComponent {
         }
     }
 
-    public addListener(event: string, func: () => void) {
+    public addListener(event: string, func: (go: GameObject) => void) {
         document.addEventListener(event, this.doSomething.bind(this));
-        this.controls[event] = func;
+        this.controls[event] = func.;
         //document.addEventListener(event, func);
         console.log("Registering listener '" + event + "' to execute function: " + func);
     }
@@ -178,7 +182,7 @@ class ControllerComponent extends GameComponent {
     private doSomething(e: any): void {
         for (let k in this.controls) {
             if (k === e.type) {
-                this.controls[k]();
+                this.controls[k](this.parent);
                 return;
             }
         }

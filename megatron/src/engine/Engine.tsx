@@ -18,6 +18,17 @@ class Engine {
         InputSystem.instantiateInputSystem(inputMap);
     }
 
+    //private test() {
+    //    this.gameObjects.forEach((go1) => {
+    //        this.gameObjects.forEach((go2) => {
+    //            if (go1.getObjectID() != go2.getObjectID()
+    //            //go1.hasCollider() && go2.hasCollider()) {
+    //                //collision logic
+    //            }
+    //        })
+    //    })
+    //}
+
     public getImage(image: string): HTMLImageElement {
         return ResourceManager.getImage(image, false) as HTMLImageElement;
     }
