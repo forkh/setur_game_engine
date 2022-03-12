@@ -24,7 +24,9 @@ class CollisionSystem {
         }
         return CollisionSystem.instance;
     }
-
+    
+    
+    
     /*
     public makeHitbox(hitBoxRectangle : HitboxRectangle){
 
@@ -50,20 +52,20 @@ class CollisionSystem {
         }
     }
 
-    public isCollided(){
-        // iterates through all of the components to see if any position overlaps
-        // kanska man kann bara kannað upp ímótir okkara bird, ella main character
-
-        // if (obj1.x < obj2.x + obj2.width &&
-        //     obj1.x + obj1.width > obj2.x &&
-        //     obj1.y < objt2.y + objt2.height &&
-        //     obj1.y + obj1.height > obj2.y) {
-        //     // collision detected!
-
-        //senda síðani signal fyri at vit hava fingið eina collision og kunnu broyta state
-        //fra
-
-    }
+    // public isCollided(){
+    //     iterates through all of the components to see if any position overlaps
+    //     kanska man kann bara kannað upp ímótir okkara bird, ella main character
+    //
+    //     if (obj1.x < obj2.x + obj2.width &&
+    //         obj1.x + obj1.width > obj2.x &&
+    //         obj1.y < objt2.y + objt2.height &&
+    //         obj1.y + obj1.height > obj2.y) {
+    //         // collision detected!
+    //
+    //     senda síðani signal fyri at vit hava fingið eina collision og kunnu broyta state
+    //     fra
+    //
+    // }
 
 
 }
