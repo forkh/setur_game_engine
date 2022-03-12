@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+//import { Engine, InputTriggerMap, AssetsType, GameObject, GameComponent, ControlMap } from './engine/Engine';
 import { Engine, InputTriggerMap, AssetsType, GameObject, GameComponent, ControlMap, ControllerComponent } from './engine/Engine';
 import GameLoop from './engine/GameLoop';
 
@@ -14,7 +15,8 @@ const inputMappings: InputTriggerMap = {
     'KeyS': down,
     'KeyA': left,
     'KeyD': right,
-    'KeyH': sideways
+    'KeyH': sideways,
+    'KeyR': () => {document.dispatchEvent(new Event("random"))}
 
 //    'KeyF': f2,
 //    'KeyR': f3
@@ -44,8 +46,6 @@ function f1() {
     console.log("Some shound should be heard!");
 }
 
-const go1: GameObject = new GameObject(1);
-go1.addBoxCollider();
 
 //function f2() {
 //    //obj2.getTransform().translate(3, 3);
@@ -59,7 +59,56 @@ go1.addBoxCollider();
 //}
 
 const engine: Engine = new Engine(inputMappings, soundMappings, assets);
+class BirdComponent extends GameComponent {
+    //private go: GameObject;
+    parent: GameObject;
+    private funky: any = (x: any) => {
+        console.log(x);
+    }
 
+    public constructor(go: GameObject) {
+        super(go);
+        this.parent = go;
+        console.log(go);
+        document.addEventListener("move_sideways", this.squeek.bind(this));
+        this.parent.getTransform().getPosition();
+    }
+
+    private squeek(): void {
+        //console.log("squeek!");
+        //console.log(this.parent);
+        //this.parent.getTransform().translate(3, 0);
+        //this.go.getTransform().getPosition();
+        //this.parent.getTransform();
+        //const go: GameObject = super.getParent();
+        //go.getTransform().translate(3, 0);
+    }
+
+
+}
+
+function birdup(go: GameObject): void {
+    go.getTransform().translate(25, 0);
+    console.log("GO: " + go);
+}
+
+const cm: ControlMap = {
+    'move_up': birdup,
+    'random': (go: GameObject) => {
+        go.getTransform().setPosition(3, 15);
+    }
+}
+
+
+const fuglur: GameObject = new GameObject(100);
+const gc: ControllerComponent = new ControllerComponent(fuglur, cm);
+fuglur.addBoxCollider();
+fuglur.addComponent(gc);
+fuglur.addComponent(new BirdComponent(fuglur));
+fuglur.addSprite("bird");
+
+
+engine.addGameObject(fuglur);
 engine.addTrack("s0", 0);
 engine.addTrack("s1", 1);
 engine.addTrack("s2", 2);
@@ -70,19 +119,6 @@ engine.addTrack("s4", 4);
 //let obj1: GameObject = new GameObject(1);
 //obj1.addSprite("bird");
 //engine.addGameObject(obj1);
-let playa: GameObject = new GameObject(1);
-
-function translateTest(go: GameObject) {
-    console.log("translateTest running");
-    go.getTransform().translate(3, 3);
-}
-
-const cm: InputTriggerMap = {
-    'move_sideways': () => {translateTest(playa)},
-}
-playa.addControllerComponent(cm);
-playa.addSprite("bird");
-engine.addGameObject(playa);
 
 //const obj2: GameObject = new GameObject(1);
 //obj2.addSprite("background");

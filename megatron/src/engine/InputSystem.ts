@@ -28,6 +28,7 @@ class InputSystem {
         this.triggers = {};
 
         for (let k in map) {
+            console.log("Registering input: '" + k + "' to " + map[k]);
             this.triggers[k] = map[k];
         }
     }

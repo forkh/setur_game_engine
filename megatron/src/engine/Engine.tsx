@@ -5,6 +5,7 @@ import { ReactNode } from 'react';
 import Canvas from './Canvas';
 import { CanvasProps } from './Canvas';
 //import { GameComponent, createComponent } from './GameComponent';
+//import { GameObject, GameComponent, ControlMap } from './GameObject';
 import { GameObject, GameComponent, ControlMap, ControllerComponent } from './GameObject';
 
 class Engine {
@@ -61,5 +62,6 @@ class Engine {
     }
 }
 
+//export { Engine, GameObject, GameComponent };//, ControllerComponent };
 export { Engine, GameObject, GameComponent, ControllerComponent };
 export type { InputTriggerMap, AssetsType, ControlMap };
