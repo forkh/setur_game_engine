@@ -1,6 +1,7 @@
 //import { System, Polygon, Circle } from "detect-collisions";
 //import React, {useState} from "react";
 import HitboxRectangle from "./HitBoxRectangle";
+import {Engine} from "./Engine";
 
 interface ICollider{ // havi ikki brúkt
     x : number;
@@ -8,15 +9,16 @@ interface ICollider{ // havi ikki brúkt
 }
 
 class CollisionSystem {
-    private hitBoxRectangle = new HitboxRectangle;
+    private hitBoxRectangle = new HitboxRectangle(1,2,3,4);
     private gameObjects : any = [];
     private collisionArray : any = [];
-
+    
     private static instance: CollisionSystem;
 
     private constructor() {};
 
     public static getInstance(): CollisionSystem {
+     
         if (!CollisionSystem.instance) {
             CollisionSystem.instance = new CollisionSystem();
         }

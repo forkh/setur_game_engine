@@ -96,9 +96,8 @@ class SpriteComponent extends GameComponent {
 class BoxColliderComponent extends GameComponent {
     public constructor(go: GameObject) {
         super(go);
-
     }
-
+    
 }
 
 export { GameComponent, GameObject };
