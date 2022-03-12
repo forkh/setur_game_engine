@@ -9,7 +9,7 @@ interface IStateConfig{
     onExit?: () => void
 }
 
-class StateMachine
+export default class StateMachine
 {
     private context?: any
     private name: string
@@ -25,7 +25,7 @@ class StateMachine
         this.name = name ?? 'fsm'
     }
 
-    public isCurrentState(name: string)
+    isCurrentState(name: string)
     {
        if (!this.currentState)
        {
@@ -34,7 +34,7 @@ class StateMachine
        return this.currentState.name === name
     }
 
-    public addState(name: string, config?:IStateConfig)
+    addState(name: string, config?:IStateConfig)
     {
         this.states.set(name, {
             name,
@@ -46,7 +46,7 @@ class StateMachine
         return this
     }
 
-    public setState(name: string)
+    setState(name: string)
     {
         if (!this.states.has(name))
         {
@@ -84,7 +84,7 @@ class StateMachine
        // return this
     }
 
-    public update(dt: number)
+    update(dt: number)
     {
         if (this.stateQueue.length > 0)
         {
@@ -108,6 +108,3 @@ class StateMachine
        // }
     }
 }
-
-export { StateMachine };
-export type { IStateConfig };

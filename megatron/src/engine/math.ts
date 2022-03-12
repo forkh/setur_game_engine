@@ -25,16 +25,6 @@ class Vector2d {
         return this;
     }
 
-    public addXY(x1: number, y1: number): void {
-        this.x += x1;
-        this.y += y1;
-    }
-
-    public setXY(x1: number, y1: number): void {
-        this.x = x1;
-        this.y = y1;
-    }
-
     public subtraction(v: Vector2d): Vector2d {
         this.x -= v.x;
         this.y -= v.y;
