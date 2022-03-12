@@ -5,7 +5,7 @@ import logo512 from "../logo512.png"
 //import {createComponent} from "./GameObject";
 //import {GameComponent} from "./GameObject"
 //import { GameComponent, createComponent } from './GameComponent';
-import { GameObject } from './GameObject';
+import { GameObject, BoxColliderType } from './GameObject';
 
 interface CanvasProps {
     //gameComponents: GameComponent[];
@@ -59,10 +59,28 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
             //canvasProps.gameComponents.forEach((gc) => {
                 if (go.isActive()) {
                     ctx.drawImage(go.getSprite(),
-                        go.getTransform().getPosition().getX(),
-                        go.getTransform().getPosition().getY());
-                    //console.log("=========ARRAY PRINT=======")
-                    //console.log(go.getObjectID() + ": (" + go.getTransform().getPosition().getY() + ", " + go.getTransform().getPosition().getY() + ")");
+                    go.getTransform().getPosition().getX(),
+                    go.getTransform().getPosition().getY());
+                    //console.log("================================");
+                    //console.log("components: " + go.getNumberOfComponents() + ", is true? " + go.hasBoxCollider());
+                    if (go.hasBoxCollider()) {
+                        let box: BoxColliderType | null = go.getBoxCollider();
+                        //console.log("box: " + box);
+                        if (box) {
+                            // console.log("box test");
+                            ctx.strokeStyle = "#ff0000";
+                            ctx.beginPath();
+                            ctx.rect(5, 5, 30, 30);
+                            //ctx.rect(go.getTransform().getPosition().getX(),
+                            //    go.getTransform().getPosition().getY(),
+                            //    box.width,
+                            //    box.height
+                            //);
+                            ctx.stroke();
+                        }
+                    }
+                    ////console.log("=========ARRAY PRINT=======")
+                    ////console.log(go.getObjectID() + ": (" + go.getTransform().getPosition().getY() + ", " + go.getTransform().getPosition().getY() + ")");
                 }
                 //console.log("printy");
             }, [])

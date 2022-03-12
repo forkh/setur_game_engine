@@ -3,6 +3,11 @@ import { Transform } from './Transform';
 import { StateMachine } from './StateMachine';
 import { InputSystem, InputTriggerMap } from './InputSystem';
 
+type BoxColliderType = {
+    width: number,
+    height: number
+}
+
 class GameObject {
     private static GLOBAL_OBJECTID: number = 1;
     private objectId: number;
@@ -34,7 +39,7 @@ class GameObject {
         let img = new Image();
         this.gameComponents.forEach((gc) => {
             if (gc instanceof SpriteComponent) {
-                console.log("Should print something! OID: " + gc.parent.objectId);
+                //console.log("Should print something! OID: " + gc.parent.objectId);
                 //console.log(gc.parent.transform.getPosition());
                 //gc.parent.transform.translate(25, 25);
                 //console.log(gc.parent.transform.getPosition());
@@ -45,9 +50,6 @@ class GameObject {
         return img;
     }
 
-    public addBoxCollider(): void {
-        this.gameComponents.push(new BoxColliderComponent(this));
-    }
 
     /**
      * @return boolean indicating wether object is active or not.
@@ -101,6 +103,37 @@ class GameObject {
 
     //    return null;
     //}
+
+    public getNumberOfComponents(): number {
+        return this.gameComponents.length;
+    }
+
+    public addBoxCollider(width: number, height: number): void {
+        this.gameComponents.push(new BoxColliderComponent(this, width, height));
+    }
+
+    public hasBoxCollider(): boolean {
+        let ret: boolean = false;
+        this.gameComponents.forEach((gc) => {
+            if (gc instanceof BoxColliderComponent) {
+                // console.log("hey!");
+                ret = true;
+            }
+        })
+
+        return ret;
+    }
+
+    public getBoxCollider(): BoxColliderType | null {
+        this.gameComponents.forEach((gc) => {
+            if (gc instanceof BoxColliderComponent) {
+                return gc.getBoxCollider();
+            }
+        })
+
+        return null;
+
+    }
 }
 
 
@@ -134,9 +167,35 @@ class SpriteComponent extends GameComponent {
 }
 
 class BoxColliderComponent extends GameComponent {
-    public constructor(go: GameObject) {
+    private width : number;
+    private height : number;
+    // private canvasRef = useRef(null); -- Kunnu ikki brúka react hooks í classum.
+
+    constructor (go: GameObject, width = 5, height = 5) {
         super(go);
+        this.width = width;
+        this.height = height;
     }
+
+    public getBoxCollider(): BoxColliderType {
+        const tmp: BoxColliderType = {width: this.width, height: this.height};
+        // console.log(tmp);
+        return tmp;
+    }
+
+
+
+// Gera eina function sum riggar við okkara canvas so man kann síggja okkara
+// rectangle
+//
+// private drawRectangle(x:number, y:number, width:number, height:number) {
+//     const canvas = this.canvasRef.current
+//     const rectangle = ctx.clearRect("2d");
+//     rectangle.beginPath();
+//     rectangle.rect(x, y, height, width);
+//     rectangle.stroke();
+//     return {x, y, height, width}
+// }
 }
 
 type ControlMap = {
@@ -172,4 +231,4 @@ class ControllerComponent extends GameComponent {
 }
 
 export { GameComponent, GameObject , ControllerComponent };
-export type { ControlMap };
+export type { ControlMap, BoxColliderType };

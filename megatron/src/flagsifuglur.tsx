@@ -7,6 +7,7 @@ import GameLoop from './engine/GameLoop';
 
 import assets from './assets.json';
 import soundMappings from './soundMappings.json';
+import { CollisionSystem } from './engine/CollisionSystem';
 
 const inputMappings: InputTriggerMap = {
     'KeyT': f1,
@@ -80,16 +81,31 @@ const cm: ControlMap = {
     }
 }
 
+document.addEventListener('collision', () => {
+    window.alert("COLLSION!");
+})
 
 const fuglur: GameObject = new GameObject(100);
 const gc: ControllerComponent = new ControllerComponent(fuglur, cm);
-fuglur.addBoxCollider();
 fuglur.addComponent(gc);
 fuglur.addComponent(new BirdComponent(fuglur));
 fuglur.addSprite("bird");
+fuglur.addBoxCollider(15,15);
 
 
 engine.addGameObject(fuglur);
+
+debugger;
+CollisionSystem.getInstance([fuglur]);
+
+const background: GameObject = new GameObject(100);
+//fuglur.addComponent(new BirdComponent(fuglur));
+background.addSprite("background");
+background.addBoxCollider(100,100);
+
+
+engine.addGameObject(background);
+
 engine.addTrack("s0", 0);
 engine.addTrack("s1", 1);
 engine.addTrack("s2", 2);

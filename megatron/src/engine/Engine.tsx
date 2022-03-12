@@ -7,6 +7,7 @@ import { CanvasProps } from './Canvas';
 //import { GameComponent, createComponent } from './GameComponent';
 //import { GameObject, GameComponent, ControlMap } from './GameObject';
 import { GameObject, GameComponent, ControlMap, ControllerComponent } from './GameObject';
+import { CollisionSystem } from './CollisionSystem';
 
 class Engine {
     //private static instance: Engine;
@@ -17,6 +18,7 @@ class Engine {
         ResourceManager.instantiateResourceManager(assets);
         AudioSystem.instantiateAudioSystem(soundMapping);
         InputSystem.instantiateInputSystem(inputMap);
+        //CollisionSystem.getInstance(this.gameObjects);
         // TODO: CollisionSystem:
 
         // TODO: PhysicsSystem:
@@ -32,6 +34,11 @@ class Engine {
     //        })
     //    })
     //}
+
+    // TODO: SLETTA!
+    public getObjects(): GameObject[] {
+        return this.gameObjects;
+    }
 
     public getImage(image: string): HTMLImageElement {
         return ResourceManager.getImage(image, false) as HTMLImageElement;
