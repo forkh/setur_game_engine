@@ -5,7 +5,7 @@ import logo512 from "../logo512.png"
 //import {createComponent} from "./GameObject";
 //import {GameComponent} from "./GameObject"
 //import { GameComponent, createComponent } from './GameComponent';
-import { GameObject } from './GameObject';
+import { GameObject, BoxColliderType } from './GameObject';
 
 interface CanvasProps {
     //gameComponents: GameComponent[];
@@ -58,6 +58,22 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
             //canvasProps.gameComponents.forEach((gc) => {
                 if (go.isActive()) {
                     ctx.drawImage(go.getSprite(), go.getTransform().position.getX(), go.getTransform().position.getY());
+                    if (go.hasBoxCollider()) {
+                        const box: BoxColliderType | null = go.getBoxCollider();
+                        if (box) {
+                            ctx.beginPath();
+                            ctx.rect(go.getTransform().position.getX(),
+                                go.getTransform().position.getY(),
+                                box.width,
+                                box.height
+                            )
+                        }
+//                         var c = document.getElementById("myCanvas");
+//var ctx = c.getContext("2d");
+//ctx.beginPath();
+//ctx.rect(20, 20, 150, 100);
+//ctx.stroke();
+                    }
                     console.log("=========ARRAY PRINT=======")
                 }
                 console.log("printy");

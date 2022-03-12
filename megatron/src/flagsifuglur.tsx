@@ -32,7 +32,9 @@ engine.addTrack("s3", 3);
 engine.addTrack("s4", 4);
 
 const obj1: GameObject = new GameObject();
-obj1.addSprite("bird");
+obj1.addSprite("background");
+obj1.addBoxCollider(13, 13);
+engine.addGameComponent(obj1);
 
 //const gc1: GameComponent = createComponent(25, 25, engine.getImage("bird").src);
 //engine.addGameComponent(gc1);
@@ -44,7 +46,6 @@ function FlagsiFuglur() {
     return (
         <div className={"FlagsiFuglur"}>
             {engine.run()}
-            <img src={"/assets/images/bird.png"}/>
         </div>
     );
 //    return (

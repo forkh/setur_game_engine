@@ -41,5 +41,6 @@ function setActive(component: GameComponent, status: boolean) {
     component.active = status;
 }
 
+
 export type {GameComponent};
 export {createComponent};

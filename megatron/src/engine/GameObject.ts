@@ -1,6 +1,11 @@
 import { ResourceManager } from './ResourceManager';
 import { Transform, new_transform } from './Transform';
 
+type BoxColliderType = {
+    width: number,
+    height: number
+}
+
 class GameObject {
     private gameComponents: GameComponent[];
     private active: boolean;
@@ -38,6 +43,31 @@ class GameObject {
     public addSprite(image: string) {
         this.gameComponents.push(new SpriteComponent(image, this));
     }
+
+    public addBoxCollider(width: number, height: number): void {
+        this.gameComponents.push(new BoxColliderComponent(this, width, height));
+    }
+
+    public hasBoxCollider(): boolean {
+        this.gameComponents.forEach((gc) => {
+            if (gc instanceof BoxColliderComponent) {
+                return true;
+            }
+        })
+
+        return false;
+    }
+
+    public getBoxCollider(): BoxColliderType | null {
+        this.gameComponents.forEach((gc) => {
+            if (gc instanceof BoxColliderComponent) {
+                return gc.getBoxColl();
+            }
+        })
+
+        return null;
+
+    }
 }
 
 
@@ -64,11 +94,34 @@ class SpriteComponent extends GameComponent {
 }
 
 class BoxColliderComponent extends GameComponent {
-    public constructor(go: GameObject) {
-        super(go);
+    private width : number;
+    private height : number;
+    // private canvasRef = useRef(null); -- Kunnu ikki brúka react hooks í classum.
 
+    constructor (go: GameObject, width = 5, height = 5) {
+        super(go);
+        this.width = width;
+        this.height = height;
     }
 
+    public getBoxColl(): BoxColliderType {
+        return {width: this.width, height: this.height};
+    }
+
+
+
+// Gera eina function sum riggar við okkara canvas so man kann síggja okkara
+// rectangle
+//
+// private drawRectangle(x:number, y:number, width:number, height:number) {
+//     const canvas = this.canvasRef.current
+//     const rectangle = ctx.clearRect("2d");
+//     rectangle.beginPath();
+//     rectangle.rect(x, y, height, width);
+//     rectangle.stroke();
+//     return {x, y, height, width}
+// }
 }
 
 export { GameComponent, GameObject };
+export type { BoxColliderType };

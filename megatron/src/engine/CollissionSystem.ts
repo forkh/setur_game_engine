@@ -2,6 +2,7 @@
 //import React, {useState} from "react";
 import HitboxRectangle from "./HitBoxRectangle";
 import {Engine} from "./Engine";
+import { GameObject } from './GameObject';
 
 interface ICollider{ // havi ikki brúkt
     x : number;
@@ -10,17 +11,19 @@ interface ICollider{ // havi ikki brúkt
 
 class CollisionSystem {
     private hitBoxRectangle = new HitboxRectangle(1,2,3,4);
-    private gameObjects : any = [];
+    private gameObjects: GameObject[];
     private collisionArray : any = [];
     
     private static instance: CollisionSystem;
 
-    private constructor() {};
+    private constructor(gameObjects: GameObject[]) {
+        this.gameObjects = gameObjects;
+    };
 
-    public static getInstance(): CollisionSystem {
+    public static getInstance(gameObjects: GameObject[]): CollisionSystem {
      
         if (!CollisionSystem.instance) {
-            CollisionSystem.instance = new CollisionSystem();
+            CollisionSystem.instance = new CollisionSystem(gameObjects);
         }
         return CollisionSystem.instance;
     }
@@ -45,12 +48,12 @@ class CollisionSystem {
      *  if it has, pop and add too isCollided array
       */
 
-    public hasCollider(){
-        if (this.gameObjects.includes(this.hitBoxRectangle) )
-        {
-            this.collisionArray.push(this.gameObjects)
-        }
-    }
+    //public hasCollider(){
+    //    if (this.gameObjects.includes(this.hitBoxRectangle) )
+    //    {
+    //        this.collisionArray.push(this.gameObjects)
+    //    }
+    //}
 
     // public isCollided(){
     //     iterates through all of the components to see if any position overlaps
