@@ -6,6 +6,7 @@ import logo512 from "../logo512.png"
 //import {GameComponent} from "./GameObject"
 //import { GameComponent, createComponent } from './GameComponent';
 import { GameObject, BoxColliderType } from './GameObject';
+import { Engine } from './Engine';
 
 interface CanvasProps {
     //gameComponents: GameComponent[];
@@ -70,7 +71,7 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                     let box: BoxColliderType = go.getBoxCollider();
                     //console.log(box.exists);
                     //if (go.hasBoxCollider()) {
-                    if (box.exists) {
+                    if (!Engine.getDebugState() && box.exists) {
                         let box: BoxColliderType = go.getBoxCollider();
                         //console.log("box: " + box.exists);
                         if (box.exists) {

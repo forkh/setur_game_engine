@@ -16,12 +16,20 @@ class Engine {
     private gameObjects: GameObject[] = [];// = [new GameObject(-1)];
     private collisionObjects: GameObject[] = [];
     //private gameObjects: GameObject[] = new Array<GameObject>();
+    private static debug: boolean = false;
 
     public registerCollisionObject(gameObject: GameObject): void {
         this.collisionObjects.push(gameObject);
     }
-    
+
+    public static getDebugState(): boolean {
+        return this.debug;
+    }
+
     public constructor(inputMap: InputTriggerMap, soundMapping: EventSounds, assets: AssetsType) {
+        document.addEventListener("toggle_debug", () => {
+            Engine.debug = !Engine.debug;
+        })
         //this.gameObjects = [];
         ResourceManager.instantiateResourceManager(assets);
         AudioSystem.instantiateAudioSystem(soundMapping);
@@ -52,9 +60,9 @@ class Engine {
     //}
 
     // TODO: SLETTA!
-    public getObjects(): GameObject[] {
-        return this.gameObjects;
-    }
+    //public getObjects(): GameObject[] {
+    //    return this.gameObjects;
+    //}
 
     public getImage(image: string): HTMLImageElement {
         return ResourceManager.getImage(image, false) as HTMLImageElement;
@@ -87,6 +95,7 @@ class Engine {
     public startCollisionsChecking(): void {
         setInterval(this.checkForCollisions.bind(this), 1000);
     }
+
     private checkForCollisions(): void {
         console.log("Checking for collisions");
         //this.gameObjects.forEach((go1: GameObject) => {
@@ -123,6 +132,22 @@ class Engine {
             }
         }
     }
+    
+    public sortingGameObjects(): void {
+        this.gameObjects.sort(compareZIndex);
+    }
+}
+
+function compareZIndex(go1: GameObject, go2: GameObject): number {
+    if(go1.getZIndex() < go2.getZIndex()) {
+        return -1;
+    }
+
+    if (go1.getZIndex() > go2.getZIndex()) {
+        return 1;
+    }
+
+    return 0;
 }
 
 //export { Engine, GameObject, GameComponent };//, ControllerComponent };

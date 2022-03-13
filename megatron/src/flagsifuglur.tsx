@@ -14,40 +14,11 @@ const inputMappings: InputTriggerMap = {
     'KeyS': () => {document.dispatchEvent(new Event("move_down1"))},
     'KeyA': () => {document.dispatchEvent(new Event("move_left1"))},
     'KeyD': () => {document.dispatchEvent(new Event("move_right1"))},
-    'KeyI': () => {document.dispatchEvent(new Event("move_up2"))},
-    'KeyK': () => {document.dispatchEvent(new Event("move_down2"))},
-    'KeyJ': () => {document.dispatchEvent(new Event("move_left2"))},
-    'KeyL': () => {document.dispatchEvent(new Event("move_right2"))},
-    'KeyR': () => {document.dispatchEvent(new Event("random"))}
-}
-function sideways() {
-    document.dispatchEvent(new Event("move_sideways"));
-
-}
-
-function up() {
-    document.dispatchEvent(new Event("move_up"));
-}
-
-function down() {
-    document.dispatchEvent(new Event("move_down"));
-}
-
-function left() {
-    document.dispatchEvent(new Event("move_left"));
-}
-
-function right() {
-    document.dispatchEvent(new Event("move_right"));
-}
-
-function f1() {
-    console.log("Some shound should be heard!");
+    'KeyR': () => {document.dispatchEvent(new Event("random"))},
+    'F1': () => {document.dispatchEvent(new Event("toggle_debug"))}
 }
 
 let engine: Engine = new Engine(inputMappings, soundMappings, assets);
-
-console.log(engine.getObjects());
 
 // Extend GameComponent for specialization
 //class BirdComponent extends GameComponent {
@@ -116,7 +87,7 @@ document.addEventListener('collision', () => {
     window.alert("!!!!!!!!!!!!!!!!!!!!!COLLSION!!!!!!!!!!!!!!!!!!");
 })
 
-const fuglur: GameObject = new GameObject(100);
+const fuglur: GameObject = new GameObject(50);
 const gc: ControllerComponent = new ControllerComponent(fuglur, cm);
 fuglur.addComponent(gc);
 //fuglur.addComponent(new BirdComponent(fuglur));
@@ -125,7 +96,7 @@ fuglur.addBoxCollider(15,15);
 engine.addGameObject(fuglur);
 
 
-const fuglur2: GameObject = new GameObject(100);
+const fuglur2: GameObject = new GameObject(10);
 const gc2: ControllerComponent = new ControllerComponent(fuglur2, cm2);
 fuglur2.addComponent(gc2);
 //fuglur.addComponent(new BirdComponent(fuglur));

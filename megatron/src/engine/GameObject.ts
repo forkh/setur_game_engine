@@ -193,6 +193,10 @@ class GameObject {
         //return null;
 
     }
+    
+    public getZIndex(): number {
+        return this.zIndex;
+    }
 }
 
 
