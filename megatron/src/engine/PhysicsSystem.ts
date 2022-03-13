@@ -40,7 +40,7 @@ class PhysicsSystem {
     //public step(dt: number, physicsProps: PhysicsProps): void { // havi broytt so Gameobject ikki hevur access til force, velocity og mass
     public step(): void { // havi broytt so Gameobject ikki hevur access til force, velocity og mass
         let dt: number = 10;
-        let m_gravity: number = 80;
+        let m_gravity: number = 60;
         //console.log("========================GRAVITY=====================")
         //console.log(physicsProps.gameObjects)
 
@@ -80,7 +80,7 @@ class PhysicsSystem {
 
 
                 rb.rigidBody.force = Vector2d.zero;
-                rb.rigidBody.force2 = Vector2d.zero;
+                rb.rigidBody.force2 = Vector2d.multiply(rb.rigidBody.force2, 0.9);
                 //console.log(go.getTransform().getPosition())
             }
         }
