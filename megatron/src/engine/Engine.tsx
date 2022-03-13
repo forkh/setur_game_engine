@@ -76,6 +76,7 @@ class Engine {
     public run(): ReactNode {
         const gameLoop: any = GameLoop();
         const canvasProps: CanvasProps = {
+            // TODO: Broyt til at hetta verður definera í game design, ikki engine
             objects: this.gameObjects,
             height: window.innerHeight * 0.75,
             width: window.innerHeight * 0.75 * 0.5625
@@ -88,7 +89,7 @@ class Engine {
     public addGameObject(gameObject: GameObject): void {
         this.gameObjects.push(gameObject);
         // TODO: Ger so at tað verður sortera eftir zIndex propery hjá GameObject
-        this.gameObjects.sort();
+        this.gameObjects.sort(compareZIndex);
     }
 
     public addControllerListener(key: string, func: (() => {})): void {

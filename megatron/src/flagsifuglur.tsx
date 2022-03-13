@@ -10,6 +10,9 @@ import assets from './assets.json';
 import soundMappings from './soundMappings.json';
 import { CollisionSystem, CollisionProps } from './engine/CollisionSystem';
 
+let CANVAS_HEIGHT: number = window.innerHeight * 0.75;
+let CANVAS_WIDTH: number  = window.innerHeight * 0.75 * 0.5675;
+
 const inputMappings: InputTriggerMap = {
     'KeyW': () => {document.dispatchEvent(new Event("move_up1"))},
     'KeyS': () => {document.dispatchEvent(new Event("move_down1"))},
@@ -124,7 +127,7 @@ fuglur.addBoxCollider(64,64);
 engine.addGameObject(fuglur);
 
 
-const fuglur2: GameObject = new GameObject(10);
+const fuglur2: GameObject = new GameObject(50);
 const gc2: ControllerComponent = new ControllerComponent(fuglur2, cm2);
 fuglur2.addComponent(gc2);
 //fuglur.addComponent(new BirdComponent(fuglur));
@@ -137,6 +140,94 @@ engine.addGameObject(fuglur2);
 //    gameObjects: [fuglur]
 //}
 //CollisionSystem.getInstance(colProp);
+
+type pipe_pair = {
+    upper_pipe: GameObject,
+    lower_pipe: GameObject
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+function getRandomArbitrary(min: number, max: number): number {
+  return Math.random() * (max - min) + min;
+}
+
+
+class FlagsiFuglurSpael {
+    private PIPERUS: pipe_pair[];
+
+    public constructor() {
+        this.PIPERUS = [];
+    }
+
+    public update(): void {
+        this.PIPERUS.forEach((pipes) => {
+            if (pipes.upper_pipe.getTransform().getPosition().getX() < -pipes.upper_pipe.getSprite().width) {
+                var height: number = getRandomArbitrary(-1400, -1350);
+                console.log(`new height: ${height}`);
+                console.log(pipes.upper_pipe.getTransform().getPosition().getX());
+                console.log(pipes.lower_pipe.getTransform().getPosition().getY());
+                pipes.upper_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.upper_pipe.getSprite().width, height/4);
+                //pipes.upper_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.upper_pipe.getSprite().width, height/4);
+                pipes.lower_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.lower_pipe.getSprite().width, height/4+100+CANVAS_HEIGHT);
+                console.log(pipes.upper_pipe.getTransform().getPosition().getX());
+                console.log(pipes.lower_pipe.getTransform().getPosition().getY());
+            }
+            pipes.upper_pipe.getTransform().translate(-5, 0);
+            pipes.lower_pipe.getTransform().translate(-5, 0);
+            //if (pipe.getTransform().getPosition().getX() < -pipe.getSprite().width) {
+            //    pipe.getTransform().setPosition(CANVAS_WIDTH + pipe.getSprite().width, 0);
+            //}
+            //pipe.getTransform().translate(-5, 0);
+
+        })
+    }
+
+    public start(updateInterval: number): void {
+        setInterval(this.update.bind(this), updateInterval);
+    }
+
+    public addPipePair(p1: GameObject, p2: GameObject): void {
+        const pp: pipe_pair = {
+            upper_pipe: p1,
+            lower_pipe: p2
+        }
+        this.PIPERUS.push(pp);
+    }
+}
+
+//const PIPERU: GameObject = new GameObject(35);
+//PIPERU.addSprite("PIPERU");
+//PIPERU.addBoxCollider(128, 128);
+//PIPERU.getTransform().setPosition(1200, 0);
+//engine.addGameObject(PIPERU);
+engine.registerCollisionObject(fuglur2);
+
+const p11: GameObject = new GameObject(35);
+p11.addSprite("megapipe");
+p11.addBoxCollider(150, 1536);
+p11.getTransform().setPosition(1600, 0);
+engine.addGameObject(p11);
+const p12: GameObject = new GameObject(35);
+p12.addSprite("megapipe");
+p12.addBoxCollider(150, 1536);
+p12.getTransform().setPosition(1600, 1636);
+engine.addGameObject(p11);
+
+//const p2: GameObject = new GameObject(35);
+//p2.addSprite("megapipe");
+//p2.addBoxCollider(150, 1536);
+//p2.getTransform().setPosition(2000, 0);
+//engine.addGameObject(p2);
+//
+//const p3: GameObject = new GameObject(35);
+//p3.addSprite("megapipe");
+//p3.addBoxCollider(150, 1536);
+//p3.getTransform().setPosition(2400, 0);
+//engine.addGameObject(p3);
+
+const FFS: FlagsiFuglurSpael = new FlagsiFuglurSpael();
+FFS.addPipePair(p11, p12);
+FFS.start(20);
 
 const background: GameObject = new GameObject(1000);
 ////fuglur.addComponent(new BirdComponent(fuglur));

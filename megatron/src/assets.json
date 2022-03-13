@@ -3,7 +3,9 @@
     "bird":  "bird.png",
     "background": "Background5.png",
     "background42":  "backgrund.png",
-    "uberbg": "uberbakgrund.png"
+    "uberbg": "uberbakgrund.png",
+    "PIPERU": "PIPERU.png",
+    "megapipe": "megapipe.png"
   },
   "audio": {
     "s0":  "s0.wav",
