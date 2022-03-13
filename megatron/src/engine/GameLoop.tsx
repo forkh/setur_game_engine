@@ -17,8 +17,8 @@ useFrameLoop((time: number, deltaTime: number) => {
     setTime(time);
     setDeltaTime(deltaTime);
 
-    console.log(time);
-    console.log(deltaTime);
+    //console.log(time);
+    //console.log(deltaTime);
 
 });
     return<Fragment>
