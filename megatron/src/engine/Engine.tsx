@@ -95,7 +95,7 @@ class Engine {
     }
 
     public startCollisionsChecking(): void {
-        setInterval(this.checkForCollisions.bind(this), 1000);
+        setInterval(this.checkForCollisions.bind(this), 20);
     }
 
     private checkForCollisions(): void {
