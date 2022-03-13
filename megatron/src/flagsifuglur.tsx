@@ -131,6 +131,7 @@ fuglur2.addComponent(gc2);
 //fuglur.addComponent(new BirdComponent(fuglur));
 fuglur2.addSprite("bird");
 fuglur2.addBoxCollider(64, 64);
+fuglur2.addRigidBodyComponent(fuglur2);
 engine.addGameObject(fuglur2);
 
 //let colProp: CollisionProps = {

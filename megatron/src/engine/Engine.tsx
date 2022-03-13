@@ -8,6 +8,8 @@ import { CanvasProps } from './Canvas';
 //import { GameObject, GameComponent, ControlMap } from './GameObject';
 import { GameObject, GameComponent, ControlMap, ControllerComponent } from './GameObject';
 import { CollisionSystem, CollisionProps } from './CollisionSystem';
+import PhysicsSystem from './PhysicsSystem';
+import { PhysicsProps, RigidBodyProps } from './PhysicsSystem';
 
 class Engine {
     //private static instance: Engine;
@@ -24,6 +26,8 @@ class Engine {
         ResourceManager.instantiateResourceManager(assets);
         AudioSystem.instantiateAudioSystem(soundMapping);
         InputSystem.instantiateInputSystem(inputMap);
+        PhysicsSystem.instantiatePhysicsSystem(this.gameObjects);
+        PhysicsSystem.start();
         //setInterval()
         //const collisionProp: CollisionProps = {
         //    gameObjects: this.gameObjects

@@ -68,11 +68,11 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                     //console.log("================================");
                     //console.log("components: " + go.getNumberOfComponents() + ", is true? " + go.hasBoxCollider());
                     let box: BoxColliderType = go.getBoxCollider();
-                    console.log(box.exists);
+                    //console.log(box.exists);
                     //if (go.hasBoxCollider()) {
                     if (box.exists) {
                         let box: BoxColliderType = go.getBoxCollider();
-                        console.log("box: " + box.exists);
+                        //console.log("box: " + box.exists);
                         if (box.exists) {
                             // console.log("box test");
                             ctx.strokeStyle = "#ff0000";
@@ -81,7 +81,7 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                             let y: number = go.getTransform().getPosition().getY();
                             let w: number = go.getBoxCollider().width;
                             let h: number = go.getBoxCollider().height;
-                            console.log(`x: ${x}, y: ${y}, w: ${w}, h: ${h}`);
+                            //console.log(`x: ${x}, y: ${y}, w: ${w}, h: ${h}`);
                             ctx.rect(x-w/2, y-h/2, w, h);
                             //ctx.rect(go.getTransform().getPosition().getX(),
                             //    go.getTransform().getPosition().getY(),

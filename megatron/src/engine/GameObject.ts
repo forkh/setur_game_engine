@@ -2,6 +2,8 @@ import { ResourceManager } from './ResourceManager';
 import { Transform } from './Transform';
 import { StateMachine } from './StateMachine';
 import { InputSystem, InputTriggerMap } from './InputSystem';
+import { Vector2d} from './math';
+import { RigidBodyProps } from './PhysicsSystem';
 
 type BoxColliderType = {
     width: number,
@@ -72,6 +74,43 @@ class GameObject {
      */
     public addSprite(image: string) {
         this.gameComponents.push(new SpriteComponent(image, this));
+    }
+    
+        public addRigidBodyComponent(go: GameObject): void{
+        this.gameComponents.push(new RigidBodyComponent(go));
+
+    }
+    public hasRigidBodyComponent(): boolean {
+        for (let i = 0; i < this.gameComponents.length; i++) {
+            if (this.gameComponents[i] instanceof  RigidBodyComponent) {
+                return true;
+            }
+        }
+        return false;
+        //this.gameComponents.forEach((gc) => {
+        //    if (gc instanceof RigidBodyComponent) {
+        //        //console.log("test has rigidbody")
+        //        return true;
+        //    }
+        //})
+        //return false;
+    }
+
+    public getRigidBodyComponent(): RigidBodyProps {
+        let rb: RigidBodyProps = {
+            hasRigidBody: false,
+            rigidBody: null
+        }
+
+        for (let i = 0; i < this.gameComponents.length; i++) {
+            if (this.gameComponents[i] instanceof RigidBodyComponent) {
+                rb.rigidBody = this.gameComponents[i];
+                rb.hasRigidBody = true;
+                break;
+            }
+        }
+
+        return rb;
     }
 
     //public addControllerComponent(controls: ControlMap): void {
@@ -258,5 +297,23 @@ class ControllerComponent extends GameComponent {
     }
 }
 
-export { GameComponent, GameObject , ControllerComponent };
+class RigidBodyComponent extends GameComponent { // testing
+    public force: Vector2d;
+    public mass: number;
+    public velocity: Vector2d;
+
+    public constructor(go: GameObject) {
+        super(go);
+        this.force = Vector2d.zero; // testing
+        this.mass = 1; // testing
+        this.velocity = Vector2d.zero;
+    }
+
+    public getRigidBodyComponent(): RigidBodyComponent {
+        return this;
+    }
+
+}
+
+export { GameComponent, GameObject , ControllerComponent, RigidBodyComponent };
 export type { ControlMap, BoxColliderType };

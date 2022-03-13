@@ -62,7 +62,15 @@ class Vector2d {
     public static multiply(v1: Vector2d, s: number): Vector2d {
         return new Vector2d(v1.x * s, v1.y * s);
     }
+    
+    static addition(vector1: Vector2d, vector2: Vector2d): Vector2d {
+        return new Vector2d(vector1.x + vector2.x, vector1.y + vector2.y);
+    }
 
+    static division(vector1: Vector2d, scalar: number): Vector2d {
+        return new Vector2d(vector1.x / scalar, vector1.y / scalar);
+    }
+    
     public static get zero(): Vector2d {
         return new Vector2d(0, 0);
     }
