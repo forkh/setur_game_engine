@@ -4,6 +4,7 @@ import './App.css';
 //import { Engine, InputTriggerMap, AssetsType, GameObject, GameComponent, ControlMap } from './engine/Engine';
 import { Engine, InputTriggerMap, AssetsType, GameObject, GameComponent, ControlMap, ControllerComponent } from './engine/Engine';
 import GameLoop from './engine/GameLoop';
+import { Vector2d } from './engine/math';
 
 import assets from './assets.json';
 import soundMappings from './soundMappings.json';
@@ -15,7 +16,8 @@ const inputMappings: InputTriggerMap = {
     'KeyA': () => {document.dispatchEvent(new Event("move_left1"))},
     'KeyD': () => {document.dispatchEvent(new Event("move_right1"))},
     'KeyR': () => {document.dispatchEvent(new Event("random"))},
-    'F1': () => {document.dispatchEvent(new Event("toggle_debug"))}
+    'F1': () => {document.dispatchEvent(new Event("toggle_debug"))},
+    'Space': () => {document.dispatchEvent(new Event("whip"))},
 }
 
 let engine: Engine = new Engine(inputMappings, soundMappings, assets);
@@ -64,11 +66,18 @@ const cm2: ControlMap = {
     'move_down2': move_down,
     'move_left2': move_left,
     'move_right2': move_right,
+    'whip': whip,
     //'random': (go: GameObject) => {
     //    go.getTransform().setPosition(3, 15);
     //}
 }
 
+function whip(go: GameObject): void {
+    console.log("Whip!");
+    let force: Vector2d = Vector2d.zero;
+    force.setXY(0, -1000);
+    go.addForce(force);
+}
 
 function move_right(go: GameObject): void {
     go.getTransform().translate(1, 0);
@@ -86,6 +95,7 @@ function move_down(go: GameObject): void {
 document.addEventListener('collision', () => {
     window.alert("!!!!!!!!!!!!!!!!!!!!!COLLSION!!!!!!!!!!!!!!!!!!");
 })
+
 
 const fuglur: GameObject = new GameObject(50);
 const gc: ControllerComponent = new ControllerComponent(fuglur, cm);
@@ -110,12 +120,12 @@ engine.addGameObject(fuglur2);
 //}
 //CollisionSystem.getInstance(colProp);
 
-//const background: GameObject = new GameObject(100);
+const background: GameObject = new GameObject(1000);
 ////fuglur.addComponent(new BirdComponent(fuglur));
-//background.addSprite("background");
+background.addSprite("background");
 //background.addBoxCollider(100,100);
 //engine.addGameObject(background);
-
+//engine.sortingGameObjects();
 //CollisionSystem.start();
 
 engine.addTrack("s0", 0);

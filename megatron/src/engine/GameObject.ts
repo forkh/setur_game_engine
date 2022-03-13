@@ -197,6 +197,14 @@ class GameObject {
     public getZIndex(): number {
         return this.zIndex;
     }
+
+    public addForce(force: Vector2d): void {
+        if (this.hasRigidBodyComponent()) {
+            console.log("Adding force");
+            const rb: RigidBodyComponent = this.getRigidBodyComponent().rigidBody;
+            rb.addForce(force);
+        }
+    }
 }
 
 
@@ -305,16 +313,22 @@ class RigidBodyComponent extends GameComponent { // testing
     public force: Vector2d;
     public mass: number;
     public velocity: Vector2d;
+    public force2: Vector2d;
 
     public constructor(go: GameObject) {
         super(go);
         this.force = Vector2d.zero; // testing
         this.mass = 1; // testing
         this.velocity = Vector2d.zero;
+        this.force2 = Vector2d.zero;
     }
 
     public getRigidBodyComponent(): RigidBodyComponent {
         return this;
+    }
+
+    public addForce(force: Vector2d) {
+        this.force2 = force;
     }
 
 }

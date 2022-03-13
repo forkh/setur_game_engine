@@ -22,7 +22,7 @@ class PhysicsSystem {
     }
 
     public static start(): void {
-        setInterval(PhysicsSystem.instance.step, 50);
+        setInterval(PhysicsSystem.instance.step, 10);
     }
 
     //public static instantiatePhysicsSystem(): void {
@@ -39,9 +39,9 @@ class PhysicsSystem {
 
     //public step(dt: number, physicsProps: PhysicsProps): void { // havi broytt so Gameobject ikki hevur access til force, velocity og mass
     public step(): void { // havi broytt so Gameobject ikki hevur access til force, velocity og mass
-        let dt: number = 40;
-        let m_gravity: number = 5.50;
-        console.log("========================GRAVITY=====================")
+        let dt: number = 10;
+        let m_gravity: number = 80;
+        //console.log("========================GRAVITY=====================")
         //console.log(physicsProps.gameObjects)
 
         for (let i = 0; i < PhysicsSystem.getInstance().gameObjects.length; i++) {
@@ -49,14 +49,17 @@ class PhysicsSystem {
             //let test:Vector2d = Vector2d.multiply1(go.force, (go.mass * m_gravity))
             //console.log(go.getRigidBodyComponent())
             let go: GameObject = PhysicsSystem.getInstance().gameObjects[i];
-            console.log(go.hasRigidBodyComponent())
+            //console.log(go.hasRigidBodyComponent())
             let rb: RigidBodyProps = go.getRigidBodyComponent();
             if (rb.hasRigidBody) {
 
                 let vector1: Vector2d = Vector2d.zero
 
+                rb.rigidBody.force = Vector2d.addition(rb.rigidBody.force, rb.rigidBody.force2);
+
                 //test.setXY(0, go.getRigidBodyComponent().mass * m_gravity)
                 vector1.setXY(0, rb.rigidBody.mass * m_gravity)
+                //vector1.setXY(0, rb.rigidBody.mass * m_gravity)
 
                 //console.log(test)
 
@@ -75,8 +78,10 @@ class PhysicsSystem {
 
                 go.getTransform().setPosition(0, rb.rigidBody.velocity.getY())
 
+
                 rb.rigidBody.force = Vector2d.zero;
-                console.log(go.getTransform().getPosition())
+                rb.rigidBody.force2 = Vector2d.zero;
+                //console.log(go.getTransform().getPosition())
             }
         }
 
