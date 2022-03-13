@@ -54,23 +54,35 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
             //array.forEach((x) => {
             //    ctx.drawImage(x, 25, 25);
             //})
-            canvasProps.objects.forEach((go) => {
-                //console.log("Object ID: " + go.getObjectID());
-            //canvasProps.gameComponents.forEach((gc) => {
+
+            //canvasProps.objects
+            for (let i = 0; i < canvasProps.objects.length; i++) {
+                let go: GameObject = canvasProps.objects[i];
+
                 if (go.isActive()) {
                     ctx.drawImage(go.getSprite(),
-                    go.getTransform().getPosition().getX(),
-                    go.getTransform().getPosition().getY());
+                        go.getTransform().getPosition().getX() 
+                        - go.getSprite().width / 2,
+                        go.getTransform().getPosition().getY()
+                        - go.getSprite().height / 2);
                     //console.log("================================");
                     //console.log("components: " + go.getNumberOfComponents() + ", is true? " + go.hasBoxCollider());
-                    if (go.hasBoxCollider()) {
-                        let box: BoxColliderType | null = go.getBoxCollider();
-                        //console.log("box: " + box);
-                        if (box) {
+                    let box: BoxColliderType = go.getBoxCollider();
+                    console.log(box.exists);
+                    //if (go.hasBoxCollider()) {
+                    if (box.exists) {
+                        let box: BoxColliderType = go.getBoxCollider();
+                        console.log("box: " + box.exists);
+                        if (box.exists) {
                             // console.log("box test");
                             ctx.strokeStyle = "#ff0000";
                             ctx.beginPath();
-                            ctx.rect(5, 5, 30, 30);
+                            let x: number = go.getTransform().getPosition().getX();
+                            let y: number = go.getTransform().getPosition().getY();
+                            let w: number = go.getBoxCollider().width;
+                            let h: number = go.getBoxCollider().height;
+                            console.log(`x: ${x}, y: ${y}, w: ${w}, h: ${h}`);
+                            ctx.rect(x-w/2, y-h/2, w, h);
                             //ctx.rect(go.getTransform().getPosition().getX(),
                             //    go.getTransform().getPosition().getY(),
                             //    box.width,
@@ -82,8 +94,38 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                     ////console.log("=========ARRAY PRINT=======")
                     ////console.log(go.getObjectID() + ": (" + go.getTransform().getPosition().getY() + ", " + go.getTransform().getPosition().getY() + ")");
                 }
-                //console.log("printy");
-            }, [])
+            }
+
+            //canvasProps.objects.forEach((go) => {
+            //    //console.log("Object ID: " + go.getObjectID());
+            ////canvasProps.gameComponents.forEach((gc) => {
+            //    if (go.isActive()) {
+            //        ctx.drawImage(go.getSprite(),
+            //        go.getTransform().getPosition().getX(),
+            //        go.getTransform().getPosition().getY());
+            //        //console.log("================================");
+            //        //console.log("components: " + go.getNumberOfComponents() + ", is true? " + go.hasBoxCollider());
+            //        if (go.hasBoxCollider()) {
+            //            let box: BoxColliderType | null = go.getBoxCollider();
+            //            //console.log("box: " + box);
+            //            if (box) {
+            //                // console.log("box test");
+            //                ctx.strokeStyle = "#ff0000";
+            //                ctx.beginPath();
+            //                ctx.rect(5, 5, 30, 30);
+            //                //ctx.rect(go.getTransform().getPosition().getX(),
+            //                //    go.getTransform().getPosition().getY(),
+            //                //    box.width,
+            //                //    box.height
+            //                //);
+            //                ctx.stroke();
+            //            }
+            //        }
+            //        ////console.log("=========ARRAY PRINT=======")
+            //        ////console.log(go.getObjectID() + ": (" + go.getTransform().getPosition().getY() + ", " + go.getTransform().getPosition().getY() + ")");
+            //    }
+            //    //console.log("printy");
+            //}, [])
 
 
 

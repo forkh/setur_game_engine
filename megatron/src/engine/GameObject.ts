@@ -5,7 +5,8 @@ import { InputSystem, InputTriggerMap } from './InputSystem';
 
 type BoxColliderType = {
     width: number,
-    height: number
+    height: number,
+    exists: boolean
 }
 
 class GameObject {
@@ -124,14 +125,33 @@ class GameObject {
         return ret;
     }
 
-    public getBoxCollider(): BoxColliderType | null {
-        this.gameComponents.forEach((gc) => {
-            if (gc instanceof BoxColliderComponent) {
-                return gc.getBoxCollider();
+    public getBoxCollider(): BoxColliderType {
+        let i = 0;
+        let exists: boolean = false;
+        for (i = 0; i < this.gameComponents.length; i++) {
+            if (this.gameComponents[i] instanceof BoxColliderComponent) {
+                exists = true;
+                break;
             }
-        })
+        }
+        
+        let gc: BoxColliderComponent = this.gameComponents[i] as BoxColliderComponent;
+        
+        
+        const box: BoxColliderType = {
+            width: exists ? gc.getWidth() : 0,
+            height: exists ? gc.getHeight() : 0,
+            exists: exists
+        }
+        
+        return box;
+        //this.gameComponents.forEach((gc) => {
+        //    if (gc instanceof BoxColliderComponent) {
+        //        return gc.getBoxCollider();
+        //    }
+        //})
 
-        return null;
+        //return null;
 
     }
 }
@@ -178,9 +198,17 @@ class BoxColliderComponent extends GameComponent {
     }
 
     public getBoxCollider(): BoxColliderType {
-        const tmp: BoxColliderType = {width: this.width, height: this.height};
+        const tmp: BoxColliderType = {width: this.width, height: this.height, exists: true };
         // console.log(tmp);
         return tmp;
+    }
+    
+    public getWidth(): number {
+        return this.width;
+    }
+    
+    public getHeight(): number {
+        return this.height;
     }
 
 

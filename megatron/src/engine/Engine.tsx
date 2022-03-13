@@ -7,18 +7,30 @@ import { CanvasProps } from './Canvas';
 //import { GameComponent, createComponent } from './GameComponent';
 //import { GameObject, GameComponent, ControlMap } from './GameObject';
 import { GameObject, GameComponent, ControlMap, ControllerComponent } from './GameObject';
-import { CollisionSystem } from './CollisionSystem';
+import { CollisionSystem, CollisionProps } from './CollisionSystem';
 
 class Engine {
     //private static instance: Engine;
-    private gameObjects: GameObject[];
+    private gameObjects: GameObject[] = [];// = [new GameObject(-1)];
+    private collisionObjects: GameObject[] = [];
+    //private gameObjects: GameObject[] = new Array<GameObject>();
 
+    public registerCollisionObject(gameObject: GameObject): void {
+        this.collisionObjects.push(gameObject);
+    }
+    
     public constructor(inputMap: InputTriggerMap, soundMapping: EventSounds, assets: AssetsType) {
-        this.gameObjects = [];
+        //this.gameObjects = [];
         ResourceManager.instantiateResourceManager(assets);
         AudioSystem.instantiateAudioSystem(soundMapping);
         InputSystem.instantiateInputSystem(inputMap);
-        //CollisionSystem.getInstance(this.gameObjects);
+        //setInterval()
+        //const collisionProp: CollisionProps = {
+        //    gameObjects: this.gameObjects
+        //}
+        //setInterval(this.checkForCollisions, 2000);
+        //CollisionSystem.getInstance(collisionProp);
+        //CollisionSystem.start();
         // TODO: CollisionSystem:
 
         // TODO: PhysicsSystem:
@@ -66,6 +78,46 @@ class Engine {
     }
 
     public addControllerListener(key: string, func: (() => {})): void {
+    }
+
+    public startCollisionsChecking(): void {
+        setInterval(this.checkForCollisions.bind(this), 1000);
+    }
+    private checkForCollisions(): void {
+        console.log("Checking for collisions");
+        //this.gameObjects.forEach((go1: GameObject) => {
+        //    this.gameObjects.forEach((go2: GameObject) => {
+        for (let i = 0; i < this.collisionObjects.length; i++) {
+            let go1: GameObject = this.gameObjects[i];
+            for (let j = 0; j < this.gameObjects.length; j++) {
+                let go2: GameObject = this.gameObjects[j];
+                if (go1.hasBoxCollider() && go2.hasBoxCollider() && go1.getObjectID() != go2.getObjectID()) {
+                    // @ts-ignore
+                    const w1: number = go1.getBoxCollider().width;
+                    // @ts-ignore
+                    const h1: number = go1.getBoxCollider().height;
+                    const x1: number = go1.getTransform().getPosition().getX() - w1 / 2;
+                    const y1: number = go1.getTransform().getPosition().getY() - h1 / 2;
+                    
+                    // @ts-ignore
+                    const w2: number = go2.getBoxCollider().width;
+                    // @ts-ignore
+                    const h2: number = go2.getBoxCollider().height;
+                    const x2: number = go2.getTransform().getPosition().getX() - w2 / 2;
+                    const y2: number = go2.getTransform().getPosition().getY() - h2 / 2;
+
+                    if (x1 < (x2 + h2) &&
+                        (x1 + w1) > x2 &&
+                        y1 < (y2 + h2) &&
+                        (y1 + h1) > h2) {
+                        //return true;
+                        //send signal
+                        console.log("=============Collision============");
+                        document.dispatchEvent(new Event("collision"));
+                    }
+                }
+            }
+        }
     }
 }
 
