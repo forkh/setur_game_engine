@@ -77,8 +77,8 @@ class Engine {
         const gameLoop: any = GameLoop();
         const canvasProps: CanvasProps = {
             objects: this.gameObjects,
-            height: 800,
-            width: 800
+            height: window.innerHeight * 0.75,
+            width: window.innerHeight * 0.75 * 0.5625
         }
        // return <Canvas gameComponents={this.gameComponents} height={600} width={100}/>;
         //return <Canvas objects={this.gameObjects} height={600} width={100}/>

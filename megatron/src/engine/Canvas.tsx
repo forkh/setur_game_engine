@@ -2,6 +2,7 @@
 import React, {useRef, useEffect, useCallback, useState, Fragment} from "react";
 import logo192 from "../logo192.png";
 import logo512 from "../logo512.png"
+import { ResourceManager } from './ResourceManager';
 //import {createComponent} from "./GameObject";
 //import {GameComponent} from "./GameObject"
 //import { GameComponent, createComponent } from './GameComponent';
@@ -38,6 +39,11 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
 
             }
             ctx.clearRect(0,0, canvasProps.width, canvasProps.height)
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+            let bg: HTMLImageElement = ResourceManager.getImage("uberbg", false) as HTMLImageElement;
+
+            ctx.drawImage(bg, 0, 0);
             let test3 = new Image();
             test3.src = logo192;
             let test4 = new Image();
