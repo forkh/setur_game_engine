@@ -107,6 +107,10 @@ class CollisionSystem {
             for (let j: number = 0; j < this.gameObjects.length; j++) {
                 let go1: GameObject = this.gameObjects[i];
                 let go2: GameObject = this.gameObjects[j];
+                //console.log(`${go1.getObjectID()}: w: ${go1.getRigidBodyComponent().rigidBody.width}, x: ${go1.getTransform().getPosition().getX()}`);
+                //console.log(`${go2.getObjectID()}: w: ${go2.getRigidBodyComponent().rigidBody.width}, x: ${go2.getTransform().getPosition().getX()}`);
+                //console.log(`${go1.getObjectID()}: h: ${go1.getRigidBodyComponent().rigidBody.height}, y: ${go1.getTransform().getPosition().getY()}`);
+                //console.log(`${go2.getObjectID()}: h: ${go2.getRigidBodyComponent().rigidBody.height}, y ${go2.getTransform().getPosition().getY()}`);
                 if (go1.hasBoxCollider() && go2.hasBoxCollider() && go1.getObjectID() != go2.getObjectID()) {
                     const x1: number = go1.getTransform().getPosition().getX();
                     const y1: number = go1.getTransform().getPosition().getY();
@@ -114,6 +118,9 @@ class CollisionSystem {
                     const w1: number = go1.getBoxCollider().width;
                     // @ts-ignore
                     const h1: number = go1.getBoxCollider().height;
+
+                    // --------------------------------------------------------------------
+
                     const x2: number = go2.getTransform().getPosition().getX();
                     const y2: number = go2.getTransform().getPosition().getY();
                     // @ts-ignore
@@ -121,10 +128,13 @@ class CollisionSystem {
                     // @ts-ignore
                     const h2: number = go2.getBoxCollider().height;
 
-                    if (x1 < (x2 + h2) &&
+
+
+
+                    if (x1 < (x2 + w2) &&
                         (x1 + w1) > x2 &&
                         y1 < (y2 + h2) &&
-                        (y1 + h1) > h2) {
+                        (h1 + y1) > y2) {
                         //return true;
                         //send signal
                         console.log("!!!!!!!!!!!!!!!!Collision!!!!!!!!!!!!!!");

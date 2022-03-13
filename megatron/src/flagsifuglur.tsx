@@ -15,9 +15,15 @@ const inputMappings: InputTriggerMap = {
     'KeyS': () => {document.dispatchEvent(new Event("move_down1"))},
     'KeyA': () => {document.dispatchEvent(new Event("move_left1"))},
     'KeyD': () => {document.dispatchEvent(new Event("move_right1"))},
+    'KeyI': () => {document.dispatchEvent(new Event("move_up2"))},
+    'KeyK': () => {document.dispatchEvent(new Event("move_down2"))},
+    'KeyJ': () => {document.dispatchEvent(new Event("move_left2"))},
+    'KeyL': () => {document.dispatchEvent(new Event("move_right2"))},
     'KeyR': () => {document.dispatchEvent(new Event("random"))},
     'F1': () => {document.dispatchEvent(new Event("toggle_debug"))},
     'Space': () => {document.dispatchEvent(new Event("whip"))},
+    'KeyN': () => {document.dispatchEvent(new Event("whip2"))},
+    'KeyP': () => {document.dispatchEvent(new Event("printCol"))},
 }
 
 let engine: Engine = new Engine(inputMappings, soundMappings, assets);
@@ -67,6 +73,7 @@ const cm2: ControlMap = {
     'move_left2': move_left,
     'move_right2': move_right,
     'whip': whip,
+    'whip2': whip2,
     //'random': (go: GameObject) => {
     //    go.getTransform().setPosition(3, 15);
     //}
@@ -76,6 +83,13 @@ function whip(go: GameObject): void {
     console.log("Whip!");
     let force: Vector2d = Vector2d.zero;
     force.setXY(0, -400);
+    go.addForce(force);
+}
+
+function whip2(go: GameObject): void {
+    console.log("Whip!");
+    let force: Vector2d = Vector2d.zero;
+    force.setXY(400, 0);
     go.addForce(force);
 }
 
@@ -92,8 +106,12 @@ function move_down(go: GameObject): void {
     go.getTransform().translate(0, 1);
 }
 
-document.addEventListener('collision', () => {
-    window.alert("!!!!!!!!!!!!!!!!!!!!!COLLSION!!!!!!!!!!!!!!!!!!");
+//document.addEventListener('collision', () => {
+//    window.alert("!!!!!!!!!!!!!!!!!!!!!COLLSION!!!!!!!!!!!!!!!!!!");
+//})
+
+document.addEventListener("printCol", () => {
+    engine.printColliders();
 })
 
 
@@ -102,7 +120,7 @@ const gc: ControllerComponent = new ControllerComponent(fuglur, cm);
 fuglur.addComponent(gc);
 //fuglur.addComponent(new BirdComponent(fuglur));
 fuglur.addSprite("bird");
-fuglur.addBoxCollider(15,15);
+fuglur.addBoxCollider(64,64);
 engine.addGameObject(fuglur);
 
 
@@ -112,7 +130,7 @@ fuglur2.addComponent(gc2);
 //fuglur.addComponent(new BirdComponent(fuglur));
 fuglur2.addSprite("bird");
 fuglur2.addBoxCollider(64, 64);
-fuglur2.addRigidBodyComponent(fuglur2);
+//fuglur2.addRigidBodyComponent(fuglur2);
 engine.addGameObject(fuglur2);
 
 //let colProp: CollisionProps = {
@@ -137,12 +155,11 @@ engine.addTrack("s4", 4);
 engine.startCollisionsChecking();
 engine.registerCollisionObject(fuglur);
 function FlagsiFuglur() {
-let f = GameLoop();
+//let f = GameLoop();
 //document.dispatchEvent(new Event("background_music"));
 return (
     <div className={"FlagsiFuglur"}>
         {engine.run()}
-        {f}
     </div>
 );
 //    return (

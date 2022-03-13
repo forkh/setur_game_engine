@@ -10,6 +10,7 @@ import { GameObject, GameComponent, ControlMap, ControllerComponent } from './Ga
 import { CollisionSystem, CollisionProps } from './CollisionSystem';
 import PhysicsSystem from './PhysicsSystem';
 import { PhysicsProps, RigidBodyProps } from './PhysicsSystem';
+import GameLoop from './GameLoop';
 
 class Engine {
     //private static instance: Engine;
@@ -73,6 +74,7 @@ class Engine {
     }
 
     public run(): ReactNode {
+        const gameLoop: any = GameLoop();
         const canvasProps: CanvasProps = {
             objects: this.gameObjects,
             height: 800,
@@ -80,7 +82,7 @@ class Engine {
         }
        // return <Canvas gameComponents={this.gameComponents} height={600} width={100}/>;
         //return <Canvas objects={this.gameObjects} height={600} width={100}/>
-        return <Canvas {...canvasProps}/>
+        return <div><Canvas {...canvasProps}/>{gameLoop}</div>
     }
 
     public addGameObject(gameObject: GameObject): void {
@@ -135,6 +137,15 @@ class Engine {
     
     public sortingGameObjects(): void {
         this.gameObjects.sort(compareZIndex);
+    }
+
+    public printColliders(): void {
+        for (let i: number = 0; i < this.gameObjects.length; i++) {
+            this.gameObjects[i].printColliders();
+        }
+        //this.gameObjects.forEach((gc) => {
+        //    gc.printColliders();
+        //})
     }
 }
 

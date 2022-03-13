@@ -84,11 +84,16 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                             let h: number = go.getBoxCollider().height;
                             //console.log(`x: ${x}, y: ${y}, w: ${w}, h: ${h}`);
                             ctx.rect(x-w/2, y-h/2, w, h);
+                            ctx.stroke();
+                            //ctx.strokeStyle = "#008000";
+                            //ctx.beginPath();
+                            //ctx.rect(x-w/2, y-h/2, w, h);
                             //ctx.rect(go.getTransform().getPosition().getX(),
                             //    go.getTransform().getPosition().getY(),
                             //    box.width,
                             //    box.height
                             //);
+                            ctx.fillText(`${go.getObjectID()}: height: ${h}, width: ${w}, x: ${x}, ${y}`, x+h/2+3, y-w/2+3);
                             ctx.stroke();
                         }
                     }

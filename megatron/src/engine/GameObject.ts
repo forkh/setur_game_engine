@@ -205,6 +205,14 @@ class GameObject {
             rb.addForce(force);
         }
     }
+
+    public printColliders(): void {
+        for (let i: number = 0; i < this.gameComponents.length; i++) {
+            if (this.gameComponents[i] instanceof BoxColliderComponent) {
+                (this.gameComponents[i] as BoxColliderComponent).printCollider();
+            }
+        }
+    }
 }
 
 
@@ -260,6 +268,12 @@ class BoxColliderComponent extends GameComponent {
     
     public getHeight(): number {
         return this.height;
+    }
+
+    public printCollider(): void {
+        //console.log()
+        console.log(`${this.parent.getObjectID()}: w: ${this.parent.getRigidBodyComponent().rigidBody.width}, x: ${this.parent.getTransform().getPosition().getX()}`);
+        console.log(`${this.parent.getObjectID()}: h: ${this.parent.getRigidBodyComponent().rigidBody.height}, y: ${this.parent.getTransform().getPosition().getY()}`);
     }
 
 
