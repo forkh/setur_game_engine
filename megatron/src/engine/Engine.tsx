@@ -117,7 +117,7 @@ class Engine {
     }
 
     public startCollisionsChecking(): void {
-        setInterval(this.checkForCollisions.bind(this), 1000);
+        setInterval(this.checkForCollisions.bind(this), 20);
     }
 
     private checkForCollisions(): void {
@@ -182,9 +182,6 @@ class Engine {
                             if (y1 > y2) {
                                 console.log(" ======== bird landed on pipe =========");
                                 go1.isGrounded = true;
-                            } else {
-                                console.log(" is grounded == false")
-                                go1.isGrounded = false;
                             }
                         }
 

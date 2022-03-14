@@ -39,7 +39,7 @@ class PhysicsSystem {
 
     //public step(dt: number, physicsProps: PhysicsProps): void { // havi broytt so Gameobject ikki hevur access til force, velocity og mass
     public step(): void { // havi broytt so Gameobject ikki hevur access til force, velocity og mass
-        let dt: number = 10;
+        let dt: number = 20;
         let m_gravity: number = 60;
         //console.log("========================GRAVITY=====================")
         //console.log(physicsProps.gameObjects)
@@ -83,7 +83,14 @@ class PhysicsSystem {
                 if (go.isGrounded && force.getY() > 0) {
                     go.getTransform().setPosition(rb.rigidBody.velocity.getX(), go.getTransform().getPosition().getY())
                     console.log("GAME OBJECT IS GROUNDED")
+                    console.log(`${go.getObjectID()}-force: (${rb.rigidBody.force.x}, ${rb.rigidBody.force.y})`);
+                    //const tmp: Vector2d = rb.rigidBody.force;
+                    rb.rigidBody.force.y = 0;
+                    continue;
                 }
+
+                go.isGrounded = false;
+
 
                 if (!go.isGrounded) {
                     console.log("GAME OBJECT IS NOT GROUNDED")

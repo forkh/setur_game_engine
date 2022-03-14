@@ -37,7 +37,7 @@ function test() {
 
 }
 
-let engine: Engine = new Engine(inputMappings, soundMappings, assets, 1536/window.innerHeight);
+let engine: Engine = new Engine(inputMappings, soundMappings, assets, 1536, 0.5675, 0.75);
 
 // Extend GameComponent for specialization
 //class BirdComponent extends GameComponent {
@@ -133,8 +133,8 @@ fuglur.addComponent(gc);
 //fuglur.addComponent(new BirdComponent(fuglur));
 fuglur.addSprite("bird");
 fuglur.addBoxCollider(64,64);
-fuglur.solid = true;
-engine.addGameObject(fuglur);
+//fuglur.solid = true;
+//engine.addGameObject(fuglur);
 
 
 const fuglur2: GameObject = new GameObject(50);
@@ -151,11 +151,11 @@ engine.addGameObject(fuglur2);
 
 const pipe3 = new GameObject(50);
 pipe3.solid = true;
-pipe3.getTransform().setPosition(25,1200)
-pipe3.addSprite("megapipe");
-pipe3.addBoxCollider(150, 1836)
+pipe3.getTransform().setPosition(30,100)
+pipe3.addSprite("island");
+pipe3.addBoxCollider(128, 64)
 engine.addGameObject(pipe3);
-
+//engine.registerCollisionObject(pipe3)
 
 //let colProp: CollisionProps = {
 //    gameObjects: [fuglur]
@@ -265,7 +265,7 @@ engine.addTrack("s3", 3);
 engine.addTrack("s4", 4);
 
 engine.startCollisionsChecking();
-engine.registerCollisionObject(fuglur);
+//engine.registerCollisionObject(fuglur);
 function FlagsiFuglur() {
 //let f = GameLoop();
 //document.dispatchEvent(new Event("background_music"));
