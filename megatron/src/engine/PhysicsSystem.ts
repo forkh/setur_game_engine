@@ -65,6 +65,7 @@ class PhysicsSystem {
                     continue;
                 }**/
 
+
                 force = Vector2d.addition(force, rb.rigidBody.force);
 
                 if (go.isGrounded) {
@@ -124,7 +125,8 @@ class PhysicsSystem {
 
                 }*/
 
-                go.getTransform().setPosition(rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
+                go.getTransform().setPosition(go.getTransform().getPosition().getX() + rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
+                //go.getTransform().setPosition(rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
                 rb.rigidBody.force = Vector2d.multiply(rb.rigidBody.force, 0.9);
 
 
