@@ -14,12 +14,12 @@ interface CanvasProps {
     objects: GameObject[];
     width: number;
     height: number;
-    scale: number;
+    //scale: number;
 }
 
 function Canvas(canvasProps: CanvasProps): JSX.Element {
     let canvasRef = useRef<HTMLCanvasElement | null>(null);
-    let scale: number = canvasProps.scale;
+    //let scale: number = canvasProps.scale;
     //let canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     //const size = { width: window.innerWidth, height: window.innerHeight};
@@ -91,11 +91,11 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                     //    - go.getSprite().height / 2);
                     ctx.drawImage(go.getSprite(),
                         go.getTransform().getPosition().getX()
-                        - (go.getSprite().width * Engine.scale) / 2,
+                        - (go.getSprite().width) / 2,
                         go.getTransform().getPosition().getY()
-                        - (go.getSprite().height * Engine.scale) / 2,
-                        go.getSprite().width * Engine.scale,
-                        go.getSprite().height * Engine.scale);
+                        - (go.getSprite().height) / 2,
+                        go.getSprite().width,
+                        go.getSprite().height);
                     //console.log("================================");
                     //console.log("components: " + go.getNumberOfComponents() + ", is true? " + go.hasBoxCollider());
                     let box: BoxColliderType = go.getBoxCollider();
@@ -110,8 +110,8 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                             ctx.beginPath();
                             let x: number = go.getTransform().getPosition().getX();
                             let y: number = go.getTransform().getPosition().getY();
-                            let w: number = go.getBoxCollider().width * Engine.scale;
-                            let h: number = go.getBoxCollider().height * Engine.scale;
+                            let w: number = go.getBoxCollider().width;
+                            let h: number = go.getBoxCollider().height;
                             //console.log(`x: ${x}, y: ${y}, w: ${w}, h: ${h}`);
                             ctx.rect(x - (w / 2), y - (h / 2), w, h);
                             //ctx.rect(x-w/2, y-h/2, w, h);
