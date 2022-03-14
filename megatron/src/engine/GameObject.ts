@@ -20,6 +20,8 @@ class GameObject {
     private stateMachine: StateMachine;
     private zIndex: number;
     //private forces: force[];
+    public isGrounded: boolean = false;
+    public solid: boolean = false;
 
     public constructor(zIndex: number) {
         this.objectId = GameObject.GLOBAL_OBJECTID;
@@ -27,6 +29,8 @@ class GameObject {
         this.gameComponents = [];
         this.active = true;
         this.transform = new Transform();
+        this.transform.setScale(1, 1);
+        this.transform.setRotation(0);
         this.stateMachine = new StateMachine(this, 'temp');
         this.zIndex = zIndex;
     }
@@ -324,17 +328,17 @@ class ControllerComponent extends GameComponent {
 }
 
 class RigidBodyComponent extends GameComponent { // testing
-    public force: Vector2d;
+    //public force: Vector2d;
     public mass: number;
     public velocity: Vector2d;
-    public force2: Vector2d;
+    public force: Vector2d;
 
     public constructor(go: GameObject) {
         super(go);
-        this.force = Vector2d.zero; // testing
+        //this.force = Vector2d.zero; // testing
         this.mass = 1; // testing
         this.velocity = Vector2d.zero;
-        this.force2 = Vector2d.zero;
+        this.force = Vector2d.zero;
     }
 
     public getRigidBodyComponent(): RigidBodyComponent {
@@ -342,7 +346,7 @@ class RigidBodyComponent extends GameComponent { // testing
     }
 
     public addForce(force: Vector2d) {
-        this.force2 = force;
+        this.force = force;
     }
 
 }

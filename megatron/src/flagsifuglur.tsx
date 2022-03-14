@@ -119,6 +119,7 @@ document.addEventListener("printCol", () => {
 
 
 const fuglur: GameObject = new GameObject(50);
+//fuglur.getTransform().setRotation(5);
 const gc: ControllerComponent = new ControllerComponent(fuglur, cm);
 fuglur.addComponent(gc);
 //fuglur.addComponent(new BirdComponent(fuglur));
@@ -134,6 +135,8 @@ fuglur2.addComponent(gc2);
 fuglur2.addSprite("bird");
 fuglur2.addBoxCollider(64, 64);
 fuglur2.addRigidBodyComponent(fuglur2);
+fuglur2.getTransform().setScale(2.01, 2.01);
+fuglur2.solid = true;
 engine.addGameObject(fuglur2);
 
 //let colProp: CollisionProps = {
