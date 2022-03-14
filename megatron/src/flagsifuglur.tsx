@@ -34,7 +34,7 @@ function test() {
 
 }
 
-let engine: Engine = new Engine(inputMappings, soundMappings, assets, 1536/window.innerHeight);
+let engine: Engine = new Engine(inputMappings, soundMappings, assets, 1536, 0.5675, 0.75);
 
 // Extend GameComponent for specialization
 //class BirdComponent extends GameComponent {
@@ -130,7 +130,7 @@ fuglur.addComponent(gc);
 //fuglur.addComponent(new BirdComponent(fuglur));
 fuglur.addSprite("bird");
 fuglur.addBoxCollider(64,64);
-engine.addGameObject(fuglur);
+//engine.addGameObject(fuglur);
 
 
 const fuglur2: GameObject = new GameObject(50);
@@ -139,10 +139,18 @@ fuglur2.addComponent(gc2);
 //fuglur.addComponent(new BirdComponent(fuglur));
 fuglur2.addSprite("bird");
 fuglur2.addBoxCollider(64, 64);
-//fuglur2.addRigidBodyComponent(fuglur2);
+fuglur2.addRigidBodyComponent(fuglur2);
 fuglur2.getTransform().setScale(2.01, 2.01);
 fuglur2.solid = true;
 engine.addGameObject(fuglur2);
+
+const bg: GameObject = new GameObject(40);
+bg.addSprite("uberbg");
+bg.getTransform().setPosition(
+    432 / 2,
+    224
+);
+engine.addGameObject(bg);
 
 //let colProp: CollisionProps = {
 //    gameObjects: [fuglur]

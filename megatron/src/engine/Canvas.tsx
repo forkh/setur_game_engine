@@ -44,8 +44,8 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
 
             }
             ctx.clearRect(0,0, canvasProps.width, canvasProps.height)
-            //ctx.fillStyle = "#FFFFFF";
-            //ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
             //let bg: HTMLImageElement = ResourceManager.getImage("uberbg", false) as HTMLImageElement;
 
             //ctx.drawImage(bg, 0, 0);
@@ -91,11 +91,11 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                     //    - go.getSprite().height / 2);
                     ctx.drawImage(go.getSprite(),
                         go.getTransform().getPosition().getX()
-                        - go.getSprite().width / 2,
+                        - (go.getSprite().width * Engine.scale) / 2,
                         go.getTransform().getPosition().getY()
-                        - go.getSprite().height / 2,
-                        go.getSprite().width,
-                        go.getSprite().height);
+                        - (go.getSprite().height * Engine.scale) / 2,
+                        go.getSprite().width * Engine.scale,
+                        go.getSprite().height * Engine.scale);
                     //console.log("================================");
                     //console.log("components: " + go.getNumberOfComponents() + ", is true? " + go.hasBoxCollider());
                     let box: BoxColliderType = go.getBoxCollider();
@@ -110,8 +110,8 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                             ctx.beginPath();
                             let x: number = go.getTransform().getPosition().getX();
                             let y: number = go.getTransform().getPosition().getY();
-                            let w: number = go.getBoxCollider().width;
-                            let h: number = go.getBoxCollider().height;
+                            let w: number = go.getBoxCollider().width * Engine.scale;
+                            let h: number = go.getBoxCollider().height * Engine.scale;
                             //console.log(`x: ${x}, y: ${y}, w: ${w}, h: ${h}`);
                             ctx.rect(x - (w / 2), y - (h / 2), w, h);
                             //ctx.rect(x-w/2, y-h/2, w, h);
@@ -124,6 +124,8 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                             //    box.width,
                             //    box.height
                             //);
+                            ctx.fillStyle = "#ff0000";
+                            //ctx.font = "14px Comic Sans MS";
                             ctx.fillText(`${go.getObjectID()}: height: ${h}, width: ${w}, x: ${x}, ${y}yo`, x+h/2+3, y-w/2+3);
                             ctx.fillText(`${go.getObjectID()}: rotation: ${rot}, scale: (${scx}, ${scy})`, x+h/2+3, y-w/2+3+15);
 
