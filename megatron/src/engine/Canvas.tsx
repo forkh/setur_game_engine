@@ -91,9 +91,9 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                     //    - go.getSprite().height / 2);
                     ctx.drawImage(go.getSprite(),
                         go.getTransform().getPosition().getX()
-                        - (go.getSprite().width) / 2,
+                        - go.getSprite().width / 2,
                         go.getTransform().getPosition().getY()
-                        - (go.getSprite().height) / 2,
+                        - go.getSprite().height / 2,
                         go.getSprite().width,
                         go.getSprite().height);
                     //console.log("================================");
@@ -113,7 +113,7 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                             let w: number = go.getBoxCollider().width;
                             let h: number = go.getBoxCollider().height;
                             //console.log(`x: ${x}, y: ${y}, w: ${w}, h: ${h}`);
-                            ctx.rect(x - (w / 2), y - (h / 2), w, h);
+                            ctx.rect(x - w / 2, y - h / 2, w, h);
                             //ctx.rect(x-w/2, y-h/2, w, h);
                             ctx.stroke();
                             //ctx.strokeStyle = "#008000";
@@ -128,6 +128,10 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                             //ctx.font = "14px Comic Sans MS";
                             ctx.fillText(`${go.getObjectID()}: height: ${h}, width: ${w}, x: ${x}, ${y}yo`, x+h/2+3, y-w/2+3);
                             ctx.fillText(`${go.getObjectID()}: rotation: ${rot}, scale: (${scx}, ${scy})`, x+h/2+3, y-w/2+3+15);
+                            ctx.fillText(`${go.getObjectID()}: solid: ${go.solid}, isGrounded: ${go.isGrounded}`, x+h/2 + 3, y - w  /2 +30);
+                            if (go.getRigidBodyComponent().hasRigidBody) {
+                                ctx.fillText(`${go.getObjectID()}: force: (${go.getRigidBodyComponent().rigidBody.force.x}, ${go.getRigidBodyComponent().rigidBody.force.y})`,  x+h/2 + 3, y - w  /2 +45);
+                            }
 
                             ctx.stroke();
                         }

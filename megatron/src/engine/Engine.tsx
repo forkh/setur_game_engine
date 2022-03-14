@@ -114,7 +114,6 @@ class Engine {
 
     public addGameObject(gameObject: GameObject): void {
         this.gameObjects.push(gameObject);
-        // TODO: Ger so at tað verður sortera eftir zIndex propery hjá GameObject
         this.gameObjects.sort(compareZIndex);
     }
 
@@ -127,17 +126,25 @@ class Engine {
 
     private checkForCollisions(): void {
         //console.log("Checking for collisions");
-        const scale: number = window.innerWidth / Engine.base_case;
+        //const scale: number = window.innerWidth / Engine.base_case;
         //this.gameObjects.forEach((go1: GameObject) => {
         //    this.gameObjects.forEach((go2: GameObject) => {
         if (this.gameObjects.length < 2) {
             return;
         }
+
+        if (this.collisionObjects.length < 1) {
+            return;
+        }
+
         for (let i = 0; i < this.collisionObjects.length; i++) {
-            let go1: GameObject = this.gameObjects[i];
+            let go1: GameObject = this.collisionObjects[i];
             for (let j = 0; j < this.gameObjects.length; j++) {
                 let go2: GameObject = this.gameObjects[j];
+                //console.log("321oyoyoy");
+                //if (go1.hasBoxCollider() && go2.hasBoxCollider()) {
                 if (go1.hasBoxCollider() && go2.hasBoxCollider() && go1.getObjectID() != go2.getObjectID()) {
+                    //console.log("yoyoyo123");
                     //// @ts-ignore
                     //const w1: number = go1.getBoxCollider().width;
                     //// @ts-ignore
@@ -154,15 +161,26 @@ class Engine {
                     const w1: number = go1.getBoxCollider().width;
                     // @ts-ignore
                     const h1: number = go1.getBoxCollider().height;
-                    const x1: number = (go1.getTransform().getPosition().getX() - w1);
-                    const y1: number = (go1.getTransform().getPosition().getY() - h1);
+                    const x1: number = (go1.getTransform().getPosition().getX());
+                    const y1: number = (go1.getTransform().getPosition().getY());
                     // @ts-ignore
                     const w2: number = go2.getBoxCollider().width;
                     // @ts-ignore
                     const h2: number = go2.getBoxCollider().height;
-                    const x2: number = (go2.getTransform().getPosition().getX() - w2);
-                    const y2: number = (go2.getTransform().getPosition().getY() - h2);
+                    const x2: number = (go2.getTransform().getPosition().getX());
+                    const y2: number = (go2.getTransform().getPosition().getY());
 
+                    //const w1: number = go1.getBoxCollider().width;
+                    //// @ts-ignore
+                    //const h1: number = go1.getBoxCollider().height;
+                    //const x1: number = (go1.getTransform().getPosition().getX() - w1);
+                    //const y1: number = (go1.getTransform().getPosition().getY() - h1);
+                    //// @ts-ignore
+                    //const w2: number = go2.getBoxCollider().width;
+                    //// @ts-ignore
+                    //const h2: number = go2.getBoxCollider().height;
+                    //const x2: number = (go2.getTransform().getPosition().getX() - w2);
+                    //const y2: number = (go2.getTransform().getPosition().getY() - h2);
                     //if (x1 < (x2 + h2) &&
                     //    (x1 + w1) > x2 &&
                     //    y1 < (y2 + h2) &&
@@ -174,33 +192,45 @@ class Engine {
                     //    document.dispatchEvent(new Event("collision"));
 
                     //}
-                    //console.log(`${go1.getObjectID()}: x: ${x1}, y: ${y1}, w: ${w1}, h: ${h1}`);
-                    //console.log(`${go2.getObjectID()}: x: ${x2}, y: ${y2}, w: ${w2}, h: ${h2}`);
+                    //console.log(`${go1.getObjectID()}: x: ${x1}, y: ${y1}, w: ${w1}, h: ${h1}, isSolid: ${go1.solid}`);
+                    //console.log(`${go2.getObjectID()}: x: ${x2}, y: ${y2}, w: ${w2}, h: ${h2}, isSolid: ${go2.solid}`);
                     if (
                         x1 + w1 / 2 > x2 - w2 / 2 &&
                         x1 - w1 / 2 < x2 + w2 / 2 &&
                         y1 + h1 / 2 > y2 - h2 / 2 &&
                         y1 - h1 / 2 < y2 + h2 / 2
                     ) {
-
                         /*if (!go1.isGrounded) {
                             go1.canJump = false;
                         }*/
 
+                        //if (go1.solid && go1.hasRigidBodyComponent()) {
+                        //    console.log("yoy");
+                        //    if (go1.getRigidBodyComponent().rigidBody.force.y >= 0) {
+                        //        console.log(go1.getSprite().src);
+                        //    }
+                        //}
                         if (go1.solid && go2.solid) {
-                            if (y1 >= y2) {
-                                console.log(" ======== bird landed on pipe =========");
-                                go1.isGrounded = true;
-                            }
+                            go1.isGrounded = true;
+                            console.log("solids!");
+                            //if (y1 < y2 /*&& go1.getRigidBodyComponent().hasRigidBody*/) {
+                            //    console.log(go1.getSprite().src)
+                            //    console.log(" ======== bird landed on pipe =========");
+                            //    go1.isGrounded = true;
+
+                            //}
                         }
 
 
 
                         //return true;
                         //send signal
-                    console.log("=============Collision============");
-                    document.dispatchEvent(new Event("collision"));
-                    document.dispatchEvent(new CustomEvent("collision2", {detail: {'obj': go1}}));
+                        console.log("=============Collision============");
+                        document.dispatchEvent(new Event("collision"));
+                        //console.log("[[[[[[[[[]]]]]]]]]]]]]]");
+                        document.dispatchEvent(new CustomEvent("collision2", {detail: {'obj': go1}}));
+
+
 
                     } else {
                         go1.isGrounded = false;
@@ -223,8 +253,6 @@ class Engine {
         //})
     }
 }
-
-
 
 function compareZIndex(go1: GameObject, go2: GameObject): number {
     if(go1.getZIndex() < go2.getZIndex()) {

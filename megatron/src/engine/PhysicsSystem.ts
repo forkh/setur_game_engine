@@ -30,6 +30,7 @@ class PhysicsSystem {
         if (!PhysicsSystem.instance) {
             PhysicsSystem.instance = new PhysicsSystem(gameObjects);
             document.addEventListener("collision2", (e: Event) => {
+                //console.log("yolo baggins");
                 let obj: GameObject = (<CustomEvent>e).detail.obj as GameObject;
                 obj.isGrounded = true;
                 //obj.getRigidBodyComponent().rigidBody.force.y = 0;
@@ -38,7 +39,6 @@ class PhysicsSystem {
 
             })
         }
-
     }
 
     public static getInstance(): PhysicsSystem {
@@ -71,6 +71,7 @@ class PhysicsSystem {
                 if (go.isGrounded) {
                     m_gravity = 0;
                 }
+
 
                     /**console.log("adasælfjdsøfjdsøpkfdsøpfk")
                     force = rb.rigidBody.force;
@@ -124,7 +125,7 @@ class PhysicsSystem {
 
                 }*/
 
-                go.getTransform().setPosition(go.getTransform().getPosition().getX() + rb.rigidBody.velocity.getX(), (rb.rigidBody.velocity.getY()))
+                go.getTransform().setPosition(go.getTransform().getPosition().getX() + rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
                 //go.getTransform().setPosition(rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
                 rb.rigidBody.force = Vector2d.multiply(rb.rigidBody.force, 0.9);
 
