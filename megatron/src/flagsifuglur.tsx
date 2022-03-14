@@ -131,7 +131,7 @@ document.addEventListener("printCol", () => {
 
 const background: GameObject = new GameObject(1);
 background.addSprite("background");
-background.getTransform().setPosition(1200, 300);
+background.getTransform().setPosition(600, 200);
 engine.addGameObject(background);
 
 
@@ -151,8 +151,8 @@ fuglur2.getTransform().setPosition(256, 100)
 const gc2: ControllerComponent = new ControllerComponent(fuglur2, cm2);
 fuglur2.addComponent(gc2);
 //fuglur.addComponent(new BirdComponent(fuglur));
-fuglur2.addSprite("plane");
-fuglur2.addBoxCollider(30, 64);
+fuglur2.addSprite("plane123");
+fuglur2.addBoxCollider(200, 25);
 fuglur2.addRigidBodyComponent(fuglur2);
 fuglur2.getTransform().setPosition(50, 0);
 fuglur2.solid = true;
@@ -171,7 +171,7 @@ const pipe4 = new GameObject(50);
 pipe4.solid = true;
 pipe4.getTransform().setPosition(500,300)
 pipe4.addSprite("island2");
-pipe4.addBoxCollider(128, 64)
+pipe4.addBoxCollider(203, 31)
 pipe4.solid = true;
 engine.addGameObject(pipe4);
 
@@ -179,7 +179,7 @@ const pipe5 = new GameObject(50);
 pipe5.solid = true;
 pipe5.getTransform().setPosition(800,100)
 pipe5.addSprite("island2");
-pipe5.addBoxCollider(128, 64)
+pipe5.addBoxCollider(203, 31)
 pipe5.solid = true;
 engine.addGameObject(pipe5);
 //engine.registerCollisionObject(pipe3)

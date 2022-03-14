@@ -1,14 +1,14 @@
 {
   "image": {
     "bird":  "bird.png",
-    "background": "Background5.png",
+    "background": "background1.png",
     "background42":  "backgrund.png",
     "uberbg": "uberbakgrund.png",
     "PIPERU": "PIPERU.png",
     "megapipe": "megapipe.png",
     "island": "landscapebigdetails.png",
     "plane": "plane.png",
-    "island2": "landscape1.png"
+    "island2": "smalllandscape.png"
   },
   "audio": {
     "s0":  "s0.wav",
