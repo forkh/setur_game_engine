@@ -1,7 +1,8 @@
 {
-  "shoot": 0,
+  "island_hopper": 0,
   "test": 1,
   "explosion": 2,
   "audio": 3,
-  "background_music": 4
+  "background_music": 4,
+  "island_hopper": 5
 }

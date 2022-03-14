@@ -18,6 +18,7 @@ class Engine {
     private collisionObjects: GameObject[] = [];
     //private gameObjects: GameObject[] = new Array<GameObject>();
     private static debug: boolean = false;
+    public static base_case: number;
 
     public registerCollisionObject(gameObject: GameObject): void {
         this.collisionObjects.push(gameObject);
@@ -27,7 +28,8 @@ class Engine {
         return this.debug;
     }
 
-    public constructor(inputMap: InputTriggerMap, soundMapping: EventSounds, assets: AssetsType) {
+    public constructor(inputMap: InputTriggerMap, soundMapping: EventSounds, assets: AssetsType, base_case: number) {
+        Engine.base_case = base_case;
         document.addEventListener("toggle_debug", () => {
             Engine.debug = !Engine.debug;
         })
@@ -97,11 +99,12 @@ class Engine {
     }
 
     public startCollisionsChecking(): void {
-        setInterval(this.checkForCollisions.bind(this), 20);
+        setInterval(this.checkForCollisions.bind(this), 1000);
     }
 
     private checkForCollisions(): void {
         console.log("Checking for collisions");
+        const scale: number = window.innerWidth / Engine.base_case;
         //this.gameObjects.forEach((go1: GameObject) => {
         //    this.gameObjects.forEach((go2: GameObject) => {
         for (let i = 0; i < this.collisionObjects.length; i++) {
@@ -109,24 +112,50 @@ class Engine {
             for (let j = 0; j < this.gameObjects.length; j++) {
                 let go2: GameObject = this.gameObjects[j];
                 if (go1.hasBoxCollider() && go2.hasBoxCollider() && go1.getObjectID() != go2.getObjectID()) {
+                    //// @ts-ignore
+                    //const w1: number = go1.getBoxCollider().width;
+                    //// @ts-ignore
+                    //const h1: number = go1.getBoxCollider().height;
+                    //const x1: number = go1.getTransform().getPosition().getX() - w1 / 2;
+                    //const y1: number = go1.getTransform().getPosition().getY() - h1 / 2;
+                    //// @ts-ignore
+                    //const w2: number = go2.getBoxCollider().width;
+                    //// @ts-ignore
+                    //const h2: number = go2.getBoxCollider().height;
+                    //const x2: number = go2.getTransform().getPosition().getX() - w2 / 2;
+                    //const y2: number = go2.getTransform().getPosition().getY() - h2 / 2;
                     // @ts-ignore
                     const w1: number = go1.getBoxCollider().width;
                     // @ts-ignore
                     const h1: number = go1.getBoxCollider().height;
-                    const x1: number = go1.getTransform().getPosition().getX() - w1 / 2;
-                    const y1: number = go1.getTransform().getPosition().getY() - h1 / 2;
-                    
+                    const x1: number = go1.getTransform().getPosition().getX() - w1;
+                    const y1: number = go1.getTransform().getPosition().getY() - h1;
                     // @ts-ignore
                     const w2: number = go2.getBoxCollider().width;
                     // @ts-ignore
                     const h2: number = go2.getBoxCollider().height;
-                    const x2: number = go2.getTransform().getPosition().getX() - w2 / 2;
-                    const y2: number = go2.getTransform().getPosition().getY() - h2 / 2;
+                    const x2: number = go2.getTransform().getPosition().getX() - w2;
+                    const y2: number = go2.getTransform().getPosition().getY() - h2;
 
-                    if (x1 < (x2 + h2) &&
-                        (x1 + w1) > x2 &&
-                        y1 < (y2 + h2) &&
-                        (y1 + h1) > h2) {
+                    //if (x1 < (x2 + h2) &&
+                    //    (x1 + w1) > x2 &&
+                    //    y1 < (y2 + h2) &&
+                    //    (y1 + h1) > h2) {
+                    //    //return true;
+                    //    //send signal
+                    //    console.log("=============Collision============");
+                    //    console.log(`${go1.getObjectID()} and ${go2.getObjectID()}`);
+                    //    document.dispatchEvent(new Event("collision"));
+
+                    //}
+                    console.log(`${go1.getObjectID()}: x: ${x1}, y: ${y1}, w: ${w1}, h: ${h1}`);
+                    console.log(`${go2.getObjectID()}: x: ${x2}, y: ${y2}, w: ${w2}, h: ${h2}`);
+                    if (
+                        x1 + w1 / 2 > x2 - w2 / 2 &&
+                        x1 - w1 / 2 < x2 + w2 / 2 &&
+                        y1 + h1 / 2 > y2 - h2 / 2 &&
+                        y1 - h1 / 2 < y2 + h2 / 2
+                    ) {
                         //return true;
                         //send signal
                         console.log("=============Collision============");

@@ -91,11 +91,11 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                     //    - go.getSprite().height / 2);
                     ctx.drawImage(go.getSprite(),
                         go.getTransform().getPosition().getX()
-                        - scale * go.getSprite().width / 2,
+                        - go.getSprite().width / 2,
                         go.getTransform().getPosition().getY()
-                        - scale * go.getSprite().height / 2,
-                        scale * go.getSprite().width,
-                        scale * go.getSprite().height);
+                        - go.getSprite().height / 2,
+                        go.getSprite().width,
+                        go.getSprite().height);
                     //console.log("================================");
                     //console.log("components: " + go.getNumberOfComponents() + ", is true? " + go.hasBoxCollider());
                     let box: BoxColliderType = go.getBoxCollider();
@@ -113,7 +113,7 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                             let w: number = go.getBoxCollider().width;
                             let h: number = go.getBoxCollider().height;
                             //console.log(`x: ${x}, y: ${y}, w: ${w}, h: ${h}`);
-                            ctx.rect(x - (w / 2) * scale, y - (h / 2) * scale, w * scale, h * scale);
+                            ctx.rect(x - (w / 2), y - (h / 2), w, h);
                             //ctx.rect(x-w/2, y-h/2, w, h);
                             ctx.stroke();
                             //ctx.strokeStyle = "#008000";

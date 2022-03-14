@@ -320,7 +320,7 @@ class ControllerComponent extends GameComponent {
         for (let event in this.triggers) {
             if (event === e.type) {
                 this.triggers[event](this.parent);
-                console.log("Found event");
+                //console.log("Found event");
                 break;
             }
         }
