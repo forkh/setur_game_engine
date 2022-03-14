@@ -121,7 +121,7 @@ class Engine {
     }
 
     private checkForCollisions(): void {
-        console.log("Checking for collisions");
+        //console.log("Checking for collisions");
         const scale: number = window.innerWidth / Engine.base_case;
         //this.gameObjects.forEach((go1: GameObject) => {
         //    this.gameObjects.forEach((go2: GameObject) => {
@@ -169,8 +169,8 @@ class Engine {
                     //    document.dispatchEvent(new Event("collision"));
 
                     //}
-                    console.log(`${go1.getObjectID()}: x: ${x1}, y: ${y1}, w: ${w1}, h: ${h1}`);
-                    console.log(`${go2.getObjectID()}: x: ${x2}, y: ${y2}, w: ${w2}, h: ${h2}`);
+                    //console.log(`${go1.getObjectID()}: x: ${x1}, y: ${y1}, w: ${w1}, h: ${h1}`);
+                    //console.log(`${go2.getObjectID()}: x: ${x2}, y: ${y2}, w: ${w2}, h: ${h2}`);
                     if (
                         x1 + w1 / 2 > x2 - w2 / 2 &&
                         x1 - w1 / 2 < x2 + w2 / 2 &&
@@ -179,9 +179,10 @@ class Engine {
                     ) {
 
                         if (go1.solid && go2.solid) {
-                            if (y1 > y2) {
+                            if (y1 > y2 && !go1.hasCollided) {
                                 console.log(" ======== bird landed on pipe =========");
                                 go1.isGrounded = true;
+                                go1.hasCollided = true;
                             }
                         }
 

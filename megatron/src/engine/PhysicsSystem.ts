@@ -60,16 +60,23 @@ class PhysicsSystem {
             //console.log(go.hasRigidBodyComponent())
             let rb: RigidBodyProps = go.getRigidBodyComponent();
             if (rb.hasRigidBody) {
-                if (go.isGrounded && force.getY() > 0) {
+                console.log(`${go.getObjectID()}: canJump: ${go.canJump}, hasCollided: ${go.hasCollided}, isGrounded: ${go.isGrounded}`);
+                if (go.isGrounded && force.getY() > 0 && !go.canJump) {
                     continue;
                 }
 
-                console.log("test.............");
+                force = Vector2d.addition(force, rb.rigidBody.force);
+
+                if (go.canJump && go.hasCollided) {
+                    console.log("adasælfjdsøfjdsøpkfdsøpfk")
+                    force = rb.rigidBody.force;
+                }
+
+                //console.log("test.............");
 
                 let vector1: Vector2d = Vector2d.zero
 
                 //rb.rigidBody.force = Vector2d.addition(rb.rigidBody.force, rb.rigidBody.force2);
-                force = Vector2d.addition(force, rb.rigidBody.force);
 
                 //test.setXY(0, go.getRigidBodyComponent().mass * m_gravity)
                 vector1.setXY(0, rb.rigidBody.mass * m_gravity)
@@ -106,7 +113,7 @@ class PhysicsSystem {
 
 
                 if (!go.isGrounded) {
-                    console.log("GAME OBJECT IS NOT GROUNDED")
+                    //console.log("GAME OBJECT IS NOT GROUNDED")
                     go.getTransform().setPosition(rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
                     rb.rigidBody.force = Vector2d.multiply(rb.rigidBody.force, 0.9);
                 }
