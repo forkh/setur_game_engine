@@ -94,7 +94,7 @@ const cm2: ControlMap = {
 function whip(go: GameObject): void {
     console.log("Whip!");
     let force: Vector2d = Vector2d.zero;
-    let i = 1;
+    let i = 20;
     force.setXY(i , -400);
 
     go.addForce(force);
@@ -151,7 +151,7 @@ fuglur2.getTransform().setPosition(256, 100)
 const gc2: ControllerComponent = new ControllerComponent(fuglur2, cm2);
 fuglur2.addComponent(gc2);
 //fuglur.addComponent(new BirdComponent(fuglur));
-fuglur2.addSprite("plane123");
+fuglur2.addSprite("plane");
 fuglur2.addBoxCollider(200, 25);
 fuglur2.addRigidBodyComponent(fuglur2);
 fuglur2.getTransform().setPosition(50, 0);
