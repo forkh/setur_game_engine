@@ -43,7 +43,7 @@ class PhysicsSystem {
         let m_gravity: number = 60;
         //console.log("========================GRAVITY=====================")
         //console.log(physicsProps.gameObjects)
-
+        let force: Vector2d = Vector2d.zero;
         for (let i = 0; i < PhysicsSystem.getInstance().gameObjects.length; i++) {
             //console.log(go.getObjectID() + " test ")
             //let test:Vector2d = Vector2d.multiply1(go.force, (go.mass * m_gravity))
@@ -55,7 +55,8 @@ class PhysicsSystem {
 
                 let vector1: Vector2d = Vector2d.zero
 
-                rb.rigidBody.force = Vector2d.addition(rb.rigidBody.force, rb.rigidBody.force2);
+                //rb.rigidBody.force = Vector2d.addition(rb.rigidBody.force, rb.rigidBody.force2);
+                force = Vector2d.addition(force, rb.rigidBody.force);
 
                 //test.setXY(0, go.getRigidBodyComponent().mass * m_gravity)
                 vector1.setXY(0, rb.rigidBody.mass * m_gravity)
@@ -63,24 +64,26 @@ class PhysicsSystem {
 
                 //console.log(test)
 
-                rb.rigidBody.force = Vector2d.addition(rb.rigidBody.force, vector1); // +=
+                force = Vector2d.addition(force, vector1); // +=
+                //rb.rigidBody.force = Vector2d.addition(rb.rigidBody.force, vector1); // +=
 
                 //console.log(rb.rigidBody.force)
 
                 let vector2: Vector2d = Vector2d.zero
 
-                vector2 = Vector2d.division(rb.rigidBody.force, rb.rigidBody.mass * dt); //
+                vector2 = Vector2d.division(force, rb.rigidBody.mass * dt); //
+                //vector2 = Vector2d.division(rb.rigidBody.force, rb.rigidBody.mass * dt); //
                 //console.log(test2)
 
                 rb.rigidBody.velocity = Vector2d.addition(rb.rigidBody.velocity, vector2); // +=
 
                 //console.log(rb.rigidBody.velocity)
 
-                go.getTransform().setPosition(0, rb.rigidBody.velocity.getY())
+                go.getTransform().setPosition(rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
 
 
-                rb.rigidBody.force = Vector2d.zero;
-                rb.rigidBody.force2 = Vector2d.multiply(rb.rigidBody.force2, 0.9);
+                //rb.rigidBody.force = Vector2d.zero;
+                rb.rigidBody.force = Vector2d.multiply(rb.rigidBody.force, 0.9);
                 //console.log(go.getTransform().getPosition())
             }
         }

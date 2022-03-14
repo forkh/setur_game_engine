@@ -79,7 +79,8 @@ class Engine {
             // TODO: Broyt til at hetta verður definera í game design, ikki engine
             objects: this.gameObjects,
             height: window.innerHeight * 0.75,
-            width: window.innerHeight * 0.75 * 0.5625
+            width: window.innerHeight * 0.75 * 0.5625,
+            scale: window.innerWidth / 1536
         }
        // return <Canvas gameComponents={this.gameComponents} height={600} width={100}/>;
         //return <Canvas objects={this.gameObjects} height={600} width={100}/>
@@ -130,6 +131,7 @@ class Engine {
                         //send signal
                         console.log("=============Collision============");
                         document.dispatchEvent(new Event("collision"));
+
                     }
                 }
             }
