@@ -86,6 +86,7 @@ class PhysicsSystem {
                     console.log(`${go.getObjectID()}-force: (${rb.rigidBody.force.x}, ${rb.rigidBody.force.y})`);
                     //const tmp: Vector2d = rb.rigidBody.force;
                     rb.rigidBody.force.y = 0;
+                    rb.rigidBody.velocity.y = 0;
                     continue;
                 }
 

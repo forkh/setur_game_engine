@@ -150,7 +150,7 @@ engine.addGameObject(fuglur2);
 
 
 const pipe3 = new GameObject(50);
-pipe3.solid = true;
+//pipe3.solid = true;
 pipe3.getTransform().setPosition(30,100)
 pipe3.addSprite("island");
 pipe3.addBoxCollider(128, 64)
