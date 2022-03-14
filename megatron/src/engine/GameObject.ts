@@ -23,6 +23,7 @@ class GameObject {
     public isGrounded: boolean = false;
     public solid: boolean = false;
 
+
     public constructor(zIndex: number) {
         this.objectId = GameObject.GLOBAL_OBJECTID;
         GameObject.GLOBAL_OBJECTID++;
@@ -80,10 +81,11 @@ class GameObject {
         this.gameComponents.push(new SpriteComponent(image, this));
     }
     
-        public addRigidBodyComponent(go: GameObject): void{
+    public addRigidBodyComponent(go: GameObject): void{
         this.gameComponents.push(new RigidBodyComponent(go));
 
     }
+
     public hasRigidBodyComponent(): boolean {
         for (let i = 0; i < this.gameComponents.length; i++) {
             if (this.gameComponents[i] instanceof  RigidBodyComponent) {
@@ -169,7 +171,7 @@ class GameObject {
     }
 
     public getBoxCollider(): BoxColliderType {
-        let i = 0;
+        let i;
         let exists: boolean = false;
         for (i = 0; i < this.gameComponents.length; i++) {
             if (this.gameComponents[i] instanceof BoxColliderComponent) {
@@ -320,7 +322,7 @@ class ControllerComponent extends GameComponent {
         for (let event in this.triggers) {
             if (event === e.type) {
                 this.triggers[event](this.parent);
-                console.log("Found event");
+                //console.log("Found event");
                 break;
             }
         }
