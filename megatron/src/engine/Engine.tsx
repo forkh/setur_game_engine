@@ -19,6 +19,9 @@ class Engine {
     //private gameObjects: GameObject[] = new Array<GameObject>();
     private static debug: boolean = false;
     public static base_case: number;
+    public static scale: number;
+    public static aspectRatio: number;
+    public static proportion: number;
 
     public registerCollisionObject(gameObject: GameObject): void {
         this.collisionObjects.push(gameObject);
@@ -28,8 +31,23 @@ class Engine {
         return this.debug;
     }
 
-    public constructor(inputMap: InputTriggerMap, soundMapping: EventSounds, assets: AssetsType, base_case: number) {
+    /**
+     *
+     * @param inputMap Key input mappings
+     * @param soundMapping Sound event mappings
+     * @param assets Resources
+     * @param base_case Height of canvas, 100%
+     * @param aspect_ratio Aspect ratio of canvas
+     * @param proportion How much of vertical screen real estate to use.
+     */
+    public constructor(inputMap: InputTriggerMap, soundMapping: EventSounds, assets: AssetsType, base_case: number, aspect_ratio: number, proportion: number) {
         Engine.base_case = base_case;
+        Engine.scale = window.innerHeight / Engine.base_case;
+        Engine.aspectRatio = aspect_ratio;
+        Engine.proportion = proportion;
+        document.addEventListener("resize", () => {
+            Engine.scale = window.innerHeight / Engine.base_case;
+        })
         document.addEventListener("toggle_debug", () => {
             Engine.debug = !Engine.debug;
         })
@@ -80,9 +98,9 @@ class Engine {
         const canvasProps: CanvasProps = {
             // TODO: Broyt til at hetta verður definera í game design, ikki engine
             objects: this.gameObjects,
-            height: window.innerHeight * 0.75,
-            width: window.innerHeight * 0.75 * 0.5625,
-            scale: window.innerWidth / 1536
+            height: window.innerHeight * Engine.proportion,
+            width: window.innerHeight * Engine.proportion * Engine.aspectRatio,//0.5625,
+            scale: Engine.scale
         }
        // return <Canvas gameComponents={this.gameComponents} height={600} width={100}/>;
         //return <Canvas objects={this.gameObjects} height={600} width={100}/>
@@ -107,6 +125,9 @@ class Engine {
         const scale: number = window.innerWidth / Engine.base_case;
         //this.gameObjects.forEach((go1: GameObject) => {
         //    this.gameObjects.forEach((go2: GameObject) => {
+        if (this.gameObjects.length < 2) {
+            return;
+        }
         for (let i = 0; i < this.collisionObjects.length; i++) {
             let go1: GameObject = this.gameObjects[i];
             for (let j = 0; j < this.gameObjects.length; j++) {
@@ -125,15 +146,15 @@ class Engine {
                     //const x2: number = go2.getTransform().getPosition().getX() - w2 / 2;
                     //const y2: number = go2.getTransform().getPosition().getY() - h2 / 2;
                     // @ts-ignore
-                    const w1: number = go1.getBoxCollider().width;
+                    const w1: number = go1.getBoxCollider().width * Engine.scale;
                     // @ts-ignore
-                    const h1: number = go1.getBoxCollider().height;
+                    const h1: number = go1.getBoxCollider().height * Engine.scale;
                     const x1: number = go1.getTransform().getPosition().getX() - w1;
                     const y1: number = go1.getTransform().getPosition().getY() - h1;
                     // @ts-ignore
-                    const w2: number = go2.getBoxCollider().width;
+                    const w2: number = go2.getBoxCollider().width * Engine.scale;
                     // @ts-ignore
-                    const h2: number = go2.getBoxCollider().height;
+                    const h2: number = go2.getBoxCollider().height * Engine.scale;
                     const x2: number = go2.getTransform().getPosition().getX() - w2;
                     const y2: number = go2.getTransform().getPosition().getY() - h2;
 
