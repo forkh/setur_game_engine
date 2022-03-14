@@ -5,10 +5,11 @@ import App from './App';
 import Area51 from './Area51';
 import reportWebVitals from './reportWebVitals';
 import FlagsiFuglur from './flagsifuglur';
+import SuperRuni from './SuperRuni';
 
 ReactDOM.render(
   <React.StrictMode>
-    <FlagsiFuglur />
+    <SuperRuni />
   </React.StrictMode>,
   document.getElementById('root')
 );

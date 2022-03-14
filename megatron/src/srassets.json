@@ -1,0 +1,15 @@
+{
+  "image": {
+    "runi": "runi.png",
+    "coin": "coin.png",
+    "background":  "sr_backgrund.png"
+  },
+  "audio": {
+  },
+  "animation": {},
+  "paths": {
+    "images":  "./assets/images/",
+    "audio":  "./assets/audio/",
+    "animation":  "./assets/animation/"
+  }
+}
