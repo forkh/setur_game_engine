@@ -117,11 +117,11 @@ class Engine {
     }
 
     public startCollisionsChecking(): void {
-        setInterval(this.checkForCollisions.bind(this), 1000);
+        setInterval(this.checkForCollisions.bind(this), 20);
     }
 
     private checkForCollisions(): void {
-        console.log("Checking for collisions");
+        //console.log("Checking for collisions");
         const scale: number = window.innerWidth / Engine.base_case;
         //this.gameObjects.forEach((go1: GameObject) => {
         //    this.gameObjects.forEach((go2: GameObject) => {
@@ -169,19 +169,38 @@ class Engine {
                     //    document.dispatchEvent(new Event("collision"));
 
                     //}
-                    console.log(`${go1.getObjectID()}: x: ${x1}, y: ${y1}, w: ${w1}, h: ${h1}`);
-                    console.log(`${go2.getObjectID()}: x: ${x2}, y: ${y2}, w: ${w2}, h: ${h2}`);
+                    //console.log(`${go1.getObjectID()}: x: ${x1}, y: ${y1}, w: ${w1}, h: ${h1}`);
+                    //console.log(`${go2.getObjectID()}: x: ${x2}, y: ${y2}, w: ${w2}, h: ${h2}`);
                     if (
                         x1 + w1 / 2 > x2 - w2 / 2 &&
                         x1 - w1 / 2 < x2 + w2 / 2 &&
                         y1 + h1 / 2 > y2 - h2 / 2 &&
                         y1 - h1 / 2 < y2 + h2 / 2
                     ) {
+                        /*if (!go1.isGrounded) {
+                            go1.canJump = false;
+                        }*/
+
+                        if (go1.solid && go2.solid) {
+                            if (y1 > y2) {
+                                console.log(" ======== bird landed on pipe =========");
+                                go1.isGrounded = true;
+
+                            }
+                        }
+
+
+
                         //return true;
                         //send signal
                         console.log("=============Collision============");
                         document.dispatchEvent(new Event("collision"));
+                        document.dispatchEvent(new CustomEvent("collision2", {detail: {'obj': go1}}));
 
+
+
+                    } else {
+                        go1.isGrounded = false;
                     }
                 }
             }

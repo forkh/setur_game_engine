@@ -23,6 +23,7 @@ class GameObject {
     public isGrounded: boolean = false;
     public solid: boolean = false;
 
+
     public constructor(zIndex: number) {
         this.objectId = GameObject.GLOBAL_OBJECTID;
         GameObject.GLOBAL_OBJECTID++;

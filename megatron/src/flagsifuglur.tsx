@@ -10,8 +10,11 @@ import assets from './assets.json';
 import soundMappings from './soundMappings.json';
 import { CollisionSystem, CollisionProps } from './engine/CollisionSystem';
 
-let CANVAS_HEIGHT: number = window.innerHeight * 0.75;
-let CANVAS_WIDTH: number  = window.innerHeight * 0.75 * 0.5675;
+//let CANVAS_HEIGHT: number = window.innerHeight * 0.75;
+//let CANVAS_WIDTH: number  = window.innerHeight * 0.75 * 0.5675;
+
+let CANVAS_HEIGHT: number = window.innerHeight;
+let CANVAS_WIDTH: number  = window.innerHeight;
 
 const inputMappings: InputTriggerMap = {
     'KeyW': () => {document.dispatchEvent(new Event("move_up1"))},
@@ -130,6 +133,7 @@ fuglur.addComponent(gc);
 //fuglur.addComponent(new BirdComponent(fuglur));
 fuglur.addSprite("bird");
 fuglur.addBoxCollider(64,64);
+//fuglur.solid = true;
 //engine.addGameObject(fuglur);
 
 
@@ -144,13 +148,14 @@ fuglur2.getTransform().setScale(2.01, 2.01);
 fuglur2.solid = true;
 engine.addGameObject(fuglur2);
 
-const bg: GameObject = new GameObject(40);
-bg.addSprite("uberbg");
-bg.getTransform().setPosition(
-    432 / 2,
-    224
-);
-engine.addGameObject(bg);
+
+const pipe3 = new GameObject(50);
+//pipe3.solid = true;
+pipe3.getTransform().setPosition(30,100)
+pipe3.addSprite("island");
+pipe3.addBoxCollider(128, 64)
+engine.addGameObject(pipe3);
+//engine.registerCollisionObject(pipe3)
 
 //let colProp: CollisionProps = {
 //    gameObjects: [fuglur]
@@ -260,7 +265,7 @@ engine.addTrack("s3", 3);
 engine.addTrack("s4", 4);
 
 engine.startCollisionsChecking();
-engine.registerCollisionObject(fuglur);
+//engine.registerCollisionObject(fuglur);
 function FlagsiFuglur() {
 //let f = GameLoop();
 //document.dispatchEvent(new Event("background_music"));

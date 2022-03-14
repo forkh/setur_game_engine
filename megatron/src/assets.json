@@ -5,7 +5,8 @@
     "background42":  "backgrund.png",
     "uberbg": "uberbakgrund.png",
     "PIPERU": "PIPERU.png",
-    "megapipe": "megapipe.png"
+    "megapipe": "megapipe.png",
+    "island": "landscape1.png"
   },
   "audio": {
     "s0":  "s0.wav",
