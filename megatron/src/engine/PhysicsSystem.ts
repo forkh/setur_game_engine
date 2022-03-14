@@ -29,6 +29,14 @@ class PhysicsSystem {
     public static instantiatePhysicsSystem(gameObjects: GameObject[]): void {
         if (!PhysicsSystem.instance) {
             PhysicsSystem.instance = new PhysicsSystem(gameObjects);
+            document.addEventListener("collision2", (e: Event) => {
+                let obj: GameObject = (<CustomEvent>e).detail.obj as GameObject;
+                obj.isGrounded = true;
+                obj.getRigidBodyComponent().rigidBody.force.y = 0;
+                obj.getRigidBodyComponent().rigidBody.velocity.y = 0;
+                obj.canJump = true;
+
+            })
         }
         console.log("Physics system already exists")
     }
@@ -52,6 +60,11 @@ class PhysicsSystem {
             //console.log(go.hasRigidBodyComponent())
             let rb: RigidBodyProps = go.getRigidBodyComponent();
             if (rb.hasRigidBody) {
+                if (go.isGrounded && force.getY() > 0) {
+                    continue;
+                }
+
+                console.log("test.............");
 
                 let vector1: Vector2d = Vector2d.zero
 
@@ -80,17 +93,16 @@ class PhysicsSystem {
                 //console.log(rb.rigidBody.velocity)
 
 
-                if (go.isGrounded && force.getY() > 0) {
-                    go.getTransform().setPosition(rb.rigidBody.velocity.getX(), go.getTransform().getPosition().getY())
-                    console.log("GAME OBJECT IS GROUNDED")
-                    console.log(`${go.getObjectID()}-force: (${rb.rigidBody.force.x}, ${rb.rigidBody.force.y})`);
-                    //const tmp: Vector2d = rb.rigidBody.force;
-                    rb.rigidBody.force.y = 0;
-                    rb.rigidBody.velocity.y = 0;
-                    continue;
-                }
+                //    go.getTransform().setPosition(rb.rigidBody.velocity.getX(), go.getTransform().getPosition().getY())
+                //    console.log("GAME OBJECT IS GROUNDED")
+                //    console.log(`${go.getObjectID()}-force: (${rb.rigidBody.force.x}, ${rb.rigidBody.force.y})`);
+                //    //const tmp: Vector2d = rb.rigidBody.force;
+                //    rb.rigidBody.force.y = 0;
+                //    rb.rigidBody.velocity.y = 0;
+                //    continue;
+                //}
 
-                go.isGrounded = false;
+                //go.isGrounded = false;
 
 
                 if (!go.isGrounded) {

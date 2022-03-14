@@ -190,6 +190,8 @@ class Engine {
                         //send signal
                         console.log("=============Collision============");
                         document.dispatchEvent(new Event("collision"));
+                        document.dispatchEvent(new CustomEvent("collision2", {detail: {'obj': go1}}));
+                        go1.canJump = false;
 
                     }
                 }

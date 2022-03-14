@@ -22,6 +22,7 @@ class GameObject {
     //private forces: force[];
     public isGrounded: boolean = false;
     public solid: boolean = false;
+    public canJump: boolean = true;
 
     public constructor(zIndex: number) {
         this.objectId = GameObject.GLOBAL_OBJECTID;
