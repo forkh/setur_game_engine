@@ -6,7 +6,9 @@
     "uberbg": "uberbakgrund.png",
     "PIPERU": "PIPERU.png",
     "megapipe": "megapipe.png",
-    "island": "landscape1.png"
+    "island": "landscapebigdetails.png",
+    "plane": "plane.png",
+    "island2": "landscape1.png"
   },
   "audio": {
     "s0":  "s0.wav",

@@ -38,7 +38,7 @@ class PhysicsSystem {
 
             })
         }
-        console.log("Physics system already exists")
+
     }
 
     public static getInstance(): PhysicsSystem {
@@ -71,7 +71,6 @@ class PhysicsSystem {
                 if (go.isGrounded) {
                     m_gravity = 0;
                 }
-
 
                     /**console.log("adasælfjdsøfjdsøpkfdsøpfk")
                     force = rb.rigidBody.force;
@@ -125,7 +124,7 @@ class PhysicsSystem {
 
                 }*/
 
-                go.getTransform().setPosition(go.getTransform().getPosition().getX() + rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
+                go.getTransform().setPosition(go.getTransform().getPosition().getX() + rb.rigidBody.velocity.getX(), (rb.rigidBody.velocity.getY()))
                 //go.getTransform().setPosition(rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
                 rb.rigidBody.force = Vector2d.multiply(rb.rigidBody.force, 0.9);
 

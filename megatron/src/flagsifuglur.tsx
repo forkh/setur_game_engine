@@ -37,7 +37,7 @@ function test() {
 
 }
 
-let engine: Engine = new Engine(inputMappings, soundMappings, assets, 454, 800);//, 1536, 0.5675, 0.75);
+let engine: Engine = new Engine(inputMappings, soundMappings, assets, 1200, 400);//, 1536, 0.5675, 0.75);
 //let engine: Engine = new Engine(inputMappings, soundMappings, assets, 1536, 0.5675, 0.75);
 
 // Extend GameComponent for specialization
@@ -94,7 +94,9 @@ const cm2: ControlMap = {
 function whip(go: GameObject): void {
     console.log("Whip!");
     let force: Vector2d = Vector2d.zero;
-    force.setXY(0, -400);
+    let i = 1;
+    force.setXY(i , -400);
+
     go.addForce(force);
 }
 
@@ -127,6 +129,12 @@ document.addEventListener("printCol", () => {
 })
 
 
+const background: GameObject = new GameObject(1);
+background.addSprite("background");
+background.getTransform().setPosition(1200, 300);
+engine.addGameObject(background);
+
+
 const fuglur: GameObject = new GameObject(50);
 //fuglur.getTransform().setRotation(5);
 const gc: ControllerComponent = new ControllerComponent(fuglur, cm);
@@ -139,12 +147,12 @@ fuglur.addBoxCollider(64,64);
 
 
 const fuglur2: GameObject = new GameObject(50);
-fuglur2.getTransform().setPosition(100, 100)
+fuglur2.getTransform().setPosition(256, 100)
 const gc2: ControllerComponent = new ControllerComponent(fuglur2, cm2);
 fuglur2.addComponent(gc2);
 //fuglur.addComponent(new BirdComponent(fuglur));
-fuglur2.addSprite("bird");
-fuglur2.addBoxCollider(64, 64);
+fuglur2.addSprite("plane");
+fuglur2.addBoxCollider(30, 64);
 fuglur2.addRigidBodyComponent(fuglur2);
 fuglur2.getTransform().setPosition(50, 0);
 fuglur2.solid = true;
@@ -152,11 +160,28 @@ engine.addGameObject(fuglur2);
 
 
 const pipe3 = new GameObject(50);
-//pipe3.solid = true;
-pipe3.getTransform().setPosition(50,300)
+pipe3.solid = true;
+pipe3.getTransform().setPosition(600,400)
 pipe3.addSprite("island");
-pipe3.addBoxCollider(128, 64)
+pipe3.addBoxCollider(1200, 100)
+pipe3.solid = true;
 engine.addGameObject(pipe3);
+
+const pipe4 = new GameObject(50);
+pipe4.solid = true;
+pipe4.getTransform().setPosition(500,300)
+pipe4.addSprite("island2");
+pipe4.addBoxCollider(128, 64)
+pipe4.solid = true;
+engine.addGameObject(pipe4);
+
+const pipe5 = new GameObject(50);
+pipe5.solid = true;
+pipe5.getTransform().setPosition(800,100)
+pipe5.addSprite("island2");
+pipe5.addBoxCollider(128, 64)
+pipe5.solid = true;
+engine.addGameObject(pipe5);
 //engine.registerCollisionObject(pipe3)
 
 //let colProp: CollisionProps = {

@@ -182,15 +182,15 @@ class Engine {
                         y1 + h1 / 2 > y2 - h2 / 2 &&
                         y1 - h1 / 2 < y2 + h2 / 2
                     ) {
+
                         /*if (!go1.isGrounded) {
                             go1.canJump = false;
                         }*/
 
                         if (go1.solid && go2.solid) {
-                            if (y1 > y2) {
+                            if (y1 >= y2) {
                                 console.log(" ======== bird landed on pipe =========");
                                 go1.isGrounded = true;
-
                             }
                         }
 
@@ -198,10 +198,9 @@ class Engine {
 
                         //return true;
                         //send signal
-                        console.log("=============Collision============");
-                        document.dispatchEvent(new Event("collision"));
-                        document.dispatchEvent(new CustomEvent("collision2", {detail: {'obj': go1}}));
-
+                    console.log("=============Collision============");
+                    document.dispatchEvent(new Event("collision"));
+                    document.dispatchEvent(new CustomEvent("collision2", {detail: {'obj': go1}}));
 
                     } else {
                         go1.isGrounded = false;
@@ -224,6 +223,8 @@ class Engine {
         //})
     }
 }
+
+
 
 function compareZIndex(go1: GameObject, go2: GameObject): number {
     if(go1.getZIndex() < go2.getZIndex()) {

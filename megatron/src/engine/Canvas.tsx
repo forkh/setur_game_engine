@@ -44,8 +44,8 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
 
             }
             ctx.clearRect(0,0, canvasProps.width, canvasProps.height)
-            ctx.fillStyle = "#79DDEC";
-            ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+            // ctx.fillStyle = "#79DDEC";
+            //ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
             //let bg: HTMLImageElement = ResourceManager.getImage("uberbg", false) as HTMLImageElement;
 
             //ctx.drawImage(bg, 0, 0);
