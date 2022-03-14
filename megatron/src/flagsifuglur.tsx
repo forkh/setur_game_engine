@@ -94,7 +94,7 @@ const cm2: ControlMap = {
 function whip(go: GameObject): void {
     console.log("Whip!");
     let force: Vector2d = Vector2d.zero;
-    force.setXY(10, -400);
+    force.setXY(0, -400);
     go.addForce(force);
 }
 

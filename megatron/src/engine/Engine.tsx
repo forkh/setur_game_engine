@@ -203,7 +203,6 @@ class Engine {
                         document.dispatchEvent(new CustomEvent("collision2", {detail: {'obj': go1}}));
 
 
-
                     } else {
                         go1.isGrounded = false;
                     }
