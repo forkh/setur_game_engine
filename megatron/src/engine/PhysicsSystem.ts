@@ -32,9 +32,9 @@ class PhysicsSystem {
             document.addEventListener("collision2", (e: Event) => {
                 let obj: GameObject = (<CustomEvent>e).detail.obj as GameObject;
                 obj.isGrounded = true;
-                obj.getRigidBodyComponent().rigidBody.force.y = 0;
-                obj.getRigidBodyComponent().rigidBody.velocity.y = 0;
-                obj.canJump = true;
+                //obj.getRigidBodyComponent().rigidBody.force.y = 0;
+                //obj.getRigidBodyComponent().rigidBody.velocity.y = 0;
+                //obj.canJump = true;
 
             })
         }
@@ -60,17 +60,24 @@ class PhysicsSystem {
             //console.log(go.hasRigidBodyComponent())
             let rb: RigidBodyProps = go.getRigidBodyComponent();
             if (rb.hasRigidBody) {
-                console.log(`${go.getObjectID()}: canJump: ${go.canJump}, hasCollided: ${go.hasCollided}, isGrounded: ${go.isGrounded}`);
-                if (go.isGrounded && force.getY() > 0 && !go.canJump) {
+                //console.log(`${go.getObjectID()}: canJump: ${go.canJump}, hasCollided: ${go.hasCollided}, isGrounded: ${go.isGrounded}`);
+                /**if (go.isGrounded && force.getY() > 0 && !go.canJump) {
                     continue;
-                }
+                }**/
 
                 force = Vector2d.addition(force, rb.rigidBody.force);
 
-                if (go.canJump && go.hasCollided) {
-                    console.log("adasælfjdsøfjdsøpkfdsøpfk")
-                    force = rb.rigidBody.force;
+                if (go.isGrounded) {
+                    m_gravity = 0;
                 }
+
+
+                    /**console.log("adasælfjdsøfjdsøpkfdsøpfk")
+                    force = rb.rigidBody.force;
+                    if (go.isGrounded) {
+                        m_gravity = 0;
+                    }**/
+
 
                 //console.log("test.............");
 
@@ -112,11 +119,13 @@ class PhysicsSystem {
                 //go.isGrounded = false;
 
 
-                if (!go.isGrounded) {
+                /*if (!go.isGrounded) {
                     //console.log("GAME OBJECT IS NOT GROUNDED")
-                    go.getTransform().setPosition(rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
-                    rb.rigidBody.force = Vector2d.multiply(rb.rigidBody.force, 0.9);
-                }
+
+                }*/
+
+                go.getTransform().setPosition(rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
+                rb.rigidBody.force = Vector2d.multiply(rb.rigidBody.force, 0.9);
 
 
 

@@ -177,14 +177,18 @@ class Engine {
                         y1 + h1 / 2 > y2 - h2 / 2 &&
                         y1 - h1 / 2 < y2 + h2 / 2
                     ) {
+                        /*if (!go1.isGrounded) {
+                            go1.canJump = false;
+                        }*/
 
                         if (go1.solid && go2.solid) {
-                            if (y1 > y2 && !go1.hasCollided) {
+                            if (y1 > y2) {
                                 console.log(" ======== bird landed on pipe =========");
                                 go1.isGrounded = true;
-                                go1.hasCollided = true;
+
                             }
                         }
+
 
 
                         //return true;
@@ -192,8 +196,11 @@ class Engine {
                         console.log("=============Collision============");
                         document.dispatchEvent(new Event("collision"));
                         document.dispatchEvent(new CustomEvent("collision2", {detail: {'obj': go1}}));
-                        go1.canJump = false;
 
+
+
+                    } else {
+                        go1.isGrounded = false;
                     }
                 }
             }
