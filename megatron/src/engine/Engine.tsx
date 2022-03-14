@@ -156,6 +156,18 @@ class Engine {
                         y1 + h1 / 2 > y2 - h2 / 2 &&
                         y1 - h1 / 2 < y2 + h2 / 2
                     ) {
+
+                        if (go1.solid && go2.solid) {
+                            if (y1 > y2) {
+                                console.log(" ======== bird landed on pipe =========");
+                                go1.isGrounded = true;
+                            } else {
+                                console.log(" is grounded == false")
+                                go1.isGrounded = false;
+                            }
+                        }
+
+
                         //return true;
                         //send signal
                         console.log("=============Collision============");

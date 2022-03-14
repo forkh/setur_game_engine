@@ -79,11 +79,27 @@ class PhysicsSystem {
 
                 //console.log(rb.rigidBody.velocity)
 
-                go.getTransform().setPosition(rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
+
+                if (go.isGrounded && force.getY() > 0) {
+                    go.getTransform().setPosition(rb.rigidBody.velocity.getX(), go.getTransform().getPosition().getY())
+                    console.log("GAME OBJECT IS GROUNDED")
+                }
+
+                if (!go.isGrounded) {
+                    console.log("GAME OBJECT IS NOT GROUNDED")
+                    go.getTransform().setPosition(rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
+                    rb.rigidBody.force = Vector2d.multiply(rb.rigidBody.force, 0.9);
+                }
+
+
+
+
+
+                //go.getTransform().setPosition(rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
 
 
                 //rb.rigidBody.force = Vector2d.zero;
-                rb.rigidBody.force = Vector2d.multiply(rb.rigidBody.force, 0.9);
+                //rb.rigidBody.force = Vector2d.multiply(rb.rigidBody.force, 0.9);
                 //console.log(go.getTransform().getPosition())
             }
         }
