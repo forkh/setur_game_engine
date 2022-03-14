@@ -120,14 +120,14 @@ document.addEventListener("printCol", () => {
 })
 
 
-const fuglur: GameObject = new GameObject(50);
+const mario: GameObject = new GameObject(50);
 //fuglur.getTransform().setRotation(5);
-const gc: ControllerComponent = new ControllerComponent(fuglur, cm);
-fuglur.addComponent(gc);
+const cc: ControllerComponent = new ControllerComponent(mario, cm);
+mario.addComponent(cc);
 //fuglur.addComponent(new BirdComponent(fuglur));
-fuglur.addSprite("bird");
-fuglur.addBoxCollider(64,64);
-engine.addGameObject(fuglur);
+mario.addSprite("bird");
+mario.addBoxCollider(64,64);
+engine.addGameObject(mario);
 
 
 const fuglur2: GameObject = new GameObject(50);
@@ -153,7 +153,7 @@ type pipe_pair = {
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomArbitrary(min: number, max: number): number {
-  return Math.random() * (max - min) + min;
+    return Math.random() * (max - min) + min;
 }
 
 
@@ -253,11 +253,11 @@ engine.registerCollisionObject(fuglur);
 function FlagsiFuglur() {
 //let f = GameLoop();
 //document.dispatchEvent(new Event("background_music"));
-return (
-    <div className={"FlagsiFuglur"}>
-        {engine.run()}
-    </div>
-);
+    return (
+        <div className={"FlagsiFuglur"}>
+            {engine.run()}
+        </div>
+    );
 //    return (
 //        <div className="FlagsiFuglur">
 //            <header className="App-header">

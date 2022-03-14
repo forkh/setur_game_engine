@@ -2,6 +2,6 @@
   "shoot": 0,
   "test": 1,
   "explosion": 2,
-  "audio": 3,
-  "background_music": 4
+  "theme": 3,
+  "flap": 4
 }

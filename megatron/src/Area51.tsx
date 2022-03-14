@@ -34,6 +34,7 @@ AudioSystem.addTrack(ResourceManager.getAudio("s0"), 0);
 AudioSystem.addTrack(ResourceManager.getAudio("s1"), 1);
 AudioSystem.addTrack(ResourceManager.getAudio("s2"), 2);
 AudioSystem.addTrack(ResourceManager.getAudio("s3"), 3);
+AudioSystem.addTrack(ResourceManager.getAudio("s4"), 4);
 
 
 // Dispatches a specific event based upon the value of variable i.
@@ -59,8 +60,13 @@ function f1() {
         document.dispatchEvent(new Event("audio"));
     }
 
+    if (i == 4) {
+        console.log("Theme Song!");
+        document.dispatchEvent(new Event("theme"));
+    }
+
     i++;
-    if (i > 3) {
+    if (i > 4) {
         i = 0;
     }
 

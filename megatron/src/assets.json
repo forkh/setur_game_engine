@@ -11,8 +11,8 @@
     "s0":  "s0.wav",
     "s1": "s1.wav",
     "s2": "s2.wav",
-    "3": "s3.wav",
-    "s4": "gamejam_longplay.mp3"
+    "theme": "island-hopper.wav",
+    "flap": "flap.wav"
   },
   "animation": {},
   "paths": {
