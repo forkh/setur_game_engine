@@ -126,8 +126,8 @@ class Engine {
     }
 
     private checkForCollisions(): void {
-        //console.log("Checking for collisions");
-        const scale: number = window.innerWidth / Engine.base_case;
+        console.log("Checking for collisions");
+        //const scale: number = window.innerWidth / Engine.base_case;
         //this.gameObjects.forEach((go1: GameObject) => {
         //    this.gameObjects.forEach((go2: GameObject) => {
         if (this.gameObjects.length < 2) {
@@ -138,6 +138,7 @@ class Engine {
             for (let j = 0; j < this.gameObjects.length; j++) {
                 let go2: GameObject = this.gameObjects[j];
                 if (go1.hasBoxCollider() && go2.hasBoxCollider() && go1.getObjectID() != go2.getObjectID()) {
+                    console.log("yoyoyo123");
                     //// @ts-ignore
                     //const w1: number = go1.getBoxCollider().width;
                     //// @ts-ignore
@@ -174,8 +175,8 @@ class Engine {
                     //    document.dispatchEvent(new Event("collision"));
 
                     //}
-                    //console.log(`${go1.getObjectID()}: x: ${x1}, y: ${y1}, w: ${w1}, h: ${h1}`);
-                    //console.log(`${go2.getObjectID()}: x: ${x2}, y: ${y2}, w: ${w2}, h: ${h2}`);
+                    console.log(`${go1.getObjectID()}: x: ${x1}, y: ${y1}, w: ${w1}, h: ${h1}`);
+                    console.log(`${go2.getObjectID()}: x: ${x2}, y: ${y2}, w: ${w2}, h: ${h2}`);
                     if (
                         x1 + w1 / 2 > x2 - w2 / 2 &&
                         x1 - w1 / 2 < x2 + w2 / 2 &&

@@ -1,8 +1,10 @@
 {
   "image": {
-    "runi": "runi.png",
+    "runi": "superruni.png",
     "coin": "coin.png",
-    "background":  "sr_backgrund.png"
+    "background":  "srbackground.png",
+    "flag": "flag.png",
+    "island": "landscapebigdetails.png"
   },
   "audio": {
   },
