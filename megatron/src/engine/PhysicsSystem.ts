@@ -30,6 +30,7 @@ class PhysicsSystem {
         if (!PhysicsSystem.instance) {
             PhysicsSystem.instance = new PhysicsSystem(gameObjects);
             document.addEventListener("collision2", (e: Event) => {
+                //console.log("yolo baggins");
                 let obj: GameObject = (<CustomEvent>e).detail.obj as GameObject;
                 obj.isGrounded = true;
                 //obj.getRigidBodyComponent().rigidBody.force.y = 0;
@@ -38,7 +39,6 @@ class PhysicsSystem {
 
             })
         }
-        console.log("Physics system already exists")
     }
 
     public static getInstance(): PhysicsSystem {

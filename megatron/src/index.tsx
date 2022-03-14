@@ -6,6 +6,8 @@ import Area51 from './Area51';
 import reportWebVitals from './reportWebVitals';
 import FlagsiFuglur from './flagsifuglur';
 import SuperRuni from './SuperRuni';
+import GameLoop from './engine/GameLoop';
+import { CollisionSystem, CollisionProps } from './engine/CollisionSystem';
 
 ReactDOM.render(
   <React.StrictMode>

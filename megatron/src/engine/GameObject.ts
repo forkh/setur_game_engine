@@ -26,6 +26,7 @@ class GameObject {
 
     public constructor(zIndex: number) {
         this.objectId = GameObject.GLOBAL_OBJECTID;
+        console.log(`Created object with OID: ${this.objectId}`);
         GameObject.GLOBAL_OBJECTID++;
         this.gameComponents = [];
         this.active = true;

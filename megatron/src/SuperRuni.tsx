@@ -5,6 +5,7 @@ import assets from './srassets.json';
 import soundMappings from './sr_soundMappings.json';
 import { Engine, InputTriggerMap, AssetsType, GameObject, GameComponent, ControlMap, ControllerComponent } from './engine/Engine';
 import { Vector2d } from './engine/math';
+import { CollisionSystem, CollisionProps } from './engine/CollisionSystem';
 
 const inputMappings: InputTriggerMap = {
     'ArrowRight': () => {
@@ -28,34 +29,34 @@ let engine: Engine = new Engine(inputMappings, soundMappings, assets, 800, 600);
 
 // Game objects
 // Background
-const background: GameObject = new GameObject(10);
-background.addSprite("background");
-background.getTransform().setPosition(400, 300);
-engine.addGameObject(background);
+//const background: GameObject = new GameObject(10);
+//background.addSprite("background");
+//background.getTransform().setPosition(400, 300);
+//engine.addGameObject(background);
 
-const island: GameObject = new GameObject(10);
+const island: GameObject = new GameObject(25);
 island.addSprite("island");
-island.getTransform().setPosition(400, 600);
+island.getTransform().setPosition(400, 400);
 island.solid = true;
 island.addBoxCollider(1200, 100);
 engine.addGameObject(island);
 //engine.registerCollisionObject(island);
 
 // Coins
-const coin1: GameObject = new GameObject(20);
-coin1.addSprite("coin");
-coin1.getTransform().setPosition(40, 450);
-coin1.addBoxCollider(32, 32);
-coin1.solid = false;
-engine.addGameObject(coin1);
+//const coin1: GameObject = new GameObject(20);
+//coin1.addSprite("coin");
+//coin1.getTransform().setPosition(40, 450);
+////coin1.addBoxCollider(32, 32);
+//coin1.solid = false;
+//engine.addGameObject(coin1);
 
 // Flag
-const flag: GameObject = new GameObject(20);
-flag.addSprite("flag");
-flag.getTransform().setPosition(760, 490);
-flag.addBoxCollider(32, 64);
-flag.solid = false;
-engine.addGameObject(flag);
+//const flag: GameObject = new GameObject(20);
+//flag.addSprite("flag");
+//flag.getTransform().setPosition(760, 490);
+//flag.addBoxCollider(32, 64);
+//flag.solid = false;
+//engine.addGameObject(flag);
 
 // Player
 const playerControl: ControlMap = {
@@ -66,13 +67,13 @@ const playerControl: ControlMap = {
 
 const player: GameObject = new GameObject(25);
 player.addSprite("runi");
-player.getTransform().setPosition(20, 480);
+player.getTransform().setPosition(400, 480);
 player.addBoxCollider(64, 64);
 player.addComponent(new ControllerComponent(player, playerControl));
 player.addRigidBodyComponent(player);
 player.solid = true;
-engine.registerCollisionObject(player);
 engine.addGameObject(player);
+engine.registerCollisionObject(player);
 
 function move_right(go: GameObject): void {
 
