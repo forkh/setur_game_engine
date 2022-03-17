@@ -37,7 +37,8 @@ function test() {
 
 }
 
-let engine: Engine = new Engine(inputMappings, soundMappings, assets, 454, 800);//, 1536, 0.5675, 0.75);
+//let engine: Engine = new Engine(inputMappings, soundMappings, assets, 454, 800);//, 1536, 0.5675, 0.75);
+const engine = Engine.instantiateEngine(inputMappings, soundMappings, assets, 800, 600);
 //let engine: Engine = new Engine(inputMappings, soundMappings, assets, 1536, 0.5675, 0.75);
 
 // Extend GameComponent for specialization

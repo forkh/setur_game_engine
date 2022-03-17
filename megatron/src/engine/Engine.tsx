@@ -13,8 +13,8 @@ import { PhysicsProps, RigidBodyProps } from './PhysicsSystem';
 import GameLoop from './GameLoop';
 
 class Engine {
-    //private static instance: Engine;
-    private gameObjects: GameObject[] = [];// = [new GameObject(-1)];
+    private static instance: Engine;
+    public static gameObjects: GameObject[] = [];// = [new GameObject(-1)];
     private collisionObjects: GameObject[] = [];
     //private gameObjects: GameObject[] = new Array<GameObject>();
     private static debug: boolean = false;
@@ -33,6 +33,14 @@ class Engine {
         return this.debug;
     }
 
+    public static instantiateEngine(inputMap: InputTriggerMap, soundMapping: EventSounds, assets: AssetsType, width: number, height: number): Engine {
+        if (!Engine.instance) {
+            this.instance = new Engine(inputMap, soundMapping, assets, width, height);
+        }
+
+        return this.instance;
+    }
+
     /**
      *
      * @param inputMap Key input mappings
@@ -42,10 +50,10 @@ class Engine {
      * @param aspect_ratio Aspect ratio of canvas
      * @param proportion How much of vertical screen real estate to use.
      */
-    public constructor(inputMap: InputTriggerMap, soundMapping: EventSounds, assets: AssetsType, width: number, height: number) {//, base_case: number, aspect_ratio: number, proportion: number) {
+    private constructor(inputMap: InputTriggerMap, soundMapping: EventSounds, assets: AssetsType, width: number, height: number) {//, base_case: number, aspect_ratio: number, proportion: number) {
         this.height = height;
         this.width = width;
-    //public constructor(inputMap: InputTriggerMap, soundMapping: EventSounds, assets: AssetsType, base_case: number, aspect_ratio: number, proportion: number) {
+        //public constructor(inputMap: InputTriggerMap, soundMapping: EventSounds, assets: AssetsType, base_case: number, aspect_ratio: number, proportion: number) {
         //Engine.base_case = base_case;
         //Engine.scale = window.innerHeight / Engine.base_case;
         //Engine.aspectRatio = aspect_ratio;
@@ -60,7 +68,8 @@ class Engine {
         ResourceManager.instantiateResourceManager(assets);
         AudioSystem.instantiateAudioSystem(soundMapping);
         InputSystem.instantiateInputSystem(inputMap);
-        PhysicsSystem.instantiatePhysicsSystem(this.gameObjects);
+        //PhysicsSystem.instantiatePhysicsSystem(Engine.gameObjects);
+        PhysicsSystem.instantiatePhysicsSystem();
         PhysicsSystem.start();
         //setInterval()
         //const collisionProp: CollisionProps = {
@@ -72,6 +81,10 @@ class Engine {
         // TODO: CollisionSystem:
 
         // TODO: PhysicsSystem:
+
+        console.log(`Engine class has been instantiated.`)
+
+
     }
 
     //private test() {
@@ -102,7 +115,7 @@ class Engine {
         const gameLoop: any = GameLoop();
         const canvasProps: CanvasProps = {
             // TODO: Broyt til at hetta verður definera í game design, ikki engine
-            objects: this.gameObjects,
+            objects: Engine.gameObjects,
             height: this.height,//window.innerHeight,// * Engine.proportion,
             width: this.width//window.innerHeight// * Engine.proportion * Engine.aspectRatio,//0.5625,
             //scale: Engine.scale
@@ -113,8 +126,8 @@ class Engine {
     }
 
     public addGameObject(gameObject: GameObject): void {
-        this.gameObjects.push(gameObject);
-        this.gameObjects.sort(compareZIndex);
+        Engine.gameObjects.push(gameObject);
+        Engine.gameObjects.sort(compareZIndex);
     }
 
     public addControllerListener(key: string, func: (() => {})): void {
@@ -129,7 +142,7 @@ class Engine {
         //const scale: number = window.innerWidth / Engine.base_case;
         //this.gameObjects.forEach((go1: GameObject) => {
         //    this.gameObjects.forEach((go2: GameObject) => {
-        if (this.gameObjects.length < 2) {
+        if (Engine.gameObjects.length < 2) {
             return;
         }
 
@@ -138,9 +151,11 @@ class Engine {
         }
 
         for (let i = 0; i < this.collisionObjects.length; i++) {
+            console.log(`??????????????????? ${i} ????????????????????`);
             let go1: GameObject = this.collisionObjects[i];
-            for (let j = 0; j < this.gameObjects.length; j++) {
-                let go2: GameObject = this.gameObjects[j];
+            for (let j = 0; j < Engine.gameObjects.length; j++) {
+                console.log(`!!!!!!!!!!!!!!!!!!! ${j} !!!!!!!!!!!!!!!!!`)
+                let go2: GameObject = Engine.gameObjects[j];
                 //console.log("321oyoyoy");
                 //if (go1.hasBoxCollider() && go2.hasBoxCollider()) {
                 if (go1.hasBoxCollider() && go2.hasBoxCollider() && go1.getObjectID() != go2.getObjectID()) {
@@ -241,12 +256,12 @@ class Engine {
     }
     
     public sortingGameObjects(): void {
-        this.gameObjects.sort(compareZIndex);
+        Engine.gameObjects.sort(compareZIndex);
     }
 
     public printColliders(): void {
-        for (let i: number = 0; i < this.gameObjects.length; i++) {
-            this.gameObjects[i].printColliders();
+        for (let i: number = 0; i < Engine.gameObjects.length; i++) {
+            Engine.gameObjects[i].printColliders();
         }
         //this.gameObjects.forEach((gc) => {
         //    gc.printColliders();

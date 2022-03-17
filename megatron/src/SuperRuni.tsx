@@ -25,7 +25,9 @@ const inputMappings: InputTriggerMap = {
     }
 }
 
-let engine: Engine = new Engine(inputMappings, soundMappings, assets, 800, 600);//, 1536, 0.5675, 0.75);
+//let engine: Engine = new Engine(inputMappings, soundMappings, assets, 800, 600);//, 1536, 0.5675, 0.75);
+const engine = Engine.instantiateEngine(inputMappings, soundMappings, assets, 800, 600);
+
 
 // Game objects
 // Background
@@ -41,6 +43,12 @@ island.solid = true;
 island.addBoxCollider(1200, 100);
 engine.addGameObject(island);
 //engine.registerCollisionObject(island);
+const island2: GameObject = new GameObject(25);
+island2.addSprite("island");
+island2.getTransform().setPosition(-400, 400);
+island2.solid = true;
+island2.addBoxCollider(1200, 100);
+engine.addGameObject(island2);
 
 // Coins
 //const coin1: GameObject = new GameObject(20);
@@ -76,11 +84,15 @@ engine.addGameObject(player);
 engine.registerCollisionObject(player);
 
 function move_right(go: GameObject): void {
-
+    let force: Vector2d = Vector2d.zero;
+    force.addXY(1, 0);
+    go.addForce(force);
 }
 
 function move_left(go: GameObject): void {
-
+    let force: Vector2d = Vector2d.zero;
+    force.addXY(-1, 0);
+    go.addForce(force);
 }
 
 function jump(go: GameObject): void {

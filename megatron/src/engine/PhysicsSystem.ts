@@ -1,5 +1,7 @@
-import { Vector2d } from "./math"
-import { GameObject } from "./GameObject"
+import { Vector2d } from "./math";
+import { GameObject } from "./GameObject";
+import { Engine } from './Engine';
+
 
 interface PhysicsProps {
     //gameComponents: GameComponent[];
@@ -15,10 +17,10 @@ class PhysicsSystem {
 
     private static instance: PhysicsSystem;
 
-    private gameObjects: GameObject[];
+    //private gameObjects: GameObject[];
 
-    private constructor(gameObjects: GameObject[]) {
-        this.gameObjects = gameObjects;
+    private constructor() {
+        //this.gameObjects = gameObjects;
     }
 
     public static start(): void {
@@ -26,9 +28,10 @@ class PhysicsSystem {
     }
 
     //public static instantiatePhysicsSystem(): void {
-    public static instantiatePhysicsSystem(gameObjects: GameObject[]): void {
+    //public static instantiatePhysicsSystem(gameObjects: GameObject[]): void {
+    public static instantiatePhysicsSystem(): void {
         if (!PhysicsSystem.instance) {
-            PhysicsSystem.instance = new PhysicsSystem(gameObjects);
+            PhysicsSystem.instance = new PhysicsSystem();
             document.addEventListener("collision2", (e: Event) => {
                 //console.log("yolo baggins");
                 let obj: GameObject = (<CustomEvent>e).detail.obj as GameObject;
@@ -52,11 +55,11 @@ class PhysicsSystem {
         //console.log("========================GRAVITY=====================")
         //console.log(physicsProps.gameObjects)
         let force: Vector2d = Vector2d.zero;
-        for (let i = 0; i < PhysicsSystem.getInstance().gameObjects.length; i++) {
+        for (let i = 0; i < Engine.gameObjects.length; i++) {
             //console.log(go.getObjectID() + " test ")
             //let test:Vector2d = Vector2d.multiply1(go.force, (go.mass * m_gravity))
             //console.log(go.getRigidBodyComponent())
-            let go: GameObject = PhysicsSystem.getInstance().gameObjects[i];
+            let go: GameObject = Engine.gameObjects[i];
             //console.log(go.hasRigidBodyComponent())
             let rb: RigidBodyProps = go.getRigidBodyComponent();
             if (rb.hasRigidBody) {
