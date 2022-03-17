@@ -98,6 +98,7 @@ function whip(go: GameObject): void {
     force.setXY(i , -400);
 
     go.addForce(force);
+    go.getTransform().setPosition(go.getTransform().getPosition().getX(), go.getTransform().getPosition().getY());
 }
 
 function whip2(go: GameObject): void {
@@ -152,7 +153,7 @@ const gc2: ControllerComponent = new ControllerComponent(fuglur2, cm2);
 fuglur2.addComponent(gc2);
 //fuglur.addComponent(new BirdComponent(fuglur));
 fuglur2.addSprite("plane");
-fuglur2.addBoxCollider(200, 25);
+fuglur2.addBoxCollider(76, 32);
 fuglur2.addRigidBodyComponent(fuglur2);
 fuglur2.getTransform().setPosition(50, 0);
 fuglur2.solid = true;
@@ -168,7 +169,7 @@ pipe3.addSprite("island");
 pipe3.addBoxCollider(1200, 100)
 engine.addGameObject(pipe3);
 
-const pipe4 = new GameObject(50);
+/**const pipe4 = new GameObject(50);
 //pipe4.solid = true;
 pipe4.getTransform().setPosition(500,300)
 pipe4.addSprite("island2");
@@ -181,7 +182,7 @@ pipe5.getTransform().setPosition(800,100)
 pipe5.addSprite("island2");
 pipe5.addBoxCollider(203, 31)
 engine.addGameObject(pipe5);
-engine.registerCollisionObject(pipe3)
+engine.registerCollisionObject(pipe3) **/
 
 //let colProp: CollisionProps = {
 //    gameObjects: [fuglur]
