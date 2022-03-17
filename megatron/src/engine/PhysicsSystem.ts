@@ -130,9 +130,6 @@ class PhysicsSystem {
                 rb.rigidBody.force = Vector2d.multiply(rb.rigidBody.force, 0.9);
 
 
-
-
-
                 //go.getTransform().setPosition(rb.rigidBody.velocity.getX(), rb.rigidBody.velocity.getY())
 
 

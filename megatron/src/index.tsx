@@ -11,7 +11,7 @@ import { CollisionSystem, CollisionProps } from './engine/CollisionSystem';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SuperRuni />
+    <FlagsiFuglur />
   </React.StrictMode>,
   document.getElementById('root')
 );

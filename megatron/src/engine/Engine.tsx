@@ -210,6 +210,8 @@ class Engine {
                         //        console.log(go1.getSprite().src);
                         //    }
                         //}
+
+                         // TODO: CHECK isGrounded false when object leaves a platform
                         if (go1.solid && go2.solid) {
                             go1.isGrounded = true;
                             console.log("solids!");

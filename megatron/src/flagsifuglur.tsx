@@ -94,7 +94,7 @@ const cm2: ControlMap = {
 function whip(go: GameObject): void {
     console.log("Whip!");
     let force: Vector2d = Vector2d.zero;
-    let i = 20;
+    let i = 1;
     force.setXY(i , -400);
 
     go.addForce(force);
@@ -157,6 +157,8 @@ fuglur2.addRigidBodyComponent(fuglur2);
 fuglur2.getTransform().setPosition(50, 0);
 fuglur2.solid = true;
 engine.addGameObject(fuglur2);
+engine.registerCollisionObject(fuglur2);
+
 
 
 const pipe3 = new GameObject(50);
@@ -164,25 +166,22 @@ pipe3.solid = true;
 pipe3.getTransform().setPosition(600,400)
 pipe3.addSprite("island");
 pipe3.addBoxCollider(1200, 100)
-pipe3.solid = true;
 engine.addGameObject(pipe3);
 
 const pipe4 = new GameObject(50);
-pipe4.solid = true;
+//pipe4.solid = true;
 pipe4.getTransform().setPosition(500,300)
 pipe4.addSprite("island2");
 pipe4.addBoxCollider(203, 31)
-pipe4.solid = true;
 engine.addGameObject(pipe4);
 
 const pipe5 = new GameObject(50);
-pipe5.solid = true;
+//pipe5.solid = true;
 pipe5.getTransform().setPosition(800,100)
 pipe5.addSprite("island2");
 pipe5.addBoxCollider(203, 31)
-pipe5.solid = true;
 engine.addGameObject(pipe5);
-//engine.registerCollisionObject(pipe3)
+engine.registerCollisionObject(pipe3)
 
 //let colProp: CollisionProps = {
 //    gameObjects: [fuglur]
@@ -248,7 +247,7 @@ class FlagsiFuglurSpael {
 //PIPERU.addBoxCollider(128, 128);
 //PIPERU.getTransform().setPosition(1200, 0);
 //engine.addGameObject(PIPERU);
-engine.registerCollisionObject(fuglur2);
+
 
 //const p11: GameObject = new GameObject(35);
 //p11.addSprite("megapipe");
