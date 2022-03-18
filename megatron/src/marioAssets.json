@@ -1,0 +1,18 @@
+{
+  "image": {
+    "mario": "mario.png",
+    "background": "darioBG.jpeg",
+    "ground": "ground.png"
+
+  },
+
+  "audio": {
+    "jump": "jump.wav",
+    "coin": "coin.wav",
+    "pipe": "pipe.wav"
+  },
+  "paths": {
+    "images":  "./assets/images/",
+    "audio":  "./assets/audio/"
+  }
+}

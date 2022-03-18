@@ -1,17 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-//import { Engine, InputTriggerMap, AssetsType, GameObject, GameComponent, ControlMap } from './engine/Engine';
 import { Engine, InputTriggerMap, AssetsType, GameObject, GameComponent, ControlMap, ControllerComponent } from './engine/Engine';
-import GameLoop from './engine/GameLoop';
 import { Vector2d } from './engine/math';
 
-import assets from './assets.json';
+import assets from './marioAssets.json';
 import soundMappings from './soundMappings.json';
-import { CollisionSystem, CollisionProps } from './engine/CollisionSystem';
+import {CollisionSystem} from "./engine/CollisionSystem";
 
-let CANVAS_HEIGHT: number = window.innerHeight * 0.75;
-let CANVAS_WIDTH: number  = window.innerHeight * 0.75 * 0.5675;
+
+
+let CANVAS_HEIGHT: number = window.innerHeight;
+let CANVAS_WIDTH: number  = window.innerHeight;
 
 const inputMappings: InputTriggerMap = {
     'KeyW': () => {document.dispatchEvent(new Event("move_up1"))},
@@ -27,34 +26,16 @@ const inputMappings: InputTriggerMap = {
     'Space': () => {document.dispatchEvent(new Event("whip"))},
     'KeyN': () => {document.dispatchEvent(new Event("whip2"))},
     'KeyP': () => {document.dispatchEvent(new Event("printCol"))},
+    'KeyV': () => {document.dispatchEvent(new Event("island_hopper"))},
 }
 
-let engine: Engine = new Engine(inputMappings, soundMappings, assets);
+function test() {
 
-// Extend GameComponent for specialization
-//class BirdComponent extends GameComponent {
-//    //private go: GameObject;
-//    parent: GameObject;
-//    private funky: any = (x: any) => {
-//        console.log(x);
-//    }
-//
-//    public constructor(go: GameObject) {
-//        super(go);
-//        this.parent = go;
-//        console.log(go);
-//        document.addEventListener("move_sideways", this.squeek.bind(this));
-//        this.parent.getTransform().getPosition();
-//    }
-//
-//    private squeek(): void {
-//        console.log("squeek!");
-//        this.parent.getTransform().translate(3, 0);
-//    }
-//
-//
-//}
-//
+}
+
+let engine: Engine = new Engine(inputMappings, soundMappings, assets, 1000, 600);//, 1536, 0.5675, 0.75);
+
+
 function birdup(go: GameObject): void {
     go.getTransform().translate(25, 0);
     console.log("GO: " + go);
@@ -65,9 +46,6 @@ const cm: ControlMap = {
     'move_down1': move_down,
     'move_left1': move_left,
     'move_right1': move_right,
-    //'random': (go: GameObject) => {
-    //    go.getTransform().setPosition(3, 15);
-    //}
 }
 
 const cm2: ControlMap = {
@@ -77,9 +55,6 @@ const cm2: ControlMap = {
     'move_right2': move_right,
     'whip': whip,
     'whip2': whip2,
-    //'random': (go: GameObject) => {
-    //    go.getTransform().setPosition(3, 15);
-    //}
 }
 
 function whip(go: GameObject): void {
@@ -111,9 +86,6 @@ function move_down(go: GameObject): void {
     go.getTransform().translate(0, 1);
 }
 
-//document.addEventListener('collision', () => {
-//    window.alert("!!!!!!!!!!!!!!!!!!!!!COLLSION!!!!!!!!!!!!!!!!!!");
-//})
 
 document.addEventListener("printCol", () => {
     engine.printColliders();
@@ -125,26 +97,28 @@ const mario: GameObject = new GameObject(50);
 const cc: ControllerComponent = new ControllerComponent(mario, cm);
 mario.addComponent(cc);
 //fuglur.addComponent(new BirdComponent(fuglur));
-mario.addSprite("bird");
+mario.addSprite("mario");
 mario.addBoxCollider(64,64);
-engine.addGameObject(mario);
+//fuglur.solid = true;
+//engine.addGameObject(fuglur);
 
+const mario2: GameObject = new GameObject(50);
+mario2.getTransform().setPosition(100, 100)
+const cc2: ControllerComponent = new ControllerComponent(mario2, cm2);
+mario2.addComponent(cc2);
+mario2.addSprite("mario");
+mario2.addBoxCollider(150, 150);
+mario2.addRigidBodyComponent(mario2);
+mario2.getTransform().setPosition(50, 0);
+mario2.solid = true;
+engine.addGameObject(mario2);
 
-const fuglur2: GameObject = new GameObject(50);
-const gc2: ControllerComponent = new ControllerComponent(fuglur2, cm2);
-fuglur2.addComponent(gc2);
-//fuglur.addComponent(new BirdComponent(fuglur));
-fuglur2.addSprite("bird");
-fuglur2.addBoxCollider(64, 64);
-fuglur2.addRigidBodyComponent(fuglur2);
-fuglur2.getTransform().setScale(2.01, 2.01);
-fuglur2.solid = true;
-engine.addGameObject(fuglur2);
-
-//let colProp: CollisionProps = {
-//    gameObjects: [fuglur]
-//}
-//CollisionSystem.getInstance(colProp);
+const pipe3 = new GameObject(50);
+//pipe3.solid = true;
+pipe3.getTransform().setPosition(50,300);
+pipe3.addSprite("island");
+pipe3.addBoxCollider(128, 64);
+engine.addGameObject(pipe3);
 
 type pipe_pair = {
     upper_pipe: GameObject,
@@ -157,90 +131,16 @@ function getRandomArbitrary(min: number, max: number): number {
 }
 
 
-class FlagsiFuglurSpael {
-    private PIPERUS: pipe_pair[];
 
-    public constructor() {
-        this.PIPERUS = [];
-    }
 
-    public update(): void {
-        this.PIPERUS.forEach((pipes) => {
-            if (pipes.upper_pipe.getTransform().getPosition().getX() < -pipes.upper_pipe.getSprite().width) {
-                var height: number = getRandomArbitrary(-1400, -1350);
-                console.log(`new height: ${height}`);
-                console.log(pipes.upper_pipe.getTransform().getPosition().getX());
-                console.log(pipes.lower_pipe.getTransform().getPosition().getY());
-                pipes.upper_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.upper_pipe.getSprite().width, height/4);
-                //pipes.upper_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.upper_pipe.getSprite().width, height/4);
-                pipes.lower_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.lower_pipe.getSprite().width, height/4+100+CANVAS_HEIGHT);
-                console.log(pipes.upper_pipe.getTransform().getPosition().getX());
-                console.log(pipes.lower_pipe.getTransform().getPosition().getY());
-            }
-            pipes.upper_pipe.getTransform().translate(-5, 0);
-            pipes.lower_pipe.getTransform().translate(-5, 0);
-            //if (pipe.getTransform().getPosition().getX() < -pipe.getSprite().width) {
-            //    pipe.getTransform().setPosition(CANVAS_WIDTH + pipe.getSprite().width, 0);
-            //}
-            //pipe.getTransform().translate(-5, 0);
 
-        })
-    }
+//engine.registerCollisionObject(fuglur2);
 
-    public start(updateInterval: number): void {
-        setInterval(this.update.bind(this), updateInterval);
-    }
-
-    public addPipePair(p1: GameObject, p2: GameObject): void {
-        const pp: pipe_pair = {
-            upper_pipe: p1,
-            lower_pipe: p2
-        }
-        this.PIPERUS.push(pp);
-    }
-}
-
-//const PIPERU: GameObject = new GameObject(35);
-//PIPERU.addSprite("PIPERU");
-//PIPERU.addBoxCollider(128, 128);
-//PIPERU.getTransform().setPosition(1200, 0);
-//engine.addGameObject(PIPERU);
-engine.registerCollisionObject(fuglur2);
-
-const p11: GameObject = new GameObject(35);
-p11.addSprite("megapipe");
-p11.addBoxCollider(150, 1536);
-p11.getTransform().setPosition(1600, 0);
-engine.addGameObject(p11);
-const p12: GameObject = new GameObject(35);
-p12.addSprite("megapipe");
-p12.addBoxCollider(150, 1536);
-p12.getTransform().setPosition(1600, 1636);
-engine.addGameObject(p11);
-
-//const p2: GameObject = new GameObject(35);
-//p2.addSprite("megapipe");
-//p2.addBoxCollider(150, 1536);
-//p2.getTransform().setPosition(2000, 0);
-//engine.addGameObject(p2);
-//
-//const p3: GameObject = new GameObject(35);
-//p3.addSprite("megapipe");
-//p3.addBoxCollider(150, 1536);
-//p3.getTransform().setPosition(2400, 0);
-//engine.addGameObject(p3);
-
-const FFS: FlagsiFuglurSpael = new FlagsiFuglurSpael();
-FFS.addPipePair(p11, p12);
-FFS.start(20);
-
-const background: GameObject = new GameObject(1000);
-////fuglur.addComponent(new BirdComponent(fuglur));
+const background: GameObject = new GameObject(1);
 background.addSprite("background");
-//background.addBoxCollider(100,100);
-//engine.addGameObject(background);
-//engine.sortingGameObjects();
-//CollisionSystem.start();
+background.getTransform().setPosition(500, 300);
+engine.addGameObject(background);
+
 
 engine.addTrack("s0", 0);
 engine.addTrack("s1", 1);
@@ -249,27 +149,12 @@ engine.addTrack("theme", 3);
 engine.addTrack("flap", 4);
 
 engine.startCollisionsChecking();
-engine.registerCollisionObject(fuglur);
-function FlagsiFuglur() {
-//let f = GameLoop();
-//document.dispatchEvent(new Event("background_music"));
+function SuperDario() {
     return (
-        <div className={"FlagsiFuglur"}>
+        <div className={"SuperDario"}>
             {engine.run()}
         </div>
     );
-//    return (
-//        <div className="FlagsiFuglur">
-//            <header className="App-header">
-//                <img src={engine.getImage("bird").src} className="App-logo" alt="logo" />
-//                <p>
-//                    Edit <code>src/App.tsx</code> and save to reload.
-//                </p>
-//            </header>
-//            {engine.run()}
-//        </div>
-//
-//    );
 }
 
-export default FlagsiFuglur;
+export default SuperDario;

@@ -4,11 +4,12 @@ import './index.css';
 import App from './App';
 import Area51 from './Area51';
 import reportWebVitals from './reportWebVitals';
-import FlagsiFuglur from './flagsifuglur';
+//import FlagsiFuglur from './flagsifuglur';
+import SuperDario from "./SuperDario";
 
 ReactDOM.render(
   <React.StrictMode>
-    <FlagsiFuglur />
+    <SuperDario />
   </React.StrictMode>,
   document.getElementById('root')
 );
