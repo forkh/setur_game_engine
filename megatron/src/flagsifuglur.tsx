@@ -10,8 +10,11 @@ import assets from './assets.json';
 import soundMappings from './soundMappings.json';
 import { CollisionSystem, CollisionProps } from './engine/CollisionSystem';
 
-let CANVAS_HEIGHT: number = window.innerHeight * 0.75;
-let CANVAS_WIDTH: number  = window.innerHeight * 0.75 * 0.5675;
+//let CANVAS_HEIGHT: number = window.innerHeight * 0.75;
+//let CANVAS_WIDTH: number  = window.innerHeight * 0.75 * 0.5675;
+
+let CANVAS_HEIGHT: number = window.innerHeight;
+let CANVAS_WIDTH: number  = window.innerHeight;
 
 const inputMappings: InputTriggerMap = {
     'KeyW': () => {document.dispatchEvent(new Event("move_up1"))},
@@ -27,9 +30,15 @@ const inputMappings: InputTriggerMap = {
     'Space': () => {document.dispatchEvent(new Event("whip"))},
     'KeyN': () => {document.dispatchEvent(new Event("whip2"))},
     'KeyP': () => {document.dispatchEvent(new Event("printCol"))},
+    'KeyV': () => {document.dispatchEvent(new Event("island_hopper"))},
 }
 
-let engine: Engine = new Engine(inputMappings, soundMappings, assets);
+function test() {
+
+}
+
+let engine: Engine = new Engine(inputMappings, soundMappings, assets, 454, 800);//, 1536, 0.5675, 0.75);
+//let engine: Engine = new Engine(inputMappings, soundMappings, assets, 1536, 0.5675, 0.75);
 
 // Extend GameComponent for specialization
 //class BirdComponent extends GameComponent {
@@ -85,7 +94,7 @@ const cm2: ControlMap = {
 function whip(go: GameObject): void {
     console.log("Whip!");
     let force: Vector2d = Vector2d.zero;
-    force.setXY(0, -400);
+    force.setXY(10, -400);
     go.addForce(force);
 }
 
@@ -125,19 +134,30 @@ fuglur.addComponent(gc);
 //fuglur.addComponent(new BirdComponent(fuglur));
 fuglur.addSprite("bird");
 fuglur.addBoxCollider(64,64);
-engine.addGameObject(fuglur);
+//fuglur.solid = true;
+//engine.addGameObject(fuglur);
 
 
 const fuglur2: GameObject = new GameObject(50);
+fuglur2.getTransform().setPosition(100, 100)
 const gc2: ControllerComponent = new ControllerComponent(fuglur2, cm2);
 fuglur2.addComponent(gc2);
 //fuglur.addComponent(new BirdComponent(fuglur));
 fuglur2.addSprite("bird");
 fuglur2.addBoxCollider(64, 64);
 fuglur2.addRigidBodyComponent(fuglur2);
-fuglur2.getTransform().setScale(2.01, 2.01);
+fuglur2.getTransform().setPosition(50, 0);
 fuglur2.solid = true;
 engine.addGameObject(fuglur2);
+
+
+const pipe3 = new GameObject(50);
+//pipe3.solid = true;
+pipe3.getTransform().setPosition(50,300)
+pipe3.addSprite("island");
+pipe3.addBoxCollider(128, 64)
+engine.addGameObject(pipe3);
+//engine.registerCollisionObject(pipe3)
 
 //let colProp: CollisionProps = {
 //    gameObjects: [fuglur]
@@ -205,16 +225,16 @@ class FlagsiFuglurSpael {
 //engine.addGameObject(PIPERU);
 engine.registerCollisionObject(fuglur2);
 
-const p11: GameObject = new GameObject(35);
-p11.addSprite("megapipe");
-p11.addBoxCollider(150, 1536);
-p11.getTransform().setPosition(1600, 0);
-engine.addGameObject(p11);
-const p12: GameObject = new GameObject(35);
-p12.addSprite("megapipe");
-p12.addBoxCollider(150, 1536);
-p12.getTransform().setPosition(1600, 1636);
-engine.addGameObject(p11);
+//const p11: GameObject = new GameObject(35);
+//p11.addSprite("megapipe");
+//p11.addBoxCollider(150, 1536);
+//p11.getTransform().setPosition(1600, 0);
+//engine.addGameObject(p11);
+//const p12: GameObject = new GameObject(35);
+//p12.addSprite("megapipe");
+//p12.addBoxCollider(150, 1536);
+//p12.getTransform().setPosition(1600, 1636);
+//engine.addGameObject(p11);
 
 //const p2: GameObject = new GameObject(35);
 //p2.addSprite("megapipe");
@@ -228,13 +248,13 @@ engine.addGameObject(p11);
 //p3.getTransform().setPosition(2400, 0);
 //engine.addGameObject(p3);
 
-const FFS: FlagsiFuglurSpael = new FlagsiFuglurSpael();
-FFS.addPipePair(p11, p12);
-FFS.start(20);
+//const FFS: FlagsiFuglurSpael = new FlagsiFuglurSpael();
+//FFS.addPipePair(p11, p12);
+//FFS.start(20);
 
-const background: GameObject = new GameObject(1000);
-////fuglur.addComponent(new BirdComponent(fuglur));
-background.addSprite("background");
+//const background: GameObject = new GameObject(1000);
+//////fuglur.addComponent(new BirdComponent(fuglur));
+//background.addSprite("background");
 //background.addBoxCollider(100,100);
 //engine.addGameObject(background);
 //engine.sortingGameObjects();
@@ -247,7 +267,7 @@ engine.addTrack("s3", 3);
 engine.addTrack("s4", 4);
 
 engine.startCollisionsChecking();
-engine.registerCollisionObject(fuglur);
+//engine.registerCollisionObject(fuglur);
 function FlagsiFuglur() {
 //let f = GameLoop();
 //document.dispatchEvent(new Event("background_music"));

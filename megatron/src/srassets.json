@@ -1,0 +1,17 @@
+{
+  "image": {
+    "runi": "superruni.png",
+    "coin": "coin.png",
+    "background":  "srbackground.png",
+    "flag": "flag.png",
+    "island": "landscapebigdetails.png"
+  },
+  "audio": {
+  },
+  "animation": {},
+  "paths": {
+    "images":  "./assets/images/",
+    "audio":  "./assets/audio/",
+    "animation":  "./assets/animation/"
+  }
+}

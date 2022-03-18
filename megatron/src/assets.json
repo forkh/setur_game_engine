@@ -5,14 +5,16 @@
     "background42":  "backgrund.png",
     "uberbg": "uberbakgrund.png",
     "PIPERU": "PIPERU.png",
-    "megapipe": "megapipe.png"
+    "megapipe": "megapipe.png",
+    "island": "landscape1.png"
   },
   "audio": {
     "s0":  "s0.wav",
     "s1": "s1.wav",
     "s2": "s2.wav",
     "3": "s3.wav",
-    "s4": "gamejam_longplay.mp3"
+    "s4": "gamejam_longplay.mp3",
+    "island_hopper": "island-hopper.ogg"
   },
   "animation": {},
   "paths": {
