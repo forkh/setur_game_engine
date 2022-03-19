@@ -11,6 +11,7 @@ import { CollisionSystem, CollisionProps } from './CollisionSystem';
 import PhysicsSystem from './PhysicsSystem';
 import { PhysicsProps, RigidBodyProps } from './PhysicsSystem';
 import GameLoop from './GameLoop';
+import { Vector2d } from './math';
 
 class Engine {
     //private static instance: Engine;
@@ -281,5 +282,5 @@ function compareZIndex(go1: GameObject, go2: GameObject): number {
 }
 
 //export { Engine, GameObject, GameComponent };//, ControllerComponent };
-export { Engine, GameObject, GameComponent, ControllerComponent };
+export { Engine, GameObject, GameComponent, ControllerComponent, Vector2d };
 export type { InputTriggerMap, AssetsType, ControlMap };
