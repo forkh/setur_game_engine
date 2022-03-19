@@ -169,20 +169,20 @@ pipe3.addSprite("island");
 pipe3.addBoxCollider(1200, 100)
 engine.addGameObject(pipe3);
 
-/**const pipe4 = new GameObject(50);
+const pipe4 = new GameObject(50);
 //pipe4.solid = true;
-pipe4.getTransform().setPosition(500,300)
+pipe4.getTransform().setPosition(800,300)
 pipe4.addSprite("island2");
 pipe4.addBoxCollider(203, 31)
 engine.addGameObject(pipe4);
 
 const pipe5 = new GameObject(50);
 //pipe5.solid = true;
-pipe5.getTransform().setPosition(800,100)
+pipe5.getTransform().setPosition(300,100)
 pipe5.addSprite("island2");
 pipe5.addBoxCollider(203, 31)
 engine.addGameObject(pipe5);
-engine.registerCollisionObject(pipe3) **/
+engine.registerCollisionObject(pipe3)
 
 //let colProp: CollisionProps = {
 //    gameObjects: [fuglur]
