@@ -11,6 +11,13 @@ type BoxColliderType = {
     exists: boolean
 }
 
+type TextProps = {
+    exists: boolean,
+    text: string,
+    colour: string,
+    font: string
+}
+
 class GameObject {
     private static GLOBAL_OBJECTID: number = 1;
     private objectId: number;
@@ -22,6 +29,7 @@ class GameObject {
     //private forces: force[];
     public isGrounded: boolean = false;
     public solid: boolean = false;
+    public tag: string;
 
 
     public constructor(zIndex: number) {
@@ -35,6 +43,7 @@ class GameObject {
         this.transform.setRotation(0);
         this.stateMachine = new StateMachine(this, 'temp');
         this.zIndex = zIndex;
+        this.tag = "";
     }
 
     public addComponent(component: GameComponent) {
@@ -80,6 +89,14 @@ class GameObject {
      */
     public addSprite(image: string) {
         this.gameComponents.push(new SpriteComponent(image, this));
+    }
+
+    public setSprite(image: string): void {
+        this.gameComponents.forEach((gc) => {
+            if (gc instanceof SpriteComponent) {
+                gc.setSprite(image);
+            }
+        })
     }
     
     public addRigidBodyComponent(go: GameObject): void{
@@ -200,6 +217,38 @@ class GameObject {
         //return null;
 
     }
+
+    public addTextComponent(text: string, font: string, size: string, colour: string): void {
+        this.gameComponents.push(new TextComponent(this, text, font, size, colour));
+    }
+
+    public updateTextComponent(text: string): void {
+        this.gameComponents.forEach((gc) => {
+            if (gc instanceof TextComponent) {
+                gc.setString(text);
+            }
+        })
+    }
+    /**
+     * Returns TextProps
+     */
+    public getTextComponentProps(): TextProps {
+        let textProps: TextProps = {
+            exists: false,
+            text: "",
+            colour: "",
+            font: ""
+        }
+
+        this.gameComponents.forEach((gc) => {
+            if (gc instanceof TextComponent) {
+                textProps.exists = true;
+                textProps.text = gc.getString();
+            }
+        })
+
+        return textProps;
+    }
     
     public getZIndex(): number {
         return this.zIndex;
@@ -248,6 +297,10 @@ class SpriteComponent extends GameComponent {
 
     public getSprite(): HTMLImageElement {
         return this.sprite;
+    }
+
+    public setSprite(image: string): void {
+        this.sprite = ResourceManager.getImage(image, false) as HTMLImageElement;
     }
 
 }
@@ -352,6 +405,30 @@ class RigidBodyComponent extends GameComponent { // testing
         this.force = force;
     }
 
+}
+
+class TextComponent extends GameComponent {
+    private props: TextProps;
+
+    //this.gameComponents.push(new TextComponent(this, text, font, size, colour));
+    public constructor(go: GameObject, text: string, font: string, size: string, colour: string) {
+        super(go);
+        this.props = {
+            exists: true,
+            text: text,
+            font: `${size}px ${font}`,
+            colour: colour
+        }
+
+    }
+
+    public setString(text: string): void {
+        this.props.text = text;
+    }
+
+    public getString(): string {
+        return this.props.text;
+    }
 }
 
 export { GameComponent, GameObject , ControllerComponent, RigidBodyComponent };

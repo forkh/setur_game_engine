@@ -1,15 +1,9 @@
-//import "./canvas.css";
 import React, {useRef, useEffect, useCallback, useState, Fragment} from "react";
-import logo192 from "../logo192.png";
-import logo512 from "../logo512.png"
-import { ResourceManager } from './ResourceManager';
-//import {createComponent} from "./GameObject";
-//import {GameComponent} from "./GameObject"
-//import { GameComponent, createComponent } from './GameComponent';
+//import { ResourceManager } from './ResourceManager';
 import { GameObject, BoxColliderType } from './GameObject';
 import { Engine } from './Engine';
 
-interface CanvasProps {
+type CanvasProps = {
     //gameComponents: GameComponent[];
     objects: GameObject[];
     width: number;
@@ -96,6 +90,22 @@ function Canvas(canvasProps: CanvasProps): JSX.Element {
                         - go.getSprite().height / 2,
                         go.getSprite().width,
                         go.getSprite().height);
+
+                    if (go.getTextComponentProps().exists) {
+                        let tmp: any = ctx.font;
+                        const textProps = go.getTextComponentProps();
+                        ctx.fillStyle = "#000000";//textProps.colour;
+                        //ctx.font = textProps.size + "px " + textProps.font;
+                        ctx.font = "42px Comic Sans";//textProps.font;
+                        let offset: number = 0;
+                        textProps.text.split('\n').forEach((text) => {
+                            ctx.fillText(text, go.getTransform().getPosition().getX(), go.getTransform().getPosition().getY()+offset);
+                            offset += 50;
+                        });
+                        //ctx.stroke();
+                        ctx.font = tmp;
+                    }
+                    //ctx.fillText(`${go.½}`)
                     //console.log("================================");
                     //console.log("components: " + go.getNumberOfComponents() + ", is true? " + go.hasBoxCollider());
                     let box: BoxColliderType = go.getBoxCollider();

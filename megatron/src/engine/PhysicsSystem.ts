@@ -32,7 +32,7 @@ class PhysicsSystem {
             document.addEventListener("collision2", (e: Event) => {
                 //console.log("yolo baggins");
                 let obj: GameObject = (<CustomEvent>e).detail.obj as GameObject;
-                obj.isGrounded = true;
+                //obj.isGrounded = true;
                 //obj.getRigidBodyComponent().rigidBody.force.y = 0;
                 //obj.getRigidBodyComponent().rigidBody.velocity.y = 0;
                 //obj.canJump = true;
