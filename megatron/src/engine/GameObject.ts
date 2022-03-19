@@ -274,9 +274,6 @@ class GameObject {
 
 abstract class GameComponent {
     parent: GameObject;
-    //protected parent: GameObject;
-    //public parent: GameObject;
-    //abstract parent: GameObject;
 
     constructor(go: GameObject) {
         this.parent = go;
@@ -431,5 +428,5 @@ class TextComponent extends GameComponent {
     }
 }
 
-export { GameComponent, GameObject , ControllerComponent, RigidBodyComponent };
+export { GameComponent, GameObject, ControllerComponent, RigidBodyComponent };
 export type { ControlMap, BoxColliderType };
