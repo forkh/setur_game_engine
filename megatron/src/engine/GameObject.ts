@@ -1,7 +1,7 @@
 import { ResourceManager } from './ResourceManager';
 import { Transform } from './Transform';
 import { StateMachine } from './StateMachine';
-import { InputSystem, InputTriggerMap } from './InputSystem';
+//import { InputSystem, InputTriggerMap } from './InputSystem';
 import { Vector2d} from './math';
 import { RigidBodyProps } from './PhysicsSystem';
 

@@ -227,10 +227,16 @@ class FlagsiFuglurSpael {
     private groundCollider: GameObject;
     private moved99: boolean;
     private moved999: boolean;
+    private pipeSpeed: number;
+    private level2: boolean;
+    private level3: boolean;
 
     public constructor() {
+        this.level2 = true;
+        this.level3 = true;
         this.moved99 = true;
         this.moved999 = true;
+        this.pipeSpeed = 1.5;
         //document.dispatchEvent(new Event("music"));
         //this.PIPERUS = [;
         this.highScore = new GameObject(100);
@@ -267,21 +273,23 @@ class FlagsiFuglurSpael {
                 this.highScore.getTransform().setPosition(25, 400);
                 setTimeout(() => {
                     window.location.reload();
-                }, 5000);
-                //window.location.reload();
+                }, 1000);
             }
         })
 
     }
 
     public update(): void {
-        //console.log("FF update")
-        if (this.score > 350 && this.score < 1000) {
+        if (this.score > 350 && this.score < 1000 && this.level2) {
             background.setSprite("uberbg2");
+            this.pipeSpeed += 1;
+            this.level2 = false;
         }
 
         if (this.score > 1000) {
             background.setSprite("uberbg2");
+            this.pipeSpeed += 1;
+            this.level3 = false;
         }
 
         if (this.score > 99 && this.moved99) {
@@ -295,9 +303,9 @@ class FlagsiFuglurSpael {
         }
 
         this.pipes.forEach((pp) => {
-            pp.upperPipe.getTransform().translate(-1.5, 0);
-            pp.lowerPipe.getTransform().translate(-1.5, 0);
-            pp.collider.getTransform().translate(-1.5, 0);
+            pp.upperPipe.getTransform().translate(-this.pipeSpeed, 0);
+            pp.lowerPipe.getTransform().translate(-this.pipeSpeed, 0);
+            pp.collider.getTransform().translate(-this.pipeSpeed, 0);
 
             // Remove pipe pair if pipes have gone off screen
             if (pp.upperPipe.getTransform().getPosition().getX() < -16) {
@@ -305,137 +313,34 @@ class FlagsiFuglurSpael {
                 pp.upperPipe.getTransform().setPosition(500, heightOffset);
                 pp.lowerPipe.getTransform().setPosition(500, heightOffset+900);
                 pp.collider.getTransform().setPosition(542, heightOffset+450);
-                //console.log("Deleting pipe pair");
-                //let i: number = this.pipes.indexOf(pp, 0);
-                //this.pipes.splice(i, 1);
-                //engine.removeGameObject(pp.upperPipe);
-                //engine.removeGameObject(pp.lowerPipe);
             }
         })
-
-
-        //this.PIPERUS.forEach((pipes) => {
-        //    if (pipes.upper_pipe.getTransform().getPosition().getX() < -pipes.upper_pipe.getSprite().width) {
-        //        var height: number = getRandomArbitrary(-1400, -1350);
-        //        console.log(`new height: ${height}`);
-        //        console.log(pipes.upper_pipe.getTransform().getPosition().getX());
-        //        console.log(pipes.lower_pipe.getTransform().getPosition().getY());
-        //        pipes.upper_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.upper_pipe.getSprite().width, height/4);
-        //        //pipes.upper_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.upper_pipe.getSprite().width, height/4);
-        //        pipes.lower_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.lower_pipe.getSprite().width, height/4+100+CANVAS_HEIGHT);
-        //        console.log(pipes.upper_pipe.getTransform().getPosition().getX());
-        //        console.log(pipes.lower_pipe.getTransform().getPosition().getY());
-        //    }
-        //    pipes.upper_pipe.getTransform().translate(-5, 0);
-        //    pipes.lower_pipe.getTransform().translate(-5, 0);
-        //    //if (pipe.getTransform().getPosition().getX() < -pipe.getSprite().width) {
-        //    //    pipe.getTransform().setPosition(CANVAS_WIDTH + pipe.getSprite().width, 0);
-        //    //}
-        //    //pipe.getTransform().translate(-5, 0);
-
-        //})
     }
 
     public start(updateInterval: number): void {
         this.pipes.push(this.factory.createPipePair(25, 500));
         this.pipes.push(this.factory.createPipePair(25, 750));
-        //this.pipes.push(this.factory.createPipePair(25, 850));
-        //this.pipes.push(this.factory.createPipePair(25, 950));
         setInterval(this.update.bind(this), updateInterval);
     }
 
-    //public restart(): void {
-    //    this
-    //}
-
-    //public addPipePair(p1: GameObject, p2: GameObject): void {
-    //    const pp: pipe_pair = {
-    //        upper_pipe: p1,
-    //        lower_pipe: p2
-    //    }
-    //    this.PIPERUS.push(pp);
-    //}
 }
 
-//const PIPERU: GameObject = new GameObject(35);
-//PIPERU.addSprite("PIPERU");
-//PIPERU.addBoxCollider(128, 128);
-//PIPERU.getTransform().setPosition(1200, 0);
-//engine.addGameObject(PIPERU);
-//engine.registerCollisionObject(fuglur2);
-//
-//const p11: GameObject = new GameObject(35);
-//p11.solid = false;
-//p11.addSprite("megapipe");
-//p11.addBoxCollider(150, 1536);
-//p11.getTransform().setPosition(1600, 0);
-//engine.addGameObject(p11);
-//
-//const p12: GameObject = new GameObject(35);
-//p12.solid = false;
-//p12.addSprite("megapipe");
-//p12.addBoxCollider(150, 1536);
-//p12.getTransform().setPosition(1600, 1636);
-//engine.addGameObject(p11);
-
-//const p2: GameObject = new GameObject(35);
-//p2.addSprite("megapipe");
-//p2.addBoxCollider(150, 1536);
-//p2.getTransform().setPosition(2000, 0);
-//engine.addGameObject(p2);
-//
-//const p3: GameObject = new GameObject(35);
-//p3.addSprite("megapipe");
-//p3.addBoxCollider(150, 1536);
-//p3.getTransform().setPosition(2400, 0);
-//engine.addGameObject(p3);
-
 const FFS: FlagsiFuglurSpael = new FlagsiFuglurSpael();
-//FFS.addPipePair(p11, p12);
 FFS.start(20);
 FFS.update();
 
-//const background: GameObject = new GameObject(1000);
-//////fuglur.addComponent(new BirdComponent(fuglur));
-//background.addSprite("background");
-//background.addBoxCollider(100,100);
-//engine.addGameObject(background);
-//engine.sortingGameObjects();
-//CollisionSystem.start();
-
-//engine.addTrack("s0", 0);
-//engine.addTrack("s1", 1);
-//engine.addTrack("s2", 2);
-//engine.addTrack("s3", 3);
-//engine.addTrack("s4", 4);
-//engine.addTrack("score", 3);
 engine.addTrack("score", 0);
 engine.addTrack("collision", 1);
 engine.addTrack("flap", 2);
 engine.addTrack("bgmusic", 3);
 
 engine.startCollisionsChecking();
-//engine.registerCollisionObject(fuglur);
 function FlagsiFuglur() {
-//let f = GameLoop();
-//document.dispatchEvent(new Event("background_music"));
 return (
     <div className={"FlagsiFuglur"}>
         {engine.run()}
     </div>
 );
-//    return (
-//        <div className="FlagsiFuglur">
-//            <header className="App-header">
-//                <img src={engine.getImage("bird").src} className="App-logo" alt="logo" />
-//                <p>
-//                    Edit <code>src/App.tsx</code> and save to reload.
-//                </p>
-//            </header>
-//            {engine.run()}
-//        </div>
-//
-//    );
 }
 
 export default FlagsiFuglur;
