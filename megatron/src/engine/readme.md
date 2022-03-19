@@ -6,6 +6,8 @@
 
 const _nameOfGameObject_: GameObject = new GameObject(zindex: _integer_);
 
+Keep in mind that the value of _zindex_ is the order in which objects are rendered in the output.
+
 ### Adding Controller Component
 
 const _nameOfControllerComponent_: ControllerComponent = new ControllerComponent(_nameOfGameObject_, cm;
@@ -17,6 +19,7 @@ _nameOfGameObject_.addComponent(_nameOfControllerComponent_);
 ### Adding Sprites to Game Objects
 
 _nameOfGameObject_.addSprite("_keyForSprite_");
+
 
 ### Adding Box-Colliders
 
@@ -88,6 +91,13 @@ nameOfGameObject.addSprite("_nameOfGameObject_");
 
 ## Positioning
 _nameOfGameObject_.getTransform().setPosition(x: , y: );
+
+# Running the game
+First install the scripts using 'npm install' while in the 'megatron' directory in the terminal.
+Secondly, you run the scripts using the command 'npm start'.
+This will run the game until you stop the script in the IDE.
+## Requirements
+We recommend that you use 
 
 
 
