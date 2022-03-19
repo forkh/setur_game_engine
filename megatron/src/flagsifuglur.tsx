@@ -92,6 +92,7 @@ const cm2: ControlMap = {
 function whip(go: GameObject): void {
     console.log("Whip!");
     document.dispatchEvent(new Event("flap"));
+    document.dispatchEvent(new Event("bgmusic"));
     let force: Vector2d = Vector2d.zero;
     force.setXY(0, -400);
     go.addForce(force);
@@ -199,7 +200,7 @@ class PipePairFactory {
         pipePair.upperPipe.tag = "pipe";
         pipePair.lowerPipe.tag = "pipe";
         pipePair.collider.addBoxCollider(4, 300);
-        pipePair.collider.getTransform().setPosition(xPos, -200);
+        pipePair.collider.getTransform().setPosition(xPos+42, heightOffset+450);
         //pipePair.collider.addSprite("bird");
         //pipePair.collider.isActive()
         pipePair.upperPipe.getTransform().translate(xPos, heightOffset);
@@ -231,7 +232,6 @@ class FlagsiFuglurSpael {
         this.moved99 = true;
         this.moved999 = true;
         //document.dispatchEvent(new Event("music"));
-        document.dispatchEvent(new Event("islandhopper"));
         //this.PIPERUS = [;
         this.highScore = new GameObject(100);
         this.highScore.addTextComponent("0", "Comic Sans", "32", "#000000");
@@ -276,7 +276,11 @@ class FlagsiFuglurSpael {
 
     public update(): void {
         //console.log("FF update")
-        if (this.score > 350) {
+        if (this.score > 350 && this.score < 1000) {
+            background.setSprite("uberbg2");
+        }
+
+        if (this.score > 1000) {
             background.setSprite("uberbg2");
         }
 
