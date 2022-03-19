@@ -20,24 +20,22 @@ const inputMappings: InputTriggerMap = {
     'KeyW': () => {document.dispatchEvent(new Event("move_up1"))},
     'KeyS': () => {document.dispatchEvent(new Event("move_down1"))},
     'KeyA': () => {document.dispatchEvent(new Event("move_left1"))},
-    'KeyD': () => {document.dispatchEvent(new Event("move_right1"))},
+    //'KeyD': () => {document.dispatchEvent(new Event("move_right1"))},
     'KeyI': () => {document.dispatchEvent(new Event("move_up2"))},
     'KeyK': () => {document.dispatchEvent(new Event("move_down2"))},
     'KeyJ': () => {document.dispatchEvent(new Event("move_left2"))},
     'KeyL': () => {document.dispatchEvent(new Event("move_right2"))},
     'KeyR': () => {document.dispatchEvent(new Event("random"))},
-    'F1': () => {document.dispatchEvent(new Event("toggle_debug"))},
+    'KeyD': () => {document.dispatchEvent(new Event("toggle_debug"))},
     'Space': () => {document.dispatchEvent(new Event("whip"))},
     'KeyN': () => {document.dispatchEvent(new Event("whip2"))},
     'KeyP': () => {document.dispatchEvent(new Event("printCol"))},
     'KeyV': () => {document.dispatchEvent(new Event("island_hopper"))},
 }
 
-function test() {
 
-}
 
-let engine: Engine = new Engine(inputMappings, soundMappings, assets, 454, 800);//, 1536, 0.5675, 0.75);
+let engine: Engine = new Engine(inputMappings, soundMappings, assets, 450, 800);//, 1536, 0.5675, 0.75);
 //let engine: Engine = new Engine(inputMappings, soundMappings, assets, 1536, 0.5675, 0.75);
 
 // Extend GameComponent for specialization
@@ -93,8 +91,9 @@ const cm2: ControlMap = {
 
 function whip(go: GameObject): void {
     console.log("Whip!");
+    document.dispatchEvent(new Event("flap"));
     let force: Vector2d = Vector2d.zero;
-    force.setXY(10, -400);
+    force.setXY(0, -400);
     go.addForce(force);
 }
 
@@ -122,41 +121,47 @@ function move_down(go: GameObject): void {
 //    window.alert("!!!!!!!!!!!!!!!!!!!!!COLLSION!!!!!!!!!!!!!!!!!!");
 //})
 
-document.addEventListener("printCol", () => {
-    engine.printColliders();
-})
+//document.addEventListener("printCol", () => {
+//    engine.printColliders();
+//})
 
 
-const fuglur: GameObject = new GameObject(50);
-//fuglur.getTransform().setRotation(5);
-const gc: ControllerComponent = new ControllerComponent(fuglur, cm);
-fuglur.addComponent(gc);
-//fuglur.addComponent(new BirdComponent(fuglur));
-fuglur.addSprite("bird");
-fuglur.addBoxCollider(64,64);
-//fuglur.solid = true;
-//engine.addGameObject(fuglur);
+//const fuglur: GameObject = new GameObject(50);
+////fuglur.getTransform().setRotation(5);
+//const gc: ControllerComponent = new ControllerComponent(fuglur, cm);
+//fuglur.addComponent(gc);
+////fuglur.addComponent(new BirdComponent(fuglur));
+//fuglur.addSprite("bird");
+//fuglur.addBoxCollider(64,64);
+////fuglur.solid = true;
+////engine.addGameObject(fuglur);
 
+const background: GameObject = new GameObject(5);
+background.addSprite("uberbg");
+background.getTransform().translate(225, 400);
+engine.addGameObject(background);
 
 const fuglur2: GameObject = new GameObject(50);
-fuglur2.getTransform().setPosition(100, 100)
+fuglur2.getTransform().setPosition(50, 400);
+//fuglur2.getTransform().setPosition(100, 800)
 const gc2: ControllerComponent = new ControllerComponent(fuglur2, cm2);
 fuglur2.addComponent(gc2);
 //fuglur.addComponent(new BirdComponent(fuglur));
 fuglur2.addSprite("bird");
 fuglur2.addBoxCollider(64, 64);
 fuglur2.addRigidBodyComponent(fuglur2);
-fuglur2.getTransform().setPosition(50, 0);
-fuglur2.solid = true;
+fuglur2.solid = false;
 engine.addGameObject(fuglur2);
+fuglur2.tag = "bird";
+engine.registerCollisionObject(fuglur2);
 
 
-const pipe3 = new GameObject(50);
-//pipe3.solid = true;
-pipe3.getTransform().setPosition(50,300)
-pipe3.addSprite("island");
-pipe3.addBoxCollider(128, 64)
-engine.addGameObject(pipe3);
+//const pipe3 = new GameObject(50);
+////pipe3.solid = true;
+//pipe3.getTransform().setPosition(50,300)
+//pipe3.addSprite("island");
+//pipe3.addBoxCollider(128, 64)
+//engine.addGameObject(pipe3);
 //engine.registerCollisionObject(pipe3)
 
 //let colProp: CollisionProps = {
@@ -174,48 +179,178 @@ function getRandomArbitrary(min: number, max: number): number {
   return Math.random() * (max - min) + min;
 }
 
+type PipePair = {
+    upperPipe: GameObject,
+    lowerPipe: GameObject,
+    collider: GameObject
+}
+
+class PipePairFactory {
+
+    public createPipePair(zIndex: number, xPos: number): PipePair {
+        let heightOffset: number = getRandomArbitrary(-350, 200);
+        const pipePair: PipePair = {
+            upperPipe: new GameObject(zIndex),
+            lowerPipe: new GameObject(zIndex),
+            collider: new GameObject(100)
+        }
+
+        pipePair.collider.tag = "score";
+        pipePair.upperPipe.tag = "pipe";
+        pipePair.lowerPipe.tag = "pipe";
+        pipePair.collider.addBoxCollider(4, 300);
+        pipePair.collider.getTransform().setPosition(xPos, -200);
+        //pipePair.collider.addSprite("bird");
+        //pipePair.collider.isActive()
+        pipePair.upperPipe.getTransform().translate(xPos, heightOffset);
+        pipePair.lowerPipe.getTransform().translate(xPos, heightOffset+900);
+        //pipePair.collider.getTransform().translate(xPos, heightOffset+900);
+        pipePair.upperPipe.addSprite("pipe2");
+        pipePair.lowerPipe.addSprite("pipe2rot");
+        pipePair.upperPipe.addBoxCollider(32, 600);
+        pipePair.lowerPipe.addBoxCollider(32, 600);
+        engine.addGameObject(pipePair.collider);
+        engine.addGameObject(pipePair.upperPipe);
+        engine.addGameObject(pipePair.lowerPipe);
+        return pipePair;
+    }
+}
 
 class FlagsiFuglurSpael {
-    private PIPERUS: pipe_pair[];
+    private highScore: GameObject;
+    private score: number;
+    //private PIPERUS: pipe_pair[];
+    private pipes: PipePair[];
+    private factory: PipePairFactory;
+    private skyCollider: GameObject;
+    private groundCollider: GameObject;
+    private moved99: boolean;
+    private moved999: boolean;
 
     public constructor() {
-        this.PIPERUS = [];
+        this.moved99 = true;
+        this.moved999 = true;
+        //document.dispatchEvent(new Event("music"));
+        document.dispatchEvent(new Event("islandhopper"));
+        //this.PIPERUS = [;
+        this.highScore = new GameObject(100);
+        this.highScore.addTextComponent("0", "Comic Sans", "32", "#000000");
+        this.highScore.getTransform().setPosition(390, 770);
+        this.score = 0;
+        engine.addGameObject(this.highScore);
+        this.skyCollider = new GameObject(100);
+        this.skyCollider.addBoxCollider(450, 4);
+        this.skyCollider.getTransform().setPosition(225, -50);
+        this.skyCollider.tag = "pipe";
+        engine.addGameObject(this.skyCollider);
+        this.groundCollider = new GameObject(100);
+        this.groundCollider.addBoxCollider(450, 4);
+        this.groundCollider.getTransform().setPosition(225, 800);
+        this.groundCollider.tag = "pipe";
+        engine.addGameObject(this.groundCollider);
+        this.factory = new PipePairFactory();
+        this.pipes = [];
+        document.addEventListener("collision2", (e: Event) => {
+            let target: GameObject = (e as CustomEvent).detail.obj2;
+            if (target.tag === "score") {
+                this.score++;
+                this.highScore.updateTextComponent(""+this.score);
+                console.log("SCORE!!!!!!!!!!!!!!!!!!")
+                document.dispatchEvent(new Event("score"));
+            }
+
+            if (target.tag === "pipe") {
+                document.dispatchEvent(new Event("collision"));
+                //this.highScore.updateTextComponent("You died :<");
+                //let tmp_text: string = this.score;
+                this.highScore.updateTextComponent(`You hit a pipe.\nScore was: ${this.score}\n`);
+                this.highScore.getTransform().setPosition(25, 400);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 5000);
+                //window.location.reload();
+            }
+        })
+
     }
 
     public update(): void {
-        this.PIPERUS.forEach((pipes) => {
-            if (pipes.upper_pipe.getTransform().getPosition().getX() < -pipes.upper_pipe.getSprite().width) {
-                var height: number = getRandomArbitrary(-1400, -1350);
-                console.log(`new height: ${height}`);
-                console.log(pipes.upper_pipe.getTransform().getPosition().getX());
-                console.log(pipes.lower_pipe.getTransform().getPosition().getY());
-                pipes.upper_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.upper_pipe.getSprite().width, height/4);
-                //pipes.upper_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.upper_pipe.getSprite().width, height/4);
-                pipes.lower_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.lower_pipe.getSprite().width, height/4+100+CANVAS_HEIGHT);
-                console.log(pipes.upper_pipe.getTransform().getPosition().getX());
-                console.log(pipes.lower_pipe.getTransform().getPosition().getY());
-            }
-            pipes.upper_pipe.getTransform().translate(-5, 0);
-            pipes.lower_pipe.getTransform().translate(-5, 0);
-            //if (pipe.getTransform().getPosition().getX() < -pipe.getSprite().width) {
-            //    pipe.getTransform().setPosition(CANVAS_WIDTH + pipe.getSprite().width, 0);
-            //}
-            //pipe.getTransform().translate(-5, 0);
+        //console.log("FF update")
+        if (this.score > 350) {
+            background.setSprite("uberbg2");
+        }
 
+        if (this.score > 99 && this.moved99) {
+            this.highScore.getTransform().translate(-30, 0);
+            this.moved99 = false;
+        }
+
+        if (this.score > 999 && this.moved999) {
+            this.highScore.getTransform().translate(-30, 0);
+            this.moved999 = false;
+        }
+
+        this.pipes.forEach((pp) => {
+            pp.upperPipe.getTransform().translate(-1.5, 0);
+            pp.lowerPipe.getTransform().translate(-1.5, 0);
+            pp.collider.getTransform().translate(-1.5, 0);
+
+            // Remove pipe pair if pipes have gone off screen
+            if (pp.upperPipe.getTransform().getPosition().getX() < -16) {
+                let heightOffset: number = getRandomArbitrary(-350, 200);
+                pp.upperPipe.getTransform().setPosition(500, heightOffset);
+                pp.lowerPipe.getTransform().setPosition(500, heightOffset+900);
+                pp.collider.getTransform().setPosition(542, heightOffset+450);
+                //console.log("Deleting pipe pair");
+                //let i: number = this.pipes.indexOf(pp, 0);
+                //this.pipes.splice(i, 1);
+                //engine.removeGameObject(pp.upperPipe);
+                //engine.removeGameObject(pp.lowerPipe);
+            }
         })
+
+
+        //this.PIPERUS.forEach((pipes) => {
+        //    if (pipes.upper_pipe.getTransform().getPosition().getX() < -pipes.upper_pipe.getSprite().width) {
+        //        var height: number = getRandomArbitrary(-1400, -1350);
+        //        console.log(`new height: ${height}`);
+        //        console.log(pipes.upper_pipe.getTransform().getPosition().getX());
+        //        console.log(pipes.lower_pipe.getTransform().getPosition().getY());
+        //        pipes.upper_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.upper_pipe.getSprite().width, height/4);
+        //        //pipes.upper_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.upper_pipe.getSprite().width, height/4);
+        //        pipes.lower_pipe.getTransform().setPosition(CANVAS_WIDTH + pipes.lower_pipe.getSprite().width, height/4+100+CANVAS_HEIGHT);
+        //        console.log(pipes.upper_pipe.getTransform().getPosition().getX());
+        //        console.log(pipes.lower_pipe.getTransform().getPosition().getY());
+        //    }
+        //    pipes.upper_pipe.getTransform().translate(-5, 0);
+        //    pipes.lower_pipe.getTransform().translate(-5, 0);
+        //    //if (pipe.getTransform().getPosition().getX() < -pipe.getSprite().width) {
+        //    //    pipe.getTransform().setPosition(CANVAS_WIDTH + pipe.getSprite().width, 0);
+        //    //}
+        //    //pipe.getTransform().translate(-5, 0);
+
+        //})
     }
 
     public start(updateInterval: number): void {
+        this.pipes.push(this.factory.createPipePair(25, 500));
+        this.pipes.push(this.factory.createPipePair(25, 750));
+        //this.pipes.push(this.factory.createPipePair(25, 850));
+        //this.pipes.push(this.factory.createPipePair(25, 950));
         setInterval(this.update.bind(this), updateInterval);
     }
 
-    public addPipePair(p1: GameObject, p2: GameObject): void {
-        const pp: pipe_pair = {
-            upper_pipe: p1,
-            lower_pipe: p2
-        }
-        this.PIPERUS.push(pp);
-    }
+    //public restart(): void {
+    //    this
+    //}
+
+    //public addPipePair(p1: GameObject, p2: GameObject): void {
+    //    const pp: pipe_pair = {
+    //        upper_pipe: p1,
+    //        lower_pipe: p2
+    //    }
+    //    this.PIPERUS.push(pp);
+    //}
 }
 
 //const PIPERU: GameObject = new GameObject(35);
@@ -223,14 +358,17 @@ class FlagsiFuglurSpael {
 //PIPERU.addBoxCollider(128, 128);
 //PIPERU.getTransform().setPosition(1200, 0);
 //engine.addGameObject(PIPERU);
-engine.registerCollisionObject(fuglur2);
-
+//engine.registerCollisionObject(fuglur2);
+//
 //const p11: GameObject = new GameObject(35);
+//p11.solid = false;
 //p11.addSprite("megapipe");
 //p11.addBoxCollider(150, 1536);
 //p11.getTransform().setPosition(1600, 0);
 //engine.addGameObject(p11);
+//
 //const p12: GameObject = new GameObject(35);
+//p12.solid = false;
 //p12.addSprite("megapipe");
 //p12.addBoxCollider(150, 1536);
 //p12.getTransform().setPosition(1600, 1636);
@@ -248,9 +386,10 @@ engine.registerCollisionObject(fuglur2);
 //p3.getTransform().setPosition(2400, 0);
 //engine.addGameObject(p3);
 
-//const FFS: FlagsiFuglurSpael = new FlagsiFuglurSpael();
+const FFS: FlagsiFuglurSpael = new FlagsiFuglurSpael();
 //FFS.addPipePair(p11, p12);
-//FFS.start(20);
+FFS.start(20);
+FFS.update();
 
 //const background: GameObject = new GameObject(1000);
 //////fuglur.addComponent(new BirdComponent(fuglur));
@@ -260,11 +399,16 @@ engine.registerCollisionObject(fuglur2);
 //engine.sortingGameObjects();
 //CollisionSystem.start();
 
-engine.addTrack("s0", 0);
-engine.addTrack("s1", 1);
-engine.addTrack("s2", 2);
-engine.addTrack("s3", 3);
-engine.addTrack("s4", 4);
+//engine.addTrack("s0", 0);
+//engine.addTrack("s1", 1);
+//engine.addTrack("s2", 2);
+//engine.addTrack("s3", 3);
+//engine.addTrack("s4", 4);
+//engine.addTrack("score", 3);
+engine.addTrack("score", 0);
+engine.addTrack("collision", 1);
+engine.addTrack("flap", 2);
+engine.addTrack("bgmusic", 3);
 
 engine.startCollisionsChecking();
 //engine.registerCollisionObject(fuglur);

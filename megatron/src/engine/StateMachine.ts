@@ -2,7 +2,7 @@
 // https://blog.ourcade.co/posts/2021/character-logic-state-machine-typescript/
 // https://www.youtube.com/watch?v=BV8lfw-tdRU
 
-interface IStateConfig{
+type StateConfig = {
     name?: string
     onEnter?: () => void
     onUpdate?: (dt: number) => void
@@ -13,9 +13,9 @@ class StateMachine
 {
     private context?: any
     private name: string
-    private states = new Map<string, IStateConfig>()
+    private states = new Map<string, StateConfig>()
 
-    private currentState?: IStateConfig
+    private currentState?: StateConfig
     private isSwitchingState = false
     private stateQueue: string[] = []
 
@@ -34,7 +34,7 @@ class StateMachine
        return this.currentState.name === name
     }
 
-    public addState(name: string, config?:IStateConfig)
+    public addState(name: string, config?:StateConfig)
     {
         this.states.set(name, {
             name,
@@ -110,4 +110,4 @@ class StateMachine
 }
 
 export { StateMachine };
-export type { IStateConfig };
+export type { StateConfig };

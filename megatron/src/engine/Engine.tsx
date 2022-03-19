@@ -17,7 +17,7 @@ class Engine {
     private gameObjects: GameObject[] = [];// = [new GameObject(-1)];
     private collisionObjects: GameObject[] = [];
     //private gameObjects: GameObject[] = new Array<GameObject>();
-    private static debug: boolean = false;
+    private static debug: boolean = true;
     public static base_case: number;
     //public static scale: number;
     //public static aspectRatio: number;
@@ -117,6 +117,20 @@ class Engine {
         this.gameObjects.sort(compareZIndex);
     }
 
+    /**
+     * Riggar ikki heilt í løtuni
+     * @param gameObject
+     */
+    public removeGameObject(gameObject: GameObject): void {
+        console.log(`Deleting gameObject: ${gameObject.getObjectID()}`);
+        console.log(`Size of gameObjects before: ${this.gameObjects.length}`);
+        console.log(this.gameObjects);
+        const i: number = this.gameObjects.indexOf(gameObject, 0);
+        this.gameObjects = this.gameObjects.splice(i, 1);
+        console.log(`Size of gameObjects after: ${this.gameObjects.length}`);
+        console.log(this.gameObjects);
+    }
+
     public addControllerListener(key: string, func: (() => {})): void {
     }
 
@@ -210,25 +224,25 @@ class Engine {
                         //        console.log(go1.getSprite().src);
                         //    }
                         //}
-                        if (go1.solid && go2.solid) {
-                            go1.isGrounded = true;
-                            console.log("solids!");
-                            //if (y1 < y2 /*&& go1.getRigidBodyComponent().hasRigidBody*/) {
-                            //    console.log(go1.getSprite().src)
-                            //    console.log(" ======== bird landed on pipe =========");
-                            //    go1.isGrounded = true;
+                        //if (go1.solid && go2.solid) {
+                        //    go1.isGrounded = true;
+                        //    console.log("solids!");
+                        //    //if (y1 < y2 /*&& go1.getRigidBodyComponent().hasRigidBody*/) {
+                        //    //    console.log(go1.getSprite().src)
+                        //    //    console.log(" ======== bird landed on pipe =========");
+                        //    //    go1.isGrounded = true;
 
-                            //}
-                        }
+                        //    //}
+                        //}
 
 
 
                         //return true;
                         //send signal
                         console.log("=============Collision============");
-                        document.dispatchEvent(new Event("collision"));
+                        //document.dispatchEvent(new Event("collision"));
                         //console.log("[[[[[[[[[]]]]]]]]]]]]]]");
-                        document.dispatchEvent(new CustomEvent("collision2", {detail: {'obj': go1}}));
+                        document.dispatchEvent(new CustomEvent("collision2", {detail: {'obj': go1, 'obj2': go2}}));
 
 
 
