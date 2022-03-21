@@ -1,22 +1,22 @@
 {
   "image": {
-    "bird":  "bird.png",
-    "background": "background1.png",
+    "bird":  "bird2.png",
+    "background": "Background5.png",
     "background42":  "backgrund.png",
     "uberbg": "uberbakgrund.png",
     "PIPERU": "PIPERU.png",
     "megapipe": "megapipe.png",
-    "island": "landscapebigdetails.png",
-    "plane": "planemini.png",
-    "island2": "smalllandscape.png"
+    "megapiperot": "megapipe_rot.png",
+    "island": "landscape1.png",
+    "uberbg2": "uberbg2.png",
+    "pipe2": "pipe2.png",
+    "pipe2rot": "pipe2rot.png"
   },
   "audio": {
-    "s0":  "s0.wav",
-    "s1": "s1.wav",
-    "s2": "s2.wav",
-    "3": "s3.wav",
-    "s4": "gamejam_longplay.mp3",
-    "island_hopper": "island-hopper.ogg"
+    "score": "pass.wav",
+    "collision": "collision.wav",
+    "flap": "flap.wav",
+    "bgmusic": "island-hopper.wav"
   },
   "animation": {},
   "paths": {

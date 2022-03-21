@@ -26,6 +26,8 @@ useFrameLoop((time: number, deltaTime: number) => {
         <p>{time}</p>
         <p>DeltaTime:</p>
         <p>{deltaTime}</p>
+        <p>FPS:</p>
+        <p>{1000/deltaTime}</p>
     </Fragment>
 
 }
