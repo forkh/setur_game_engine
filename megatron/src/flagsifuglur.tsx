@@ -260,8 +260,7 @@ class FlagsiFuglurSpael {
             let target: GameObject = (e as CustomEvent).detail.obj2;
             if (target.tag === "score") {
                 this.score++;
-                this.highScore.updateTextComponent(""+this.score);
-                console.log("SCORE!!!!!!!!!!!!!!!!!!")
+                console.log("")
                 document.dispatchEvent(new Event("score"));
             }
 
