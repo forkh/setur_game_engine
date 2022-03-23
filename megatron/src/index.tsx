@@ -7,10 +7,11 @@ import reportWebVitals from './reportWebVitals';
 import FlagsiFuglur from './flagsifuglur';
 import SuperRuni from './SuperRuni';
 import Template from './template';
+import JGame from './JGame'
 
 ReactDOM.render(
   <React.StrictMode>
-    <FlagsiFuglur />
+    <JGame />
   </React.StrictMode>,
   document.getElementById('root')
 );

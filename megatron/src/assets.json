@@ -10,7 +10,8 @@
     "island": "landscape1.png",
     "uberbg2": "uberbg2.png",
     "pipe2": "pipe2.png",
-    "pipe2rot": "pipe2rot.png"
+    "pipe2rot": "pipe2rot.png",
+    "lilman": "lilman.png"
   },
   "audio": {
     "score": "pass.wav",
