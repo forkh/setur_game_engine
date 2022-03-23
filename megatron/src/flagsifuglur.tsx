@@ -149,7 +149,7 @@ const gc2: ControllerComponent = new ControllerComponent(fuglur2, cm2);
 fuglur2.addComponent(gc2);
 //fuglur.addComponent(new BirdComponent(fuglur));
 fuglur2.addSprite("bird");
-fuglur2.addBoxCollider(64, 64);
+fuglur2.addBoxCollider(32, 32);
 fuglur2.addRigidBodyComponent(fuglur2);
 fuglur2.solid = false;
 engine.addGameObject(fuglur2);
@@ -280,14 +280,14 @@ class FlagsiFuglurSpael {
     }
 
     public update(): void {
-        if (this.score > 350 && this.score < 1000 && this.level2) {
+        if (this.score > 100 && this.score < 300 && this.level2) {
             background.setSprite("uberbg2");
             this.pipeSpeed += 1;
             this.level2 = false;
         }
 
-        if (this.score > 1000) {
-            background.setSprite("uberbg2");
+        if (this.score > 300 && this.level3) {
+            background.setSprite("uberbg");
             this.pipeSpeed += 1;
             this.level3 = false;
         }
@@ -297,7 +297,7 @@ class FlagsiFuglurSpael {
             this.moved99 = false;
         }
 
-        if (this.score > 999 && this.moved999) {
+        if (this.score > 299 && this.moved999) {
             this.highScore.getTransform().translate(-30, 0);
             this.moved999 = false;
         }
